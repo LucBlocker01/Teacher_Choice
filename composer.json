@@ -1,4 +1,6 @@
 {
+    "name": "symfony/sae05",
+    "description": "api for setURCAlendar",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -122,6 +124,7 @@
         }
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.28",
         "phpro/grumphp": "^2.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.3.*",
