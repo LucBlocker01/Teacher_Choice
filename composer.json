@@ -45,7 +45,8 @@
         "allow-plugins": {
             "php-http/discovery": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "phpro/grumphp": true
         },
         "sort-packages": true
     },
@@ -78,7 +79,37 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "symfony serve"
+        ],
+        "test:cs" : [
+            "php-cs-fixer fix --dry-run"
+        ],
+        "fix:cs": [
+            "php-cs-fixer fix"
+        ],
+        "test:yaml": [
+            "php bin/console lint:yaml config"
+        ],
+        "test:twig": [
+            "php bin/console lint:twig templates"
+        ],
+        "db": [
+            "php bin/console doctrine:database:drop --force",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console doctrine:fixtures:load --no-interaction"
         ]
+    },
+    "scripts-descriptions": {
+        "start": "Launch the local server",
+        "test:cs" : "Test the quality of code",
+        "fix:cs": "Correct the code",
+        "test:yaml": "Test YAML files in folder Config",
+        "test:twig": "Test Twig files in folder Templates",
+        "db": "Delete the exists db and create a new db, create migration and load migration"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -90,6 +121,7 @@
         }
     },
     "require-dev": {
+        "phpro/grumphp": "^2.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "6.3.*",
         "symfony/css-selector": "6.3.*",
