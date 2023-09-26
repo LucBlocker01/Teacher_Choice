@@ -48,7 +48,6 @@ final class StatusFactory extends ModelFactory
     {
         return [
             'name' => self::faker()->text(40),
-            'status_id' => self::faker()->randomNumber(),
         ];
     }
 

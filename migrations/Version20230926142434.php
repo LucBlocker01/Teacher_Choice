@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230926134118 extends AbstractMigration
+final class Version20230926142434 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,9 +26,7 @@ final class Version20230926134118 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C1AB5A9223EDC87 ON choice (subject_id)');
         $this->addSql('ALTER TABLE choice ADD CONSTRAINT FK_C1AB5A927D2D84D5 FOREIGN KEY (professor_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE choice ADD CONSTRAINT FK_C1AB5A9223EDC87 FOREIGN KEY (subject_id) REFERENCES subject (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE subject ADD type_id INT NOT NULL');
-        $this->addSql('ALTER TABLE subject ADD CONSTRAINT FK_FBCE3E7AC54C8C93 FOREIGN KEY (type_id) REFERENCES subject_type (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('CREATE INDEX IDX_FBCE3E7AC54C8C93 ON subject (type_id)');
+        $this->addSql('ALTER TABLE status DROP status_id');
     }
 
     public function down(Schema $schema): void
@@ -39,8 +37,6 @@ final class Version20230926134118 extends AbstractMigration
         $this->addSql('ALTER TABLE choice DROP CONSTRAINT FK_C1AB5A927D2D84D5');
         $this->addSql('ALTER TABLE choice DROP CONSTRAINT FK_C1AB5A9223EDC87');
         $this->addSql('DROP TABLE choice');
-        $this->addSql('ALTER TABLE subject DROP CONSTRAINT FK_FBCE3E7AC54C8C93');
-        $this->addSql('DROP INDEX IDX_FBCE3E7AC54C8C93');
-        $this->addSql('ALTER TABLE subject DROP type_id');
+        $this->addSql('ALTER TABLE status ADD status_id INT NOT NULL');
     }
 }
