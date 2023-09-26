@@ -34,9 +34,13 @@ class Subject
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Choice::class)]
     private Collection $choices;
 
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Slot::class)]
+    private Collection $slots;
+
     public function __construct()
     {
         $this->choices = new ArrayCollection();
+        $this->slots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +132,36 @@ class Subject
             // set the owning side to null (unless already changed)
             if ($choice->getSubject() === $this) {
                 $choice->setSubject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Slot>
+     */
+    public function getSlots(): Collection
+    {
+        return $this->slots;
+    }
+
+    public function addSlot(Slot $slot): static
+    {
+        if (!$this->slots->contains($slot)) {
+            $this->slots->add($slot);
+            $slot->setSubject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlot(Slot $slot): static
+    {
+        if ($this->slots->removeElement($slot)) {
+            // set the owning side to null (unless already changed)
+            if ($slot->getSubject() === $this) {
+                $slot->setSubject(null);
             }
         }
 
