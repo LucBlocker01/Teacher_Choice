@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Factory\SubjectFactory;
 use App\Factory\SubjectTypeFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class SubjectFixtures extends Fixture
+class SubjectFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -16,26 +17,33 @@ class SubjectFixtures extends Fixture
             if (1 == $randomNumber) {
                 return [
                     'nb_group' => 1,
-                    'type' => SubjectTypeFactory::createOne(['name' => 'CM']),
+                    'type' => SubjectTypeFactory::find(['id' => 1]),
                 ];
             }
             if (2 == $randomNumber) {
                 return [
                     'nb_group' => 2,
-                    'type' => SubjectTypeFactory::createOne(['name' => 'TD']),
+                    'type' => SubjectTypeFactory::find(['id' => 2]),
                 ];
             }
             if (3 == $randomNumber) {
                 return [
                     'nb_group' => 2,
-                    'type' => SubjectTypeFactory::createOne(['name' => 'TDM']),
+                    'type' => SubjectTypeFactory::find(['id' => 3]),
                 ];
             } else {
                 return [
                     'nb_group' => 4,
-                    'type' => SubjectTypeFactory::createOne(['name' => 'TP']),
+                    'type' => SubjectTypeFactory::find(['id' => 4]),
                 ];
             }
         });
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            SubjectTypeFixtures::class,
+        ];
     }
 }

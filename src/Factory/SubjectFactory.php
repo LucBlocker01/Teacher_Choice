@@ -47,7 +47,7 @@ final class SubjectFactory extends ModelFactory
         return [
             'nb_group' => self::faker()->numberBetween(1, 4),
             'semester' => 'S'.self::faker()->numberBetween(1, 6),
-            'year' => self::faker()->text(4),
+            'year' => strval(self::faker()->numberBetween(1997, 2023)),
             'type' => SubjectTypeFactory::new(),
         ];
     }
