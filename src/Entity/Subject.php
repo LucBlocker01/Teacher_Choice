@@ -25,6 +25,10 @@ class Subject
     #[ORM\Column(length: 4, nullable: true)]
     private ?string $SAE_support = null;
 
+    #[ORM\ManyToOne(inversedBy: 'subjects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?SubjectType $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +78,18 @@ class Subject
     public function setSAESupport(?string $SAE_support): static
     {
         $this->SAE_support = $SAE_support;
+
+        return $this;
+    }
+
+    public function getType(): ?SubjectType
+    {
+        return $this->type;
+    }
+
+    public function setType(?SubjectType $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
