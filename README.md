@@ -9,6 +9,11 @@
 
 ## Instal / Config
 
+To start the Database: 
+```sh
+docker-compose up 
+```
+
 For start the server : ``symfony serv``
 
 ## Scripts
