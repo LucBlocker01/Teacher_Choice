@@ -17,9 +17,6 @@ class Status
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $status_id = null;
-
     #[ORM\Column(length: 40)]
     private ?string $name = null;
 
@@ -40,18 +37,6 @@ class Status
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getStatusId(): ?int
-    {
-        return $this->status_id;
-    }
-
-    public function setStatusId(int $status_id): static
-    {
-        $this->status_id = $status_id;
-
-        return $this;
     }
 
     public function getName(): ?string
