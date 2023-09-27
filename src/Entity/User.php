@@ -2,21 +2,40 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[ApiResource]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $login = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Status $status = null;
+
+    #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: Choice::class)]
+    private Collection $choice;
 
     #[ORM\Column(length: 40)]
     private ?string $lastname = null;
@@ -27,34 +46,21 @@ class User
     #[ORM\Column(length: 100)]
     private ?string $mail = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 20)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 5)]
-    private ?string $CP = null;
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $postcode = null;
 
-    #[ORM\Column(length: 40)]
+    #[ORM\Column(length: 40, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress = null;
-
-    #[ORM\Column(length: 8)]
-    private ?string $login = null;
-
-    #[ORM\Column(length: 40)]
-    private ?string $password = null;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Status $status = null;
-
-    #[ORM\OneToMany(mappedBy: 'professor', targetEntity: Choice::class)]
-    private Collection $choices;
 
     public function __construct()
     {
-        $this->choices = new ArrayCollection();
+        $this->choice = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,9 +68,109 @@ class User
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getLogin(): ?string
     {
-        $this->id = $id;
+        return $this->login;
+    }
+
+    public function setLogin(string $login): static
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->login;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Choice>
+     */
+    public function getChoice(): Collection
+    {
+        return $this->choice;
+    }
+
+    public function addChoice(Choice $choice): static
+    {
+        if (!$this->choice->contains($choice)) {
+            $this->choice->add($choice);
+            $choice->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChoice(Choice $choice): static
+    {
+        if ($this->choice->removeElement($choice)) {
+            // set the owning side to null (unless already changed)
+            if ($choice->getTeacher() === $this) {
+                $choice->setTeacher(null);
+            }
+        }
 
         return $this;
     }
@@ -117,14 +223,14 @@ class User
         return $this;
     }
 
-    public function getCP(): ?string
+    public function getPostcode(): ?string
     {
-        return $this->CP;
+        return $this->postcode;
     }
 
-    public function setCP(string $CP): static
+    public function setPostcode(?string $postcode): static
     {
-        $this->CP = $CP;
+        $this->postcode = $postcode;
 
         return $this;
     }
@@ -134,7 +240,7 @@ class User
         return $this->city;
     }
 
-    public function setCity(string $city): static
+    public function setCity(?string $city): static
     {
         $this->city = $city;
 
@@ -146,75 +252,9 @@ class User
         return $this->adress;
     }
 
-    public function setAdress(string $adress): static
+    public function setAdress(?string $adress): static
     {
         $this->adress = $adress;
-
-        return $this;
-    }
-
-    public function getLogin(): ?string
-    {
-        return $this->login;
-    }
-
-    public function setLogin(string $login): static
-    {
-        $this->login = $login;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getStatus(): ?Status
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?Status $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Choice>
-     */
-    public function getChoices(): Collection
-    {
-        return $this->choices;
-    }
-
-    public function addChoice(Choice $choice): static
-    {
-        if (!$this->choices->contains($choice)) {
-            $this->choices->add($choice);
-            $choice->setProfessor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChoice(Choice $choice): static
-    {
-        if ($this->choices->removeElement($choice)) {
-            // set the owning side to null (unless already changed)
-            if ($choice->getProfessor() === $this) {
-                $choice->setProfessor(null);
-            }
-        }
 
         return $this;
     }

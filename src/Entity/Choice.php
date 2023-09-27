@@ -23,11 +23,11 @@ class Choice
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $professor = null;
-
-    #[ORM\ManyToOne(inversedBy: 'choices')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Subject $subject = null;
+
+    #[ORM\ManyToOne(inversedBy: 'choice')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $teacher = null;
 
     public function getId(): ?int
     {
@@ -58,18 +58,6 @@ class Choice
         return $this;
     }
 
-    public function getProfessor(): ?User
-    {
-        return $this->professor;
-    }
-
-    public function setProfessor(?User $professor): static
-    {
-        $this->professor = $professor;
-
-        return $this;
-    }
-
     public function getSubject(): ?Subject
     {
         return $this->subject;
@@ -78,6 +66,18 @@ class Choice
     public function setSubject(?Subject $subject): static
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getTeacher(): ?User
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(?User $teacher): static
+    {
+        $this->teacher = $teacher;
 
         return $this;
     }
