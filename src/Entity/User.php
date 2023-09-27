@@ -37,6 +37,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: Choice::class)]
     private Collection $choice;
 
+    #[ORM\Column(length: 40)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 40)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $mail = null;
+
+    #[ORM\Column(length: 10)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $postcode = null;
+
+    #[ORM\Column(length: 40, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $adress = null;
+
     public function __construct()
     {
         $this->choice = new ArrayCollection();
@@ -150,6 +171,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $choice->setTeacher(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): static
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function setPostcode(?string $postcode): static
+    {
+        $this->postcode = $postcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?string $adress): static
+    {
+        $this->adress = $adress;
 
         return $this;
     }
