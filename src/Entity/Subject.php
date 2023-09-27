@@ -15,9 +15,6 @@ class Subject
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $semester = null;
-
     #[ORM\Column(length: 4)]
     private ?string $year = null;
 
@@ -46,18 +43,6 @@ class Subject
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSemester(): ?string
-    {
-        return $this->semester;
-    }
-
-    public function setSemester(string $semester): static
-    {
-        $this->semester = $semester;
-
-        return $this;
     }
 
     public function getYear(): ?string
