@@ -14,12 +14,61 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
 #[ApiResource]
-#[Get]
-#[GetCollection]
+#[Get(
+    openapiContext: [
+        'summary' => 'Finds the Subject with the given id',
+        'responses' => [
+            '200' => [
+                'description' => 'The Subject have been found with the given id',
+            ],
+            '404' => [
+                'description' => "The Subject didn't get found",
+            ],
+],
+    ]
+)]
+#[GetCollection(
+    openapiContext: [
+        'summary' => 'Returns a collection of Subjects',
+        'responses' => [
+            '200' => [
+                'description' => 'A collection of Subjects have been returned',
+            ],
+            '404' => [
+                'description' => 'No collections have been found',
+            ],
+        ],
+    ]
+)]
 #[Post(
+    openapiContext: [
+    'summary' => 'Adds a new Subject',
+    'responses' => [
+        '200' => [
+            'description' => 'A new Subject has successfully been created',
+        ],
+        '401' => [
+            'description' => 'You do not have the permission to create a Subject',
+        ],
+    ],
+],
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
 )]
 #[Delete(
+    openapiContext: [
+        'summary' => 'Deletes a Subject',
+        'responses' => [
+            '200' => [
+                'description' => 'The Subject has successfully been deleted',
+            ],
+            '401' => [
+                'description' => 'You do not have the permission to delete a Subject',
+            ],
+            '404' => [
+                'description' => 'The Subject you tried to delete does not exist',
+            ],
+        ],
+    ],
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
 )]
 class Subject
