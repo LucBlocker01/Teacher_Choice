@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+
 
 class GetMeController extends AbstractController
 {
-    #[Route('/get/me', name: 'app_get_me')]
-    public function index(): JsonResponse
+    public function __invoke(): User
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/GetMeController.php',
-        ]);
+        if ($this->getUser()) {
+            return $this->getUser();
+        } else {
+            throw $this->createNotFoundException('Aucun utilisateur trouvé');
+        }
     }
+
 }
