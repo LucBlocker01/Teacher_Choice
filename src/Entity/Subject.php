@@ -41,6 +41,17 @@ use Doctrine\ORM\Mapping as ORM;
     ]
 )]
 #[Post(
+    openapiContext: [
+    'summary' => 'Add a new Subject',
+    'responses' => [
+        '200' => [
+            'description' => 'A new Subject has successfully been created',
+        ],
+        '401' => [
+            'description' => 'You do not have the permission to create a Subject',
+        ],
+    ],
+],
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
 )]
 #[Delete(
