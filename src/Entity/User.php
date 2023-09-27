@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -35,9 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_User'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['set_User', 'get_User'])]
     private ?string $login = null;
 
     #[ORM\Column]
@@ -47,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['set_User'])]
     private ?string $password = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
@@ -57,15 +61,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $choice;
 
     #[ORM\Column(length: 40)]
+    #[Groups(['set_User', 'get_User'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 40)]
+    #[Groups(['set_User', 'get_User'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['set_User'])]
     private ?string $mail = null;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['set_User'])]
     private ?string $phone = null;
 
     #[ORM\Column(length: 5, nullable: true)]
