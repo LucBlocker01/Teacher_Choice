@@ -3,24 +3,65 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
+use App\Controller\GetMeController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(
+            uriTemplate: '/me',
+            controller: GetMeController::class,
+            openapiContext: [
+                'summary' => 'get information from connected user',
+                'description' => 'Enter the login, first name, last name and email of the connected user',
+                'responses' => [
+                    '200' => [
+                        'description' => 'User logged in',
+                    ],
+                    '401' => [
+                        'description' => 'User not logged in',
+                    ],
+                ],
+            ],
+            paginationEnabled: false,
+            normalizationContext: ['groups' => ['get_Me', 'get_User']],
+            security: "is_granted('ROLE_USER')"
+        ),
+        new Put(
+            normalizationContext: ['groups' => ['get_User']],
+            denormalizationContext: ['groups' => ['set_User']],
+            security: "is_granted('ROLE_USER') and object == user",
+        ),
+        new Patch(
+            normalizationContext: ['groups' => ['get_User']],
+            denormalizationContext: ['groups' => ['set_User']],
+            security: "is_granted('ROLE_USER') and object == user",
+        ),
+    ]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_User'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['get_User', 'set_User', 'get_Me'])]
     private ?string $login = null;
 
     #[ORM\Column]
@@ -30,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['set_User'])]
     private ?string $password = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
@@ -40,24 +82,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $choice;
 
     #[ORM\Column(length: 40)]
+    #[Groups(['get_User', 'set_User', 'get_Me'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 40)]
+    #[Groups(['get_User', 'set_User', 'get_Me'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $mail = null;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $phone = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $postcode = null;
 
     #[ORM\Column(length: 40, nullable: true)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $city = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $adress = null;
 
     public function __construct()
