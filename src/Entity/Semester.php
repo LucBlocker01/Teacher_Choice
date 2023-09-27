@@ -39,7 +39,7 @@ use Doctrine\ORM\Mapping as ORM;
         ),
         new Post(
             openapiContext: [
-                'summary' => 'Modify Semester informations with ID',
+                'summary' => 'Modify Semester informations',
                 'description' => 'Semester informations response',
                 'responses' => [
                     '200' => [
