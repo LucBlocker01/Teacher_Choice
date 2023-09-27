@@ -9,9 +9,29 @@
 
 ## Install / Config
 
+Install symfony : 
+```sh
+composer install
+```
+
+Install React : 
+```sh
+npm install
+```
+
 To start the Database: 
 ```sh
 docker-compose up 
+```
+
+Install the database : 
+```sh
+composer db
+```
+
+Build front assets with webpack encore : 
+```sh
+npm run build
 ```
 
 To start the server : 
@@ -32,3 +52,8 @@ composer start
 ``test:twig`` : Test Twig files located in templates folder
 
 ``db`` : Delete the existing database and create a new one, using the most recent migration
+
+## Authentication
+
+username : admin
+password : test
