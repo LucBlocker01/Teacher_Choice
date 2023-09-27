@@ -7,14 +7,17 @@
 - CLOCHETTE Baptiste
 - HUREAUX Lucas
 
-## Instal / Config
+## Install / Config
 
 To start the Database: 
 ```sh
 docker-compose up 
 ```
 
-For start the server : ``symfony serv``
+To start the server : 
+```sh 
+composer start
+```
 
 ## Scripts
 
@@ -22,10 +25,10 @@ For start the server : ``symfony serv``
 
 ``test:cs`` : Test the quality of code
 
-``fix:cs`` : Correct the code
+``fix:cs`` : Corrects the code
 
-``test:yaml`` : Test YAML files in folder Config
+``test:yaml`` : Test YAML files located in config folder
 
-``test:twig`` : Test Twig files in folder Templates
+``test:twig`` : Test Twig files located in templates folder
 
-``db`` : Delete the exists db and create a new db, create migration and load migration
+``db`` : Delete the existing database and create a new one, using the most recent migration
