@@ -26,9 +26,6 @@ class Status
     #[ORM\Column(nullable: true)]
     private ?float $max_hours = null;
 
-    #[ORM\OneToMany(mappedBy: 'status', targetEntity: User::class)]
-    private Collection $users;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
