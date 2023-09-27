@@ -3,13 +3,51 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SubjectTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubjectTypeRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(
+            openapiContext: [
+                'summary' => 'Find the SubjectType with the ID',
+                'responses' => [
+                    '200' => [
+                        'description' => 'The SubjectType has been return.',
+                    ],
+                    '401' => [
+                        'description' => 'No permission.',
+                    ],
+                    '404' => [
+                        'description' => 'No SubjectType find.',
+                    ],
+                ],
+            ]
+        ),
+        new GetCollection(
+            openapiContext: [
+                'summary' => 'Find all SubjectType',
+                'responses' => [
+                    '200' => [
+                        'description' => 'All SubjectType has been return.',
+                    ],
+                    '401' => [
+                        'description' => 'No permission.',
+                    ],
+                ],
+            ]
+        ),
+    ]
+)]
 class SubjectType
 {
     #[ORM\Id]
