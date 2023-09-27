@@ -51,6 +51,7 @@ final class UserFactory extends ModelFactory
             'lastname' => self::faker()->lastName(),
             'login' => self::faker()->unique()->numerify('user-####'),
             'mail' => self::faker()->email(),
+            'phone' => self::faker()->phoneNumber(),
             'password' => 'test',
             'roles' => [],
             'status' => StatusFactory::new(),
