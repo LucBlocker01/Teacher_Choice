@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
+use App\Controller\GetMeController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,6 +21,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new Get(),
+        new GetCollection(
+            uriTemplate: '/me',
+            controller: GetMeController::class,
+            openapiContext: [
+                'summary' => "obtiens les informations de l'utilisateur connect",
+                'description' => "Renseigne le login, le nom, le prénom et le mail de l'utilisateur connecté",
+                'responses' => [
+                    '200' => [
+                        'description' => 'Utilisateur connecté',
+                    ],
+                    '401' => [
+                        'description' => 'Utilisateur non connecté',
+                    ],
+                ],
+            ],
+            paginationEnabled: false,
+            normalizationContext: ['groups' => ['get_Me', 'get_User']],
+            security: "is_granted('ROLE_USER')"
+        ),
         new Put(
             normalizationContext: ['groups' => ['get_User']],
             denormalizationContext: ['groups' => ['set_User']],
