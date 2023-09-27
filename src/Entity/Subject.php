@@ -15,9 +15,6 @@ class Subject
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $semester = null;
-
     #[ORM\Column(length: 4)]
     private ?string $year = null;
 
@@ -37,6 +34,10 @@ class Subject
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Slot::class)]
     private Collection $slots;
 
+    #[ORM\ManyToOne(inversedBy: 'subjects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Semester $semester = null;
+
     public function __construct()
     {
         $this->choices = new ArrayCollection();
@@ -46,18 +47,6 @@ class Subject
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getSemester(): ?string
-    {
-        return $this->semester;
-    }
-
-    public function setSemester(string $semester): static
-    {
-        $this->semester = $semester;
-
-        return $this;
     }
 
     public function getYear(): ?string
@@ -164,6 +153,18 @@ class Subject
                 $slot->setSubject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSemester(): ?Semester
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(?Semester $semester): static
+    {
+        $this->semester = $semester;
 
         return $this;
     }
