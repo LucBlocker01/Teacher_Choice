@@ -34,6 +34,10 @@ class Subject
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Slot::class)]
     private Collection $slots;
 
+    #[ORM\ManyToOne(inversedBy: 'subjects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Semester $semester = null;
+
     public function __construct()
     {
         $this->choices = new ArrayCollection();
@@ -149,6 +153,18 @@ class Subject
                 $slot->setSubject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSemester(): ?Semester
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(?Semester $semester): static
+    {
+        $this->semester = $semester;
 
         return $this;
     }
