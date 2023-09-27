@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\SubjectRepository;
@@ -14,6 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 #[Get]
 #[GetCollection]
+#[Delete(
+    security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
+)]
 class Subject
 {
     #[ORM\Id]
