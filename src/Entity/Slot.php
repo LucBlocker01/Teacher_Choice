@@ -2,10 +2,87 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SlotRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SlotRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(
+            openapiContext: [
+                'summary' => 'Retrieve Slot informations by ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations for slot to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new GetCollection(
+            openapiContext: [
+                'summary' => 'Retrieve Slots informations',
+                'description' => 'Slot list informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations list for slots to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Post(
+            openapiContext: [
+                'summary' => 'Create a Slot Resource',
+                'description' => 'Slot informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new slot to be added',
+                    ],
+                ],
+            ],
+        ),
+        new Patch(
+            openapiContext: [
+                'summary' => 'Updates Slot informations with ID',
+                'description' => 'Slot informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new informations for slot to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Put(
+            openapiContext: [
+                'summary' => 'Replaces Slot informations by ID',
+                'description' => 'Slot informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new informations for slot to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Delete(
+            openapiContext: [
+                'summary' => 'Remove Slot informations with ID',
+                'description' => 'Slot informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'slot deleted to be returned',
+                    ],
+                ],
+            ],
+        ),
+    ]
+)]
 class Slot
 {
     #[ORM\Id]

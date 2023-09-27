@@ -3,13 +3,64 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SemesterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SemesterRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(
+            openapiContext: [
+                'summary' => 'Retrieve Semester informations by ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new GetCollection(
+            openapiContext: [
+                'summary' => 'Retrieve Semester list informations',
+                'description' => 'Semester list informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations list for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Put(
+            openapiContext: [
+                'summary' => 'Replaces Semester informations with ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new informations for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Patch(
+            openapiContext: [
+                'summary' => 'Modify Semester informations with ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new informations for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+    ]
+)]
 class Semester
 {
     #[ORM\Id]
