@@ -47,7 +47,7 @@ final class SlotFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'nb_hours' => self::faker()->randomFloat(),
+            'nb_hours' => self::faker()->randomFloat(1, 4),
             'subject' => SubjectFactory::new(),
             'week' => self::faker()->randomNumber(),
         ];
