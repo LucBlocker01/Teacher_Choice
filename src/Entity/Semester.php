@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\SemesterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -37,9 +37,9 @@ use Doctrine\ORM\Mapping as ORM;
                 ],
             ],
         ),
-        new Post(
+        new Put(
             openapiContext: [
-                'summary' => 'Modify Semester informations',
+                'summary' => 'Replaces Semester informations with ID',
                 'description' => 'Semester informations response',
                 'responses' => [
                     '200' => [
