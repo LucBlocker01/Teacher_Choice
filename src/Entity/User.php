@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['set_User', 'get_User'])]
+    #[Groups(['get_User', 'set_User', 'get_Me'])]
     private ?string $login = null;
 
     #[ORM\Column]
@@ -82,28 +82,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $choice;
 
     #[ORM\Column(length: 40)]
-    #[Groups(['set_User', 'get_User'])]
+    #[Groups(['get_User', 'set_User', 'get_Me'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 40)]
-    #[Groups(['set_User', 'get_User'])]
+    #[Groups(['get_User', 'set_User', 'get_Me'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['set_User'])]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $mail = null;
 
     #[ORM\Column(length: 20)]
-    #[Groups(['set_User'])]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $phone = null;
 
     #[ORM\Column(length: 5, nullable: true)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $postcode = null;
 
     #[ORM\Column(length: 40, nullable: true)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $city = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(['set_User', 'get_Me'])]
     private ?string $adress = null;
 
     public function __construct()
