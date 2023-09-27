@@ -55,6 +55,20 @@ use Doctrine\ORM\Mapping as ORM;
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
 )]
 #[Delete(
+    openapiContext: [
+        'summary' => 'Deletes a Subject',
+        'responses' => [
+            '200' => [
+                'description' => 'The Subject has successfully been deleted',
+            ],
+            '401' => [
+                'description' => 'You do not have the permission to delete a Subject',
+            ],
+            '404' => [
+                'description' => 'The Subject you tried to delete does not exist',
+            ],
+        ],
+    ],
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
 )]
 class Subject
