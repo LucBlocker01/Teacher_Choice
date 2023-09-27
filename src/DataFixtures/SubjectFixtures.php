@@ -43,6 +43,7 @@ class SubjectFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
+            SemesterFixtures::class,
             SubjectTypeFixtures::class,
         ];
     }

@@ -49,7 +49,7 @@ final class SemesterFactory extends ModelFactory
         return [
             'alternance' => self::faker()->boolean(),
             'internship' => self::faker()->boolean(),
-            'name' => self::faker()->text(2),
+            'name' => 'S?',
         ];
     }
 
