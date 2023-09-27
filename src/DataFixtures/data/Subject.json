@@ -1,0 +1,317 @@
+[
+  {
+    "name" :  "Algorithmique (Python)"
+  },
+  {
+    "name" :  "Algorithmique - Structure de données (Python sur papier)"
+  },
+  {
+    "name" :  "Bases du web (HTML, CSS)"
+  },
+  {
+    "name" :  "Codages"
+  },
+  {
+    "name" :  "Linux/Git (CM = présentation PIX)"
+  },
+  {
+    "name" :  "Analyse"
+  },
+  {
+    "name" :  "Bases de données SQL"
+  },
+  {
+    "name" :  "Mathématiques discrètes"
+  },
+  {
+    "name" :  "Outils mathématiques"
+  },
+  {
+    "name" :  "Gestion des organisations"
+  },
+  {
+    "name" :  "Economie"
+  },
+  {
+    "name" :  "Anglais"
+  },
+  {
+    "name" :  "Communication"
+  },
+  {
+    "name" :  "PPP - Eric Bittar"
+  },
+  {
+    "name" :  "PPP - Valérie Chevalarias"
+  },
+  {
+    "name" :  "Programmation orienté objets (PHP)"
+  },
+  {
+    "name" :  "Conception orientée objets (UML)"
+  },
+  {
+    "name" :  "Flexbox/maquettage"
+  },
+  {
+    "name" :  "Web (PHP, CRUD)"
+  },
+  {
+    "name" :  "Gitlab, protocole HTTP"
+  },
+  {
+    "name" :  "Algorithmique (Python)"
+  },
+  {
+    "name" :  "Réseaux"
+  },
+  {
+    "name" :  "Bases de données"
+  },
+  {
+    "name" :  "Graphes"
+  },
+  {
+    "name" :  "Stats"
+  },
+  {
+    "name" :  "Suites"
+  },
+  {
+    "name" :  "Comptabilité"
+  },
+  {
+    "name" :  "Gestion de projet"
+  },
+  {
+    "name" :  "Droit"
+  },
+  {
+    "name" :  "Anglais"
+  },
+  {
+    "name" :  "Communication"
+  },
+  {
+    "name" :  "PPP - Eric Bittar"
+  },
+  {
+    "name" :  "PPP - Ludovic Lambert"
+  },
+  {
+    "name" :  "PPP - Valérie Chevalarias"
+  },
+  {
+    "name" :  "Développement web (PHP, Symfony)"
+  },
+  {
+    "name" :  "Bases de Javascript"
+  },
+  {
+    "name" :  "Algorithmique avancée (C++)"
+  },
+  {
+    "name" :  "Algorithmique avancée (C#)"
+  },
+  {
+    "name" :  "Algorithmique avancée (Python)"
+  },
+  {
+    "name" :  "Analyse (UML)"
+  },
+  {
+    "name" :  "Language pour la POO (C++)"
+  },
+  {
+    "name" :  "Language pour la POO (C#)"
+  },
+  {
+    "name" :  "Language pour la POO (Python)"
+  },
+  {
+    "name" :  "Programmation système en C++ (fichiers, threads, sockets)"
+  },
+  {
+    "name" :  "Programmation système en C# (fichiers, threads, sockets)"
+  },
+  {
+    "name" :  "Programmation système en Python (fichiers, threads, sockets)"
+  },
+  {
+    "name" :  "Architecture des réseaux"
+  },
+  {
+    "name" :  "Bases de données (PLSQL)"
+  },
+  {
+    "name" :  "Probabilités"
+  },
+  {
+    "name" :  "Cryptographie, algèbre linéaire"
+  },
+  {
+    "name" :  "Gestion de Projets"
+  },
+  {
+    "name" :  "Systèmes d'information"
+  },
+  {
+    "name" :  "Droit"
+  },
+  {
+    "name" :  "Anglais"
+  },
+  {
+    "name" :  "Communication"
+  },
+  {
+    "name" :  "PPP - Valérie Chevalarias"
+  },
+  {
+  "name" :  "PPP - Ludovic Lambert"
+  },
+  {
+    "name" :  "C++ Avancé"
+  },
+  {
+    "name" :  "Flask"
+  },
+  {
+    "name" :  "ASP .NET"
+  },
+  {
+    "name" :  "Architecture logicielle / qualité (API Platform - tests)"
+  },
+  {
+    "name" :  "Complément web (React)"
+  },
+  {
+    "name" :  "Développement mobile (Flutter)"
+  },
+  {
+    "name" :  "Développement mobile (MAUI)"
+  },
+  {
+    "name" :  "Complèment technologique (Réalité virtuelle / réalité augmentée)"
+  },
+  {
+    "name" :  "Complèment technologique (Conception de systèmes automatisés)"
+  },
+  {
+    "name" :  "Complèment technologique (Conception de systèmes automatisés)"
+  },
+  {
+    "name" :  "Analyse et Visu (FB)"
+  },
+  {
+    "name" :  "Informatique décisionelle (LS)"
+  },
+  {
+    "name" :  "Bases de données (NoSQL)"
+  },
+  {
+    "name" :  "Virtualisation, sécurité"
+  },
+  {
+    "name" :  "Méthodes d'optimisation"
+  },
+  {
+    "name" :  "Automates"
+  },
+  {
+    "name" :  "Management avancé des SI"
+  },
+  {
+    "name" :  "Anglais"
+  },
+  {
+    "name" :  "Communication"
+  },
+  {
+    "name" :  "PPP"
+  },
+  {
+    "name" :  "Management"
+  },
+  {
+    "name" :  "PPP"
+  },
+  {
+    "name" :  "Communication"
+  },
+  {
+    "name" :  "Anglais"
+  },
+  {
+    "name" :  "Economie"
+  },
+  {
+    "name" :  "Maths et stats"
+  },
+  {
+    "name" :  "Node / Express / MongoDB"
+  },
+  {
+    "name" :  "Symfony avancé / Intégration continu"
+  },
+  {
+    "name" :  "Qualité algo"
+  },
+  {
+    "name" :  "React avancé"
+  },
+  {
+    "name" :  "Jeux vidéos / Godot"
+  },
+  {
+    "name" :  "WebGL"
+  },
+  {
+    "name" :  "Encadrement SAE 'DEV'"
+  },
+  {
+    "name" :  "Exploitation BD"
+  },
+  {
+    "name" :  "Données massives"
+  },
+  {
+    "name" :  "Techniques d'IA"
+  },
+  {
+    "name" :  "Optimisation SI"
+  },
+  {
+    "name" :  "Encadrement SAE 'DATA'"
+  },
+  {
+    "name" :  "Entreprenariat"
+  },
+  {
+    "name" :  "Droit"
+  },
+  {
+    "name" :  "Communication"
+  },
+  {
+    "name" :  "PPP"
+  },
+  {
+    "name" :  "Anglais"
+  },
+  {
+    "name" :  "React Native"
+  },
+  {
+    "name" :  "Maintenance applicative"
+  },
+  {
+    "name" :  "Admin BD"
+  },
+  {
+    "name" :  "Techniques d'IA"
+  },
+  {
+    "name" :  "Optimisation SI"
+  }
+]

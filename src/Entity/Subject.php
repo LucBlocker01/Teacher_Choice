@@ -40,6 +40,9 @@ class Subject
     #[ORM\JoinColumn(nullable: false)]
     private ?Semester $semester = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->choices = new ArrayCollection();
@@ -167,6 +170,18 @@ class Subject
     public function setSemester(?Semester $semester): static
     {
         $this->semester = $semester;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
