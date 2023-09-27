@@ -15,10 +15,50 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SemesterRepository::class)]
 #[ApiResource(
     operations: [
-        new Get(),
-        new GetCollection(),
-        new Post(),
-        new Patch(),
+        new Get(
+            openapiContext: [
+                'summary' => 'Retrieve Semester informations by ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new GetCollection(
+            openapiContext: [
+                'summary' => 'Retrieve Semester list informations',
+                'description' => 'Semester list informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations list for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Post(
+            openapiContext: [
+                'summary' => 'Modify Semester informations with ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new informations for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
+        new Patch(
+            openapiContext: [
+                'summary' => 'Modify Semester informations with ID',
+                'description' => 'Semester informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'new informations for semester to be returned',
+                    ],
+                ],
+            ],
+        ),
     ]
 )]
 class Semester
