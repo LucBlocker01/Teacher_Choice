@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
         'summary' => 'Returns a collection of Subjects',
         'responses' => [
             '200' => [
-                'description' => 'A collection nof Subjects have been returned',
+                'description' => 'A collection of Subjects have been returned',
             ],
             '404' => [
                 'description' => 'No collections have been found',
@@ -42,7 +42,7 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 #[Post(
     openapiContext: [
-    'summary' => 'Add a new Subject',
+    'summary' => 'Adds a new Subject',
     'responses' => [
         '200' => [
             'description' => 'A new Subject has successfully been created',
