@@ -14,7 +14,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
 #[ApiResource]
-#[Get]
+#[Get(
+    openapiContext: [
+        'summary' => 'Finds the Subject with the given id',
+        'responses' => [
+            '200' => [
+                'description' => 'The Subject have been found with the given id',
+            ],
+            '404' => [
+                'description' => "The Subject didn't get found",
+            ],
+],
+    ]
+)]
 #[GetCollection]
 #[Post(
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
