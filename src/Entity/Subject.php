@@ -44,10 +44,10 @@ use Doctrine\ORM\Mapping as ORM;
     openapiContext: [
     'summary' => 'Adds a new Subject',
     'responses' => [
-        '200' => [
+        '201' => [
             'description' => 'A new Subject has successfully been created',
         ],
-        '401' => [
+        '403' => [
             'description' => 'You do not have the permission to create a Subject',
         ],
     ],
@@ -58,10 +58,10 @@ use Doctrine\ORM\Mapping as ORM;
     openapiContext: [
         'summary' => 'Deletes a Subject',
         'responses' => [
-            '200' => [
+            '204' => [
                 'description' => 'The Subject has successfully been deleted',
             ],
-            '401' => [
+            '403' => [
                 'description' => 'You do not have the permission to delete a Subject',
             ],
             '404' => [
