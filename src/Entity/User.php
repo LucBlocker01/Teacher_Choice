@@ -25,14 +25,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/me',
             controller: GetMeController::class,
             openapiContext: [
-                'summary' => "obtiens les informations de l'utilisateur connect",
-                'description' => "Renseigne le login, le nom, le prénom et le mail de l'utilisateur connecté",
+                'summary' => 'get information from connected user',
+                'description' => 'Enter the login, first name, last name and email of the connected user',
                 'responses' => [
                     '200' => [
-                        'description' => 'Utilisateur connecté',
+                        'description' => 'User logged in',
                     ],
                     '401' => [
-                        'description' => 'Utilisateur non connecté',
+                        'description' => 'User not logged in',
                     ],
                 ],
             ],
