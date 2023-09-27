@@ -27,7 +27,19 @@ use Doctrine\ORM\Mapping as ORM;
 ],
     ]
 )]
-#[GetCollection]
+#[GetCollection(
+    openapiContext: [
+        'summary' => 'Returns a collection of Subjects',
+        'responses' => [
+            '200' => [
+                'description' => 'A collection nof Subjects have been returned',
+            ],
+            '404' => [
+                'description' => 'No collections have been found',
+            ],
+        ],
+    ]
+)]
 #[Post(
     security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
 )]
