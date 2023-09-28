@@ -25,15 +25,13 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             'roles' => ['ROLE_USER'],
             'status' => $statuses[2],
         ]);
-        UserFactory::createOne([
-            'status' => $statuses[rand(1, 3)],
-        ]);
-        UserFactory::createOne([
-            'status' => $statuses[rand(1, 3)],
-        ]);
-        UserFactory::createOne([
-            'status' => $statuses[rand(1, 3)],
-        ]);
+        UserFactory::createMany(3, function () {
+            $statuses = StatusFactory::all();
+
+            return [
+                'status' => $statuses[rand(1, 3)],
+                ];
+        });
     }
 
     public function getDependencies()
