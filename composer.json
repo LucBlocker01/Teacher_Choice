@@ -114,7 +114,8 @@
             "APP_ENV=test php bin/console doctrine:database:create",
             "APP_ENV=test php bin/console doctrine:schema:create --quiet",
             "SYMFONY_DEPRECATIONS_HELPER=weak php vendor/bin/codecept run --no-artifacts"
-        ]
+        ],
+        "test": ["@test:cs","@test:codeception"]
     },
     "scripts-descriptions": {
         "start": "Launch the local server",
@@ -123,7 +124,8 @@
         "test:yaml": "Test YAML files in folder Config",
         "test:twig": "Test Twig files in folder Templates",
         "db": "Delete the exists db and create a new db, create migration and load migration",
-        "test:codeception": "Create an bd for tests"
+        "test:codeception": "Create an bd for tests",
+        "test": "Launch all the test"
     },
     "conflict": {
         "symfony/symfony": "*"
