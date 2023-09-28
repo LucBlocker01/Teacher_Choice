@@ -75,7 +75,7 @@ class Semester
     private ?bool $internship = null;
 
     #[ORM\Column]
-    private ?bool $alternance = null;
+    private ?bool $workStudyProgram = null;
 
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
     private Collection $subjects;
@@ -116,12 +116,12 @@ class Semester
 
     public function isAlternance(): ?bool
     {
-        return $this->alternance;
+        return $this->workStudyProgram;
     }
 
-    public function setAlternance(bool $alternance): static
+    public function setWorkStudyProgram(bool $workStudyProgram): static
     {
-        $this->alternance = $alternance;
+        $this->workStudyProgram = $workStudyProgram;
 
         return $this;
     }

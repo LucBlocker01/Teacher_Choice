@@ -47,7 +47,7 @@ final class SemesterFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'alternance' => self::faker()->boolean(),
+            'workStudyProgram' => self::faker()->boolean(),
             'internship' => self::faker()->boolean(),
             'name' => 'S?',
         ];
