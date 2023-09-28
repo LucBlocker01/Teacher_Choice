@@ -107,6 +107,13 @@
             "php bin/console doctrine:database:create",
             "php bin/console doctrine:migrations:migrate --no-interaction",
             "php bin/console doctrine:fixtures:load --no-interaction"
+        ],
+        "test:codeception": [
+            "php vendor/bin/codecept clean",
+            "APP_ENV=test php bin/console doctrine:database:drop --force",
+            "APP_ENV=test php bin/console doctrine:database:create",
+            "APP_ENV=test php bin/console doctrine:schema:create --quiet",
+            "SYMFONY_DEPRECATIONS_HELPER=weak php vendor/bin/codecept run --no-artifacts"
         ]
     },
     "scripts-descriptions": {
@@ -115,7 +122,8 @@
         "fix:cs": "Correct the code",
         "test:yaml": "Test YAML files in folder Config",
         "test:twig": "Test Twig files in folder Templates",
-        "db": "Delete the exists db and create a new db, create migration and load migration"
+        "db": "Delete the exists db and create a new db, create migration and load migration",
+        "test:codeception": "Create an bd for tests"
     },
     "conflict": {
         "symfony/symfony": "*"
