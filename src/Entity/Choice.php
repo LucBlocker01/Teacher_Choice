@@ -3,11 +3,43 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use App\Controller\GetChoiceByTeacherController;
 use App\Repository\ChoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChoiceRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(
+            uriTemplate: '/user/choice/{id}',
+            controller: GetChoiceByTeacherController::class,
+            openapiContext: [
+                'summary' => 'get choice from teacher',
+                'description' => 'Put the teacher id to get his choices',
+                'responses' => [
+                    '200' => [
+                        'description' => 'Choice of the teacher',
+                    ],
+                    '404' => [
+                        'description' => 'User not found',
+                    ],
+                ],
+            ],
+        ),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+        ]
+)]
 class Choice
 {
     #[ORM\Id]
