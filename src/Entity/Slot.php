@@ -25,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
                     ],
                 ],
             ],
+            security: 'is_granted("ROLE_ADMIN")'
         ),
         new GetCollection(
             openapiContext: [
