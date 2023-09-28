@@ -64,7 +64,7 @@ final class UserFactory extends ModelFactory
             'roles' => ['ROLE_USER'],
             'status' => StatusFactory::random(),
             'postcode' => '',
-            'city' => '',
+            'city' => 'Reims',
             'address' => '',
         ];
     }
