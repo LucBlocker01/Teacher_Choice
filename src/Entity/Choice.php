@@ -48,7 +48,7 @@ class Choice
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $nb_group_selected = null;
+    private ?int $nbGroupSelected = null;
 
     #[ORM\Column(length: 4)]
     private ?string $year = null;
@@ -68,12 +68,12 @@ class Choice
 
     public function getNbGroupSelected(): ?int
     {
-        return $this->nb_group_selected;
+        return $this->nbGroupSelected;
     }
 
-    public function setNbGroupSelected(int $nb_group_selected): static
+    public function setNbGroupSelected(int $nbGroupSelected): static
     {
-        $this->nb_group_selected = $nb_group_selected;
+        $this->nbGroupSelected = $nbGroupSelected;
 
         return $this;
     }

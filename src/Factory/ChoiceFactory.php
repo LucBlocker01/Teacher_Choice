@@ -47,7 +47,7 @@ final class ChoiceFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'nb_group_selected' => self::faker()->numberBetween(1, 4),
+            'nbGroupSelected' => self::faker()->numberBetween(1, 4),
             'subject' => SubjectFactory::random(),
             'teacher' => UserFactory::random(),
             'year' => self::faker()->numberBetween(2021, 2023),
