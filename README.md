@@ -51,6 +51,8 @@ composer start
 
 ``test:twig`` : Test Twig files located in templates folder
 
+``test:codeception`` : Initiates the test database
+
 ``db`` : Delete the existing database and create a new one, using the most recent migration
 
 ## Authentication
