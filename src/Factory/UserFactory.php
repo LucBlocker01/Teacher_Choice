@@ -49,15 +49,23 @@ final class UserFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $firstname = self::faker()->unique()->firstName();
+        $lastname = self::faker()->lastName();
+        $login = substr($lastname, 0, 6);
+        $mail = transliterator_transliterate('Any-Latin; Latin-ASCII', strtolower($firstname.'.'.$lastname).'@univ-reims.fr');
+
         return [
-            'firstname' => self::faker()->unique()->firstName(),
-            'lastname' => self::faker()->lastName(),
-            'login' => self::faker()->unique()->numerify('user-####'),
-            'mail' => self::faker()->email(),
+            'firstname' => $firstname,
+            'lastname' => strtoupper($lastname),
+            'login' => $login.'01',
+            'mail' => $mail,
             'phone' => self::faker()->phoneNumber(),
             'password' => 'test',
-            'roles' => [],
+            'roles' => ['ROLE_USER'],
             'status' => StatusFactory::random(),
+            'postcode' => '',
+            'city' => 'Reims',
+            'address' => '',
         ];
     }
 
