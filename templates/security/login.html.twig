@@ -13,8 +13,8 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <img src="{{ asset('/img/urca.png') }}" alt="">
+    <h1 class="h3 mb-3 font-weight-normal">SetURCAlendar</h1>
     <label for="inputLogin">Login</label>
     <input type="text" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" autocomplete="username" required autofocus>
     <label for="inputPassword">Password</label>
