@@ -62,7 +62,7 @@ final class UserFactory extends ModelFactory
             'phone' => self::faker()->phoneNumber(),
             'password' => 'test',
             'roles' => ['ROLE_USER'],
-            'status' => StatusFactory::random(),
+            'status' => StatusFactory::createOne(),
             'postcode' => '',
             'city' => 'Reims',
             'address' => '',
