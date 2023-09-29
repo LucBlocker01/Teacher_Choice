@@ -54,16 +54,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
             denormalizationContext: ['groups' => ['set_User']],
             security: "is_granted('ROLE_USER') and object == user",
         ),
-        new Post(
-            security: "is_granted('ROLE_ADMIN)"
-        ),
-        new Delete(
-            security: "is_granted('ROLE_ADMIN)"
-        ),
-        new GetCollection(
-            security: "is_granted('ROLE_ADMIN)"
-        ),
-    ]
+    ],
+    normalizationContext: ['groups' => ['get_User']],
+
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -78,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $login = null;
 
     #[ORM\Column]
+    #[Groups(['get_Me', 'get_User'])]
     private array $roles = [];
 
     /**
