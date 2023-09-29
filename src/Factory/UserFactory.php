@@ -63,7 +63,7 @@ final class UserFactory extends ModelFactory
             'password' => 'test',
             'roles' => ['ROLE_USER'],
             'status' => StatusFactory::createOne(),
-            'postcode' => '',
+            'postcode' => '51100',
             'city' => 'Reims',
             'address' => '',
         ];
