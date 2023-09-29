@@ -50,7 +50,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
             denormalizationContext: ['groups' => ['set_User']],
             security: "is_granted('ROLE_USER') and object == user",
         ),
-    ]
+    ],
+    normalizationContext: ['groups' => ['get_User']],
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
