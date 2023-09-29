@@ -66,6 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $login = null;
 
     #[ORM\Column]
+    #[Groups(['get_Me', 'get_User'])]
     private array $roles = [];
 
     /**
