@@ -27,7 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
                         'description' => 'No SubjectType find.',
                     ],
                 ],
-            ]
+            ],
+            security: "is_granted('ROLE_ADMIN')"
         ),
         new GetCollection(
             openapiContext: [
@@ -40,7 +41,8 @@ use Doctrine\ORM\Mapping as ORM;
                         'description' => 'No permission.',
                     ],
                 ],
-            ]
+            ],
+            security: "is_granted('ROLE_ADMIN')"
         ),
     ]
 )]

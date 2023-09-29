@@ -16,7 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ChoiceRepository::class)]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+        ),
         new GetCollection(
             uriTemplate: '/user/choice/{id}',
             controller: GetChoiceByTeacherController::class,
@@ -32,12 +34,23 @@ use Doctrine\ORM\Mapping as ORM;
                     ],
                 ],
             ],
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
         ),
-        new GetCollection(),
-        new Post(),
-        new Put(),
-        new Patch(),
-        new Delete(),
+        new GetCollection(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+        ),
+        new Post(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+        ),
+        new Put(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+        ),
+        new Patch(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+        ),
+        new Delete(
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+        ),
         ]
 )]
 class Choice

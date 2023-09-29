@@ -24,8 +24,9 @@ use Doctrine\ORM\Mapping as ORM;
             '404' => [
                 'description' => "The Subject didn't get found",
             ],
-],
-    ]
+        ],
+    ],
+    security: "is_granted('ROLE_ADMIN')"
 )]
 #[GetCollection(
     openapiContext: [
@@ -38,7 +39,8 @@ use Doctrine\ORM\Mapping as ORM;
                 'description' => 'No collections have been found',
             ],
         ],
-    ]
+    ],
+    security: "is_granted('ROLE_ADMIN')"
 )]
 #[Post(
     openapiContext: [
@@ -52,7 +54,7 @@ use Doctrine\ORM\Mapping as ORM;
         ],
     ],
 ],
-    security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
+    security: "is_granted('ROLE_ADMIN')"
 )]
 #[Delete(
     openapiContext: [
@@ -69,7 +71,7 @@ use Doctrine\ORM\Mapping as ORM;
             ],
         ],
     ],
-    security: "is_granted('ROLE_ADMIN') and object.getUser() == user"
+    security: "is_granted('ROLE_ADMIN')"
 )]
 class Subject
 {
