@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Controller\GetMeController;
 use App\Repository\UserRepository;
@@ -20,7 +22,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Table(name: '`user`')]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            security: "is_granted('ROLE_ADMIN)"
+        ),
         new GetCollection(
             uriTemplate: '/me',
             controller: GetMeController::class,
@@ -52,6 +56,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
     ],
     normalizationContext: ['groups' => ['get_User']],
+
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
