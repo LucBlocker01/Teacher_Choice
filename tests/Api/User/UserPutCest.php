@@ -2,6 +2,7 @@
 
 namespace App\Tests\Api\User;
 
+use App\Entity\User;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
 use Codeception\Util\HttpCode;
@@ -14,6 +15,8 @@ class UserPutCest
             'id' => 'integer',
             'login' => 'string',
             'roles' => 'array',
+            'firstname' => 'string',
+            'lastname' => 'string',
         ];
     }
 
@@ -41,5 +44,30 @@ class UserPutCest
 
         // 3. 'Assert'
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
+
+    public function authenticatedUserCanPutOwnData(ApiTester $I): void
+    {
+        // 1. 'Arrange'
+        $dataInit = [
+            'login' => 'user1',
+            'password' => 'password',
+        ];
+
+        $user = UserFactory::createOne($dataInit)->object();
+        $I->amLoggedInAs($user);
+
+        // 2. 'Act'
+        $dataPut = [
+            'login' => 'user2',
+        ];
+
+        $I->sendPut('/api/users/1', $dataPut);
+
+        // 3. 'Assert'
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeResponseIsJson();
+        $I->seeResponseIsAnEntity(User::class, '/api/users/1');
+        $I->seeResponseIsAnItem(self::expectedProperties(), $dataPut);
     }
 }
