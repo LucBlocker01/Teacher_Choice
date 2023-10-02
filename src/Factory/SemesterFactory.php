@@ -47,9 +47,8 @@ final class SemesterFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'workStudyProgram' => self::faker()->boolean(),
-            'internship' => self::faker()->boolean(),
             'name' => 'S?',
+            'year' => self::faker()->numberBetween(2021, 2023),
         ];
     }
 
