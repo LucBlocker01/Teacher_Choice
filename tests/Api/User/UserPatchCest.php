@@ -2,6 +2,10 @@
 
 namespace App\Tests\Api\User;
 
+use App\Factory\UserFactory;
+use App\Tests\Support\ApiTester;
+use Codeception\Util\HttpCode;
+
 class UserPatchCest
 {
     protected static function expectedProperties(): array
@@ -11,5 +15,17 @@ class UserPatchCest
             'login' => 'string',
             'roles' => 'array',
         ];
+    }
+
+    public function anonymousUserForbiddenToPatchUser(ApiTester $I): void
+    {
+        // 1. 'Arrange'
+        UserFactory::createOne();
+
+        // 2. 'Act'
+        $I->sendPatch('/api/users/1');
+
+        // 3. 'Assert'
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 }
