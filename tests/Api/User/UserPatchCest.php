@@ -68,4 +68,39 @@ class UserPatchCest
         $I->seeResponseIsAnEntity(User::class, '/api/users/1');
         $I->seeResponseIsAnItem(self::expectedProperties(), $dataPatch);
     }
+
+    public function authenticatedUserCanChangeHisPassword(ApiTester $I): void
+    {
+        // 1. 'Arrange'
+        $dataInit = [
+            'login' => 'user',
+            'password' => 'password',
+        ];
+
+        $user = UserFactory::createOne($dataInit)->object();
+        $I->amLoggedInAs($user);
+
+        // 2. 'Act'
+        $dataPatch = ['password' => 'new password'];
+        $I->sendPatch('/api/users/1', $dataPatch);
+
+        // 3. 'Assert'
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeResponseIsJson();
+        $I->seeResponseIsAnEntity(User::class, '/api/users/1');
+        $I->seeResponseIsAnItem(self::expectedProperties());
+
+        // 2. 'Act'
+        $I->amOnPage('/logout');
+        // Don't check response code since homepage is not configured (404)
+        // $I->seeResponseCodeIsSuccessful();
+        $I->amOnRoute('app_login');
+        $I->seeResponseCodeIsSuccessful();
+        $I->submitForm(
+            'form',
+            ['login' => 'user1', 'password' => 'new password'],
+            'Authentification'
+        );
+        $I->seeResponseCodeIsSuccessful();
+    }
 }
