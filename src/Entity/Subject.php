@@ -27,6 +27,9 @@ class Subject
     #[ORM\ManyToMany(targetEntity: Lesson::class, mappedBy: 'subjects')]
     private Collection $lessons;
 
+    #[ORM\Column(length: 1, nullable: true)]
+    private ?string $speciality = null;
+
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
@@ -84,6 +87,18 @@ class Subject
         if ($this->lessons->removeElement($lesson)) {
             $lesson->removeSubject($this);
         }
+
+        return $this;
+    }
+
+    public function getSpeciality(): ?string
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?string $speciality): static
+    {
+        $this->speciality = $speciality;
 
         return $this;
     }
