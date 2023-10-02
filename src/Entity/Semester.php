@@ -81,12 +81,8 @@ class Semester
     #[ORM\Column]
     private ?bool $workStudyProgram = null;
 
-    #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
-    private Collection $subjects;
-
     public function __construct()
     {
-        $this->subjects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,36 +122,6 @@ class Semester
     public function setWorkStudyProgram(bool $workStudyProgram): static
     {
         $this->workStudyProgram = $workStudyProgram;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Subject>
-     */
-    public function getSubjects(): Collection
-    {
-        return $this->subjects;
-    }
-
-    public function addSubject(Subject $subject): static
-    {
-        if (!$this->subjects->contains($subject)) {
-            $this->subjects->add($subject);
-            $subject->setSemester($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubject(Subject $subject): static
-    {
-        if ($this->subjects->removeElement($subject)) {
-            // set the owning side to null (unless already changed)
-            if ($subject->getSemester() === $this) {
-                $subject->setSemester(null);
-            }
-        }
 
         return $this;
     }
