@@ -2,7 +2,7 @@
 
 namespace App\Tests\Api\User;
 
-class CompteGetMeCest
+class UserGetMeCest
 {
     protected static function expectedProperties(): array
     {
