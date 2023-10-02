@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Entity;
+
+use ApiPlatform\Metadata\ApiResource;
+use App\Repository\LessonInformationRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: LessonInformationRepository::class)]
+#[ApiResource]
+class LessonInformation
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column]
+    private ?int $nb_groups = null;
+
+    #[ORM\Column(length: 4, nullable: true)]
+    private ?string $SAESupport = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lesson $Lesson = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?LessonType $LessonType = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNbGroups(): ?int
+    {
+        return $this->nb_groups;
+    }
+
+    public function setNbGroups(int $nb_groups): static
+    {
+        $this->nb_groups = $nb_groups;
+
+        return $this;
+    }
+
+    public function getSAESupport(): ?string
+    {
+        return $this->SAESupport;
+    }
+
+    public function setSAESupport(?string $SAESupport): static
+    {
+        $this->SAESupport = $SAESupport;
+
+        return $this;
+    }
+
+    public function getLesson(): ?Lesson
+    {
+        return $this->Lesson;
+    }
+
+    public function setLesson(?Lesson $Lesson): static
+    {
+        $this->Lesson = $Lesson;
+
+        return $this;
+    }
+
+    public function getLessonType(): ?LessonType
+    {
+        return $this->LessonType;
+    }
+
+    public function setLessonType(?LessonType $LessonType): static
+    {
+        $this->LessonType = $LessonType;
+
+        return $this;
+    }
+}

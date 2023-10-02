@@ -23,9 +23,13 @@ class Lesson
     #[ORM\ManyToMany(targetEntity: Subject::class, inversedBy: 'lessons')]
     private Collection $subjects;
 
+    #[ORM\OneToMany(mappedBy: 'Lesson', targetEntity: LessonInformation::class)]
+    private Collection $lessonInformation;
+
     public function __construct()
     {
         $this->subjects = new ArrayCollection();
+        $this->lessonInformation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,6 +69,36 @@ class Lesson
     public function removeSubject(Subject $subject): static
     {
         $this->subjects->removeElement($subject);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LessonInformation>
+     */
+    public function getLessonInformation(): Collection
+    {
+        return $this->lessonInformation;
+    }
+
+    public function addLessonInformation(LessonInformation $lessonInformation): static
+    {
+        if (!$this->lessonInformation->contains($lessonInformation)) {
+            $this->lessonInformation->add($lessonInformation);
+            $lessonInformation->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonInformation(LessonInformation $lessonInformation): static
+    {
+        if ($this->lessonInformation->removeElement($lessonInformation)) {
+            // set the owning side to null (unless already changed)
+            if ($lessonInformation->getLesson() === $this) {
+                $lessonInformation->setLesson(null);
+            }
+        }
 
         return $this;
     }
