@@ -34,9 +34,13 @@ class LessonInformation
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class)]
     private Collection $lessonPlannings;
 
+    #[ORM\OneToMany(mappedBy: 'lessonInformation', targetEntity: Choice::class)]
+    private Collection $choices;
+
     public function __construct()
     {
         $this->lessonPlannings = new ArrayCollection();
+        $this->choices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,6 +120,36 @@ class LessonInformation
             // set the owning side to null (unless already changed)
             if ($lessonPlanning->getInformation() === $this) {
                 $lessonPlanning->setInformation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Choice>
+     */
+    public function getChoices(): Collection
+    {
+        return $this->choices;
+    }
+
+    public function addChoice(Choice $choice): static
+    {
+        if (!$this->choices->contains($choice)) {
+            $this->choices->add($choice);
+            $choice->setLessonInformation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChoice(Choice $choice): static
+    {
+        if ($this->choices->removeElement($choice)) {
+            // set the owning side to null (unless already changed)
+            if ($choice->getLessonInformation() === $this) {
+                $choice->setLessonInformation(null);
             }
         }
 
