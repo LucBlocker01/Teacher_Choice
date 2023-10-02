@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -64,6 +65,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['get_User', 'set_User', 'get_Me'])]
+    #[Regex(
+        pattern: '/[<>&"]/',
+        message: 'Your login cannot use this character : <>&"',
+        match: false
+    )]
     private ?string $login = null;
 
     #[ORM\Column]
