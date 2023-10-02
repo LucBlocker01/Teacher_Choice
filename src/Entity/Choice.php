@@ -66,10 +66,6 @@ class Choice
     #[ORM\Column(length: 4)]
     private ?string $year = null;
 
-    #[ORM\ManyToOne(inversedBy: 'choices')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Subject $subject = null;
-
     #[ORM\ManyToOne(inversedBy: 'choice')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $teacher = null;
@@ -99,18 +95,6 @@ class Choice
     public function setYear(string $year): static
     {
         $this->year = $year;
-
-        return $this;
-    }
-
-    public function getSubject(): ?Subject
-    {
-        return $this->subject;
-    }
-
-    public function setSubject(?Subject $subject): static
-    {
-        $this->subject = $subject;
 
         return $this;
     }
