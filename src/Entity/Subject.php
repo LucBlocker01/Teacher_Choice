@@ -18,6 +18,10 @@ class Subject
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
+    #[ORM\ManyToOne(inversedBy: 'subjects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Semester $Semester = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -31,6 +35,18 @@ class Subject
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSemester(): ?Semester
+    {
+        return $this->Semester;
+    }
+
+    public function setSemester(?Semester $Semester): static
+    {
+        $this->Semester = $Semester;
 
         return $this;
     }
