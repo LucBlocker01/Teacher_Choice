@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class GetMeController extends AbstractController
 {
-    public function __invoke(): User
+    public function __invoke(): UserInterface
     {
         if ($this->getUser()) {
             return $this->getUser();
