@@ -12,7 +12,7 @@ class WeekStatusFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $weeks = WeekFactory::list();
+        $weeks = WeekFactory::all();
         foreach ($weeks as $week) {
             WeekStatusFactory::createOne();
         }
