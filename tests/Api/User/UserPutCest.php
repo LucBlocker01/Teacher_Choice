@@ -28,4 +28,18 @@ class UserPutCest
         // 3. 'Assert'
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
+
+    public function authenticatedUserForbiddenToPutOtherUser(ApiTester $I): void
+    {
+        // 1. 'Arrange'
+        $user = UserFactory::createOne()->object();
+        UserFactory::createOne();
+        $I->amLoggedInAs($user);
+
+        // 2. 'Act'
+        $I->sendPut('/api/users/2');
+
+        // 3. 'Assert'
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
