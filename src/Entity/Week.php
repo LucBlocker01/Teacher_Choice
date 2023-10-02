@@ -13,12 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: WeekRepository::class)]
 #[ApiResource(
     operations: [
-        new Get(
-            security: 'is_granted("ROLE_ADMIN")'
-        ),
-        new GetCollection(
-            security: "is_granted('ROLE_ADMIN')",
-        ),
+        new Get(),
+        new GetCollection(),
     ]
 )]
 class Week
