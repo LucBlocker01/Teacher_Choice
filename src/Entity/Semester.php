@@ -8,8 +8,6 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use App\Repository\SemesterRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SemesterRepository::class)]
@@ -76,10 +74,7 @@ class Semester
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?bool $internship = null;
-
-    #[ORM\Column]
-    private ?bool $workStudyProgram = null;
+    private ?int $year = null;
 
     public function __construct()
     {
@@ -102,26 +97,14 @@ class Semester
         return $this;
     }
 
-    public function isInternship(): ?bool
+    public function getYear(): ?int
     {
-        return $this->internship;
+        return $this->year;
     }
 
-    public function setInternship(bool $internship): static
+    public function setYear(int $year): static
     {
-        $this->internship = $internship;
-
-        return $this;
-    }
-
-    public function isAlternance(): ?bool
-    {
-        return $this->workStudyProgram;
-    }
-
-    public function setWorkStudyProgram(bool $workStudyProgram): static
-    {
-        $this->workStudyProgram = $workStudyProgram;
+        $this->year = $year;
 
         return $this;
     }
