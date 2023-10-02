@@ -70,6 +70,13 @@ class Choice
     #[ORM\JoinColumn(nullable: false)]
     private ?User $teacher = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $nbGroupAttributed = null;
+
+    #[ORM\ManyToOne(inversedBy: 'choices')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?LessonInformation $lessonInformation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +114,30 @@ class Choice
     public function setTeacher(?User $teacher): static
     {
         $this->teacher = $teacher;
+
+        return $this;
+    }
+
+    public function getNbGroupAttributed(): ?int
+    {
+        return $this->nbGroupAttributed;
+    }
+
+    public function setNbGroupAttributed(?int $nbGroupAttributed): static
+    {
+        $this->nbGroupAttributed = $nbGroupAttributed;
+
+        return $this;
+    }
+
+    public function getLessonInformation(): ?LessonInformation
+    {
+        return $this->lessonInformation;
+    }
+
+    public function setLessonInformation(?LessonInformation $lessonInformation): static
+    {
+        $this->lessonInformation = $lessonInformation;
 
         return $this;
     }
