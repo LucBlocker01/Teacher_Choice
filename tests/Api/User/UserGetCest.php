@@ -36,4 +36,24 @@ class UserGetCest
         $I->seeResponseIsAnEntity(User::class, '/api/users/1');
         $I->seeResponseIsAnItem(self::expectedProperties(), $data);
     }
+
+    public function authenticatedUserGetSimpleUserElementForOthers(ApiTester $I): void
+    {
+        // 1. 'Arrange'
+        $data = [
+            'login' => 'user1',
+        ];
+        $user = UserFactory::createOne()->object();
+        UserFactory::createOne($data);
+        $I->amLoggedInAs($user);
+
+        // 2. 'Act'
+        $I->sendGet('/api/users/2');
+
+        // 3. 'Assert'
+        $I->seeResponseCodeIsSuccessful();
+        $I->seeResponseIsJson();
+        $I->seeResponseIsAnEntity(User::class, '/api/users/2');
+        $I->seeResponseIsAnItem(self::expectedProperties(), $data);
+    }
 }
