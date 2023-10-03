@@ -3,29 +3,32 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div class="container">
+        <form method="post" class="formu">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-    <img src="{{ asset('/img/urca.png') }}" alt="">
-    <h1 class="h3 mb-3 font-weight-normal">SetURCAlendar</h1>
-    <label for="inputLogin">Login</label>
-    <input type="text" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+            <img class="logo" src="{{ asset('/img/urca.png') }}" alt="">
+            <h1 class="title">Set<a class="title_color_2">URCA</a>lendar</h1>
+            <div class="form-group">
+                <label for="inputLogin" class="form-label" >Nom d'utilisateur</label>
+                <input type="text"  value="{{ last_username }}" name="login" id="inputLogin" class="input" autocomplete="username" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="form-label" >Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="input" autocomplete="current-password" required>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+            <button class="button" type="submit">
+                Se connecter
+            </button>
+        </form>
+    </div>
 {% endblock %}
