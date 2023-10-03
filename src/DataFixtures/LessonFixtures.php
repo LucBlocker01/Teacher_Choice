@@ -21,24 +21,25 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
         foreach ($subjects as $subject) {
             $tabSubjects = [$subject];
 
-            $subject2 = array_rand((array) $subject->getSemester()->getSubjects(), 1);
+            $subject2 = SubjectFactory::randomRange(1, 1);
 
             if ($subject2 != $subject) {
                 $tabSubjects[] = $subject2;
             }
 
+            $nameLesson = array_rand($subjectsName, 1);
             $multipleSubjectOrNot = random_int(0, 1);
-
             if (1 == $multipleSubjectOrNot) {
                 LessonFactory::createOne([
-                    'name' => array_rand($subjectsName, 1),
-                    'subjects' => $subject,
-                ]);
+                    'name' => $nameLesson,
+                ])->addSubject($subject->object());
             } else {
-                LessonFactory::createOne([
-                    'name' => array_rand($subjectsName, 1),
-                    'subjects' => $tabSubjects,
+                $lesson = LessonFactory::createOne([
+                    'name' => $nameLesson,
                 ]);
+
+                $lesson->addSubject($subject->object());
+                // $lesson->addSubject($subject2->object());
             }
         }
     }
