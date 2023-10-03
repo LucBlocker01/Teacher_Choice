@@ -4,7 +4,9 @@ import {AppBar} from "@mui/material";
 
 function Header() {
     return(
-        <AppBar></AppBar>
+        <>
+            <AppBar><h1>React App</h1></AppBar>
+        </>
     )
 }
 
