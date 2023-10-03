@@ -36,6 +36,9 @@ class WeekStatus
     #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: Week::class)]
     private Collection $weeks;
 
+    #[ORM\ManyToOne(inversedBy: 'WeekStatus')]
+    private ?Semester $semester = null;
+
     public function __construct()
     {
         $this->weeks = new ArrayCollection();
@@ -108,6 +111,18 @@ class WeekStatus
                 $week->setWeekStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSemester(): ?Semester
+    {
+        return $this->semester;
+    }
+
+    public function setSemester(?Semester $semester): static
+    {
+        $this->semester = $semester;
 
         return $this;
     }
