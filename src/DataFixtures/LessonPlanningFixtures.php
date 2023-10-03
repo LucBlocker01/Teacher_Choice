@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Factory\LessonPlanningFactory;
 use App\Factory\WeekFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class LessonPlanningFixtures extends Fixture
+class LessonPlanningFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -19,5 +20,12 @@ class LessonPlanningFixtures extends Fixture
                 ]);
             }
         }
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            WeekFixtures::class,
+        ];
     }
 }
