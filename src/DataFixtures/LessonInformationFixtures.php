@@ -6,24 +6,19 @@ use App\Factory\LessonFactory;
 use App\Factory\LessonInformationFactory;
 use App\Factory\LessonTypeFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class LessonInformationFixtures extends Fixture
+class LessonInformationFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
         $lessons = LessonFactory::all();
-        $types = LessonTypeFactory::all();
+
         foreach ($lessons as $lesson) {
-            $usedtype = [];
-            for ($i = 0; $i == rand(1, 4); ++$i) {
-                $type = $types[rand(1, 4)];
-                // check if the selected type for the given lesson has already been generated
-                while (in_array($type, $usedtype)) {
-                    $type = $types[rand(1, 4)];
-                }
-                // add type generated in the list of used types
-                $usedtype[] = $type;
+            $types = LessonTypeFactory::randomRange(1, 3);
+
+            foreach ($types as $type) {
                 switch ($type) {
                     case 'CM' == $type->getName():
                         $nbGroup = 1;
@@ -34,7 +29,11 @@ class LessonInformationFixtures extends Fixture
                     case 'TP' == $type->getName():
                         $nbGroup = rand(2, 8);
                 }
-                $SAE = LessonInformationFactory::faker()->boolean(10);
+
+                // add type generated in the list of used types
+
+                // $SAE = LessonInformationFactory::faker()->boolean(10);
+                $SAE = '';
                 LessonInformationFactory::createOne([
                     'lesson' => $lesson,
                     'lessonType' => $type,
@@ -43,5 +42,13 @@ class LessonInformationFixtures extends Fixture
                 ]);
             }
         }
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            LessonFixtures::class,
+            LessonTypeFixtures::class,
+        ];
     }
 }
