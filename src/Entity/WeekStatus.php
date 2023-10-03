@@ -6,6 +6,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\WeekStatusRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WeekStatusRepository::class)]
@@ -30,6 +32,14 @@ class WeekStatus
 
     #[ORM\Column]
     private ?bool $internship = null;
+
+    #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: Week::class)]
+    private Collection $weeks;
+
+    public function __construct()
+    {
+        $this->weeks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +78,36 @@ class WeekStatus
     public function setInternship(bool $internship): static
     {
         $this->internship = $internship;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Week>
+     */
+    public function getWeeks(): Collection
+    {
+        return $this->weeks;
+    }
+
+    public function addWeek(Week $week): static
+    {
+        if (!$this->weeks->contains($week)) {
+            $this->weeks->add($week);
+            $week->setWeekStatus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWeek(Week $week): static
+    {
+        if ($this->weeks->removeElement($week)) {
+            // set the owning side to null (unless already changed)
+            if ($week->getWeekStatus() === $this) {
+                $week->setWeekStatus(null);
+            }
+        }
 
         return $this;
     }
