@@ -34,10 +34,12 @@ class LessonInformationFixtures extends Fixture
                     case 'TP' == $type->getName():
                         $nbGroup = rand(2, 8);
                 }
+                $SAE = LessonInformationFactory::faker()->boolean(10);
                 LessonInformationFactory::createOne([
                     'lesson' => $lesson,
                     'lessonType' => $type,
                     'nbGroups' => $nbGroup,
+                    'SAESupport' => $SAE,
                 ]);
             }
         }
