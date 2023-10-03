@@ -20,7 +20,7 @@ class WeekStatusFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             SemesterFixtures::class,

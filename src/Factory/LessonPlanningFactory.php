@@ -49,7 +49,7 @@ final class LessonPlanningFactory extends ModelFactory
         return [
             'information' => LessonInformationFactory::random(),
             'nbHours' => rand(1, 6),
-            'week' => WeekFactory::random(),
+            'weekStatus' => WeekStatusFactory::random(),
         ];
     }
 

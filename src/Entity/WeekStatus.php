@@ -45,7 +45,6 @@ class WeekStatus
 
     public function __construct()
     {
-        $this->weeks = new ArrayCollection();
         $this->lessonPlannings = new ArrayCollection();
     }
 
