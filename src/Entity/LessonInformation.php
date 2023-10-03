@@ -25,7 +25,7 @@ class LessonInformation
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $nb_groups = null;
+    private ?int $nbGroups = null;
 
     #[ORM\Column(length: 4, nullable: true)]
     private ?string $SAESupport = null;
@@ -57,12 +57,12 @@ class LessonInformation
 
     public function getNbGroups(): ?int
     {
-        return $this->nb_groups;
+        return $this->nbGroups;
     }
 
-    public function setNbGroups(int $nb_groups): static
+    public function setNbGroups(int $nbGroups): static
     {
-        $this->nb_groups = $nb_groups;
+        $this->nbGroups = $nbGroups;
 
         return $this;
     }

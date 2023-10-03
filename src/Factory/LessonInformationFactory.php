@@ -47,7 +47,7 @@ final class LessonInformationFactory extends ModelFactory
         return [
             'lesson' => LessonFactory::random(),
             'lessonType' => LessonTypeFactory::random(),
-            'nb_groups' => self::faker()->randomNumber(),
+            'nbGroups' => self::faker()->randomNumber(),
         ];
     }
 
