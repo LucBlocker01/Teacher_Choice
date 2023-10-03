@@ -41,14 +41,12 @@ final class LessonInformationFactory extends ModelFactory
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
-     *
-     * @todo add your default values here
      */
     protected function getDefaults(): array
     {
         return [
-            'lesson' => LessonFactory::new(),
-            'lessonType' => LessonTypeFactory::new(),
+            'lesson' => LessonFactory::random(),
+            'lessonType' => LessonTypeFactory::random(),
             'nb_groups' => self::faker()->randomNumber(),
         ];
     }
