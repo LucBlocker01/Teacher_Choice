@@ -24,7 +24,7 @@ class SubjectFixtures extends Fixture implements DependentFixtureInterface
                 for ($ele = 1; $ele <= 14; ++$ele) {
                     SubjectFactory::createOne([
                         'name' => 'MR'.$semesterNumber.sprintf("%'.02d", $ele),
-                        'semester' => SemesterFactory::new(),
+                        'semester' => SemesterFactory::random(),
                         'speciality' => null,
                     ]);
                 }
@@ -37,7 +37,7 @@ class SubjectFixtures extends Fixture implements DependentFixtureInterface
                     }
                     SubjectFactory::createOne([
                         'name' => 'MR'.$semesterNumber.sprintf("%'.02d", $ele).$specialities[$rand],
-                        'semester' => SemesterFactory::new(),
+                        'semester' => SemesterFactory::random(),
                         'speciality' => $speciality,
                     ]);
                 }
