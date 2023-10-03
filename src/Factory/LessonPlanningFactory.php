@@ -47,9 +47,9 @@ final class LessonPlanningFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'information' => LessonInformationFactory::new(),
-            'nbHours' => self::faker()->randomNumber(),
-            'week' => WeekFactory::new(),
+            'information' => LessonInformationFactory::random(),
+            'nbHours' => rand(1, 6),
+            'week' => WeekFactory::random(),
         ];
     }
 
