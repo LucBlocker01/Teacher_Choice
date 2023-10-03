@@ -31,7 +31,7 @@ class LessonPlanning
 
     #[ORM\ManyToOne(inversedBy: 'lessonPlannings')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Week $week = null;
+    private ?WeekStatus $weekStatus = null;
 
     public function getId(): ?int
     {
@@ -62,14 +62,14 @@ class LessonPlanning
         return $this;
     }
 
-    public function getWeek(): ?Week
+    public function getWeekStatus(): ?WeekStatus
     {
-        return $this->week;
+        return $this->weekStatus;
     }
 
-    public function setWeek(?Week $week): static
+    public function setWeekStatus(?WeekStatus $weekStatus): static
     {
-        $this->week = $week;
+        $this->weekStatus = $weekStatus;
 
         return $this;
     }
