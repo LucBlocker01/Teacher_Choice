@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Factory\SemesterFactory;
 use App\Factory\SubjectFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class SubjectFixtures extends Fixture
+class SubjectFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @throws \Exception
@@ -42,5 +43,12 @@ class SubjectFixtures extends Fixture
                 }
             }
         }
+    }
+
+    public function getDependencies()
+    {
+        return [
+          SemesterFixtures::class,
+        ];
     }
 }
