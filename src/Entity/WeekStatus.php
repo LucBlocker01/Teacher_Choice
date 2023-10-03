@@ -33,9 +33,6 @@ class WeekStatus
     #[ORM\Column]
     private ?bool $internship = null;
 
-    #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: Week::class)]
-    private Collection $weeks;
-
     #[ORM\ManyToOne(inversedBy: 'WeekStatus')]
     private ?Semester $semester = null;
 
@@ -91,28 +88,6 @@ class WeekStatus
     public function getWeeks(): Collection
     {
         return $this->weeks;
-    }
-
-    public function addWeek(Week $week): static
-    {
-        if (!$this->weeks->contains($week)) {
-            $this->weeks->add($week);
-            $week->setWeekStatus($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWeek(Week $week): static
-    {
-        if ($this->weeks->removeElement($week)) {
-            // set the owning side to null (unless already changed)
-            if ($week->getWeekStatus() === $this) {
-                $week->setWeekStatus(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getSemester(): ?Semester
