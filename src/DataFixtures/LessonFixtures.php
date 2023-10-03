@@ -17,7 +17,6 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
     {
         $subjects = SubjectFactory::all();
         $subjectsName = json_decode(file_get_contents(__DIR__.'/data/Subject.json'), true);
-
         foreach ($subjects as $subject) {
             $tabSubjects = [$subject];
 
@@ -27,7 +26,7 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
                 $tabSubjects[] = $subject2;
             }
 
-            $nameLesson = array_rand($subjectsName, 1);
+            $nameLesson = $subjectsName[array_rand($subjectsName, 1)]['name'];
             $multipleSubjectOrNot = random_int(0, 1);
             if (1 == $multipleSubjectOrNot) {
                 LessonFactory::createOne([
