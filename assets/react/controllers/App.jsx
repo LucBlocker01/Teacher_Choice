@@ -1,10 +1,14 @@
 import React from "react";
+import Header from "../components/Header";
+import {Button} from "@mui/material";
 
 function App() {
     return (
-        <div>
-            <h1>React App</h1>
-        </div>
+        <>
+            <Header></Header>
+            <Button>Emettre ses voeux</Button>
+            <Button>Consulter son EDT</Button>
+        </>
     );
 }
 
