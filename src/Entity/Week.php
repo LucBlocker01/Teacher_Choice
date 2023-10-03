@@ -30,9 +30,13 @@ class Week
     #[ORM\OneToMany(mappedBy: 'week', targetEntity: LessonPlanning::class)]
     private Collection $lessonPlannings;
 
+    #[ORM\OneToMany(mappedBy: 'week', targetEntity: WeekStatus::class)]
+    private Collection $weeksStatus;
+
     public function __construct()
     {
         $this->lessonPlannings = new ArrayCollection();
+        $this->weeksStatus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +80,36 @@ class Week
             // set the owning side to null (unless already changed)
             if ($lessonPlanning->getWeek() === $this) {
                 $lessonPlanning->setWeek(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WeekStatus>
+     */
+    public function getWeeksStatus(): Collection
+    {
+        return $this->weeksStatus;
+    }
+
+    public function addWeeksStatus(WeekStatus $weeksStatus): static
+    {
+        if (!$this->weeksStatus->contains($weeksStatus)) {
+            $this->weeksStatus->add($weeksStatus);
+            $weeksStatus->setWeek($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWeeksStatus(WeekStatus $weeksStatus): static
+    {
+        if ($this->weeksStatus->removeElement($weeksStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($weeksStatus->getWeek() === $this) {
+                $weeksStatus->setWeek(null);
             }
         }
 

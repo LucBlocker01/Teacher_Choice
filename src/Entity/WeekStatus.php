@@ -36,6 +36,10 @@ class WeekStatus
     #[ORM\ManyToOne(inversedBy: 'WeekStatus')]
     private ?Semester $semester = null;
 
+    #[ORM\ManyToOne(inversedBy: 'weeksStatus')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Week $week = null;
+
     public function __construct()
     {
         $this->weeks = new ArrayCollection();
@@ -98,6 +102,18 @@ class WeekStatus
     public function setSemester(?Semester $semester): static
     {
         $this->semester = $semester;
+
+        return $this;
+    }
+
+    public function getWeek(): ?Week
+    {
+        return $this->week;
+    }
+
+    public function setWeek(?Week $week): static
+    {
+        $this->week = $week;
 
         return $this;
     }
