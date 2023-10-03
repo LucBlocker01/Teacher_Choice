@@ -14,7 +14,9 @@ class WeekStatusFixtures extends Fixture implements DependentFixtureInterface
     {
         $weeks = WeekFactory::all();
         foreach ($weeks as $week) {
-            WeekStatusFactory::createOne();
+            WeekStatusFactory::createOne([
+                'week' => $week,
+            ]);
         }
     }
 
