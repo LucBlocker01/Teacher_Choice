@@ -85,6 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Me', 'get_User'])]
     private ?Status $status = null;
 
     #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: Choice::class)]

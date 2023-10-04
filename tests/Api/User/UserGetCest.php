@@ -3,6 +3,7 @@
 namespace App\Tests\Api\User;
 
 use App\Entity\User;
+use App\Factory\StatusFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
 
@@ -16,12 +17,14 @@ class UserGetCest
             'roles' => 'array',
             'lastname' => 'string',
             'firstname' => 'string',
+            'status' => 'string',
         ];
     }
 
     public function anonymousUserGetSimpleUserElement(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $data = [
             'login' => 'user1',
         ];
@@ -40,6 +43,7 @@ class UserGetCest
     public function authenticatedUserGetSimpleUserElementForOthers(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $data = [
             'login' => 'user1',
         ];

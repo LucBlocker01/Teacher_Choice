@@ -3,6 +3,7 @@
 namespace App\Tests\Api\User;
 
 use App\Entity\User;
+use App\Factory\StatusFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
 use Codeception\Util\HttpCode;
@@ -17,14 +18,15 @@ class UserPutCest
             'roles' => 'array',
             'firstname' => 'string',
             'lastname' => 'string',
+            'status' => 'string',
         ];
     }
 
     public function anonymousUserForbiddenToPutUser(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         UserFactory::createOne();
-
         // 2. 'Act'
         $I->sendPut('/api/users/1');
 
@@ -35,6 +37,7 @@ class UserPutCest
     public function authenticatedUserForbiddenToPutOtherUser(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $user = UserFactory::createOne()->object();
         UserFactory::createOne();
         $I->amLoggedInAs($user);
@@ -49,6 +52,7 @@ class UserPutCest
     public function authenticatedUserCanPutOwnData(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $dataInit = [
             'login' => 'user1',
             'password' => 'password',
@@ -74,6 +78,7 @@ class UserPutCest
     public function authenticatedUserCanChangeHisPassword(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $dataInit = [
             'login' => 'user',
             'password' => 'password',
