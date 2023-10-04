@@ -1,4 +1,5 @@
 <?php
+<<<<<<< tests/Api/Week/WeekGetCest.php
 
 namespace App\Tests\Api\Week;
 
