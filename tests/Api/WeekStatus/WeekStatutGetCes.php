@@ -41,7 +41,7 @@ class WeekStatutGetCes
         $I->seeResponseIsAnItem(self::expectedProperties(), $data);
     }
 
-    public function getWeeks(ApiTester $I): void
+    public function getWeekStatuses(ApiTester $I): void
     {
         // 1. 'Arrange'
         SemesterFactory::createMany(3);
