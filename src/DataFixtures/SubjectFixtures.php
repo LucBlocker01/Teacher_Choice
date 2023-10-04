@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Factory\SemesterFactory;
 use App\Factory\SubjectFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class SubjectFixtures extends Fixture
+class SubjectFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @throws \Exception
@@ -23,7 +24,7 @@ class SubjectFixtures extends Fixture
                 for ($ele = 1; $ele <= 14; ++$ele) {
                     SubjectFactory::createOne([
                         'name' => 'MR'.$semesterNumber.sprintf("%'.02d", $ele),
-                        'semester' => SemesterFactory::new(),
+                        'semester' => SemesterFactory::random(),
                         'speciality' => null,
                     ]);
                 }
@@ -36,11 +37,18 @@ class SubjectFixtures extends Fixture
                     }
                     SubjectFactory::createOne([
                         'name' => 'MR'.$semesterNumber.sprintf("%'.02d", $ele).$specialities[$rand],
-                        'semester' => SemesterFactory::new(),
+                        'semester' => SemesterFactory::random(),
                         'speciality' => $speciality,
                     ]);
                 }
             }
         }
+    }
+
+    public function getDependencies()
+    {
+        return [
+          SemesterFixtures::class,
+        ];
     }
 }

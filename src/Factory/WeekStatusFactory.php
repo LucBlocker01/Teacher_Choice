@@ -50,6 +50,8 @@ final class WeekStatusFactory extends ModelFactory
             'holiday' => self::faker()->boolean(),
             'internship' => self::faker()->boolean(),
             'work_study' => self::faker()->boolean(),
+            'week' => WeekFactory::random(),
+            'semester' => SemesterFactory::random(),
         ];
     }
 

@@ -33,15 +33,19 @@ class WeekStatus
     #[ORM\Column]
     private ?bool $internship = null;
 
-    #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: Week::class)]
-    private Collection $weeks;
-
     #[ORM\ManyToOne(inversedBy: 'WeekStatus')]
     private ?Semester $semester = null;
 
+    #[ORM\ManyToOne(inversedBy: 'weeksStatus')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Week $week = null;
+
+    #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: LessonPlanning::class)]
+    private Collection $lessonPlannings;
+
     public function __construct()
     {
-        $this->weeks = new ArrayCollection();
+        $this->lessonPlannings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,28 +97,6 @@ class WeekStatus
         return $this->weeks;
     }
 
-    public function addWeek(Week $week): static
-    {
-        if (!$this->weeks->contains($week)) {
-            $this->weeks->add($week);
-            $week->setWeekStatus($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWeek(Week $week): static
-    {
-        if ($this->weeks->removeElement($week)) {
-            // set the owning side to null (unless already changed)
-            if ($week->getWeekStatus() === $this) {
-                $week->setWeekStatus(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSemester(): ?Semester
     {
         return $this->semester;
@@ -123,6 +105,48 @@ class WeekStatus
     public function setSemester(?Semester $semester): static
     {
         $this->semester = $semester;
+
+        return $this;
+    }
+
+    public function getWeek(): ?Week
+    {
+        return $this->week;
+    }
+
+    public function setWeek(?Week $week): static
+    {
+        $this->week = $week;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LessonPlanning>
+     */
+    public function getLessonPlannings(): Collection
+    {
+        return $this->lessonPlannings;
+    }
+
+    public function addLessonPlanning(LessonPlanning $lessonPlanning): static
+    {
+        if (!$this->lessonPlannings->contains($lessonPlanning)) {
+            $this->lessonPlannings->add($lessonPlanning);
+            $lessonPlanning->setWeekStatus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLessonPlanning(LessonPlanning $lessonPlanning): static
+    {
+        if ($this->lessonPlannings->removeElement($lessonPlanning)) {
+            // set the owning side to null (unless already changed)
+            if ($lessonPlanning->getWeekStatus() === $this) {
+                $lessonPlanning->setWeekStatus(null);
+            }
+        }
 
         return $this;
     }

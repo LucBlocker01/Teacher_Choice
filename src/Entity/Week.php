@@ -27,15 +27,12 @@ class Week
     #[ORM\Column]
     private ?int $weekNum = null;
 
-    #[ORM\OneToMany(mappedBy: 'week', targetEntity: LessonPlanning::class)]
-    private Collection $lessonPlannings;
-
-    #[ORM\ManyToOne(inversedBy: 'weeks')]
-    private ?WeekStatus $weekStatus = null;
+    #[ORM\OneToMany(mappedBy: 'week', targetEntity: WeekStatus::class)]
+    private Collection $weeksStatus;
 
     public function __construct()
     {
-        $this->lessonPlannings = new ArrayCollection();
+        $this->weeksStatus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,43 +53,31 @@ class Week
     }
 
     /**
-     * @return Collection<int, LessonPlanning>
+     * @return Collection<int, WeekStatus>
      */
-    public function getLessonPlannings(): Collection
+    public function getWeeksStatus(): Collection
     {
-        return $this->lessonPlannings;
+        return $this->weeksStatus;
     }
 
-    public function addLessonPlanning(LessonPlanning $lessonPlanning): static
+    public function addWeeksStatus(WeekStatus $weeksStatus): static
     {
-        if (!$this->lessonPlannings->contains($lessonPlanning)) {
-            $this->lessonPlannings->add($lessonPlanning);
-            $lessonPlanning->setWeek($this);
+        if (!$this->weeksStatus->contains($weeksStatus)) {
+            $this->weeksStatus->add($weeksStatus);
+            $weeksStatus->setWeek($this);
         }
 
         return $this;
     }
 
-    public function removeLessonPlanning(LessonPlanning $lessonPlanning): static
+    public function removeWeeksStatus(WeekStatus $weeksStatus): static
     {
-        if ($this->lessonPlannings->removeElement($lessonPlanning)) {
+        if ($this->weeksStatus->removeElement($weeksStatus)) {
             // set the owning side to null (unless already changed)
-            if ($lessonPlanning->getWeek() === $this) {
-                $lessonPlanning->setWeek(null);
+            if ($weeksStatus->getWeek() === $this) {
+                $weeksStatus->setWeek(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getWeekStatus(): ?WeekStatus
-    {
-        return $this->weekStatus;
-    }
-
-    public function setWeekStatus(?WeekStatus $weekStatus): static
-    {
-        $this->weekStatus = $weekStatus;
 
         return $this;
     }
