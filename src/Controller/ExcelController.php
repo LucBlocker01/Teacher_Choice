@@ -63,6 +63,46 @@ class ExcelController extends AbstractController
                 ++$maxCol;
             }
 
+            // Get the color of cellule for search if the week is a Work Study, Internship, Holiday.
+            $idxCheckWeek = 'G';
+            while ($idxCheckWeek != $maxCol) {
+                $color = $spreadsheet->getCell($idxCheckWeek.'1')->getStyle()->getFill()->getStartColor()->getRGB();
+
+                // Depending on the color of the cell, we define whether it is a holiday, work-study or a intership week.
+                switch ($color) {
+                    // If the color is for Holiday.
+                    case 'FFDBB6':
+                        $semesterSpecialWeek['holiday'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+
+                        if ('S5' == $title || 'S6' == $title) {
+                            $semesterSpecialWeek['workStudy'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                        }
+
+                        break;
+
+                        // If the color is for WorkStudy.
+                    case '77BC65':
+                        $semesterSpecialWeek['workStudy'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+
+                        break;
+
+                        // If the color is for Internship.
+                    case 'FF6D6D':
+                        $semesterSpecialWeek['internship'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+
+                        if ('S5' == $title || 'S6' == $title) {
+                            $semesterSpecialWeek['workStudy'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                        }
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+                ++$idxCheckWeek;
+            }
+
             // For each Row in the Spreadsheet, we get information in each cell and put it in a Array.
             for ($idxRow = 1; $idxRow <= $maxRow - 1; ++$idxRow) {
                 $rowData = [];
@@ -80,6 +120,7 @@ class ExcelController extends AbstractController
             }
 
             $data[$title] = $semesterInfo;
+            $data[$title]['specialWeek'] = $semesterSpecialWeek;
         }
 
         return $data;
