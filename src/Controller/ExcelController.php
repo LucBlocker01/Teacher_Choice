@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,5 +21,16 @@ class ExcelController extends AbstractController
     #[Route('/excel/import', name: 'app_excel_import')]
     public function import(Request $request): Response
     {
+        $fileExcel = strval($request->files->get('excel'));
+
+        if ($fileExcel) {
+            $spreadsheets = IOFactory::load($fileExcel)->getAllSheets();
+
+            // Transform Spreadsheet to Data.
+            // Data to OrganisedData.
+            // OrganisedData to Database.
+        }
+
+        return $this->redirectToRoute('app_excel');
     }
 }
