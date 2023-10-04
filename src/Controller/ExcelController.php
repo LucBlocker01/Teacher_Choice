@@ -28,9 +28,9 @@ class ExcelController extends AbstractController
             $spreadsheets = IOFactory::load($fileExcel)->getAllSheets();
 
             $data = $this->spreadsheetsToData($spreadsheets);
+            $organisedData = $this->organiseData($data);
 
-            return new JsonResponse($data);
-            // Data to OrganisedData.
+            return new JsonResponse($organisedData);
             // OrganisedData to Database.
         }
 
@@ -123,6 +123,57 @@ class ExcelController extends AbstractController
             $data[$title]['specialWeek'] = $semesterSpecialWeek;
         }
 
+        // return new JsonReponse($data);
         return $data;
+    }
+
+    public function organiseData($data): array
+    {
+        $finalData = [];
+
+        // For each Semester in $data.
+        $idxSemetre = 0;
+        foreach ($data as $semesterInfo) {
+            $tempSubject = '';
+            $tempLesson = '';
+
+            // For each Row of the Semester.
+            for ($idxRowData = 1; $idxRowData < sizeof($semesterInfo) - 1; ++$idxRowData) {
+                // Retrieve all the information of the hours for this Lesson.
+                $tabPlanning = [];
+
+                for ($idxPlanning = 6; $idxPlanning <= sizeof($semesterInfo[$idxRowData]) - 1; ++$idxPlanning) {
+                    $tabPlanning[] = [
+                        'week' => $semesterInfo[0][$idxPlanning],
+                        'nbHours' => $semesterInfo[$idxRowData][$idxPlanning],
+                    ];
+                }
+
+                // Retrieve the other information useful for the lesson.
+                $tabLessonInformation = [
+                    'group' => $semesterInfo[$idxRowData][2],
+                    'type' => $semesterInfo[$idxRowData][3],
+                    'sae' => $semesterInfo[$idxRowData][5],
+                    'planning' => $tabPlanning,
+                ];
+
+                // If the Row haven't a subject name, we reuse the old one because it concern the same Subject.
+                if ('' != $semesterInfo[$idxRowData][0]) {
+                    $tempSubject = $semesterInfo[$idxRowData][0];
+                }
+
+                // If the Row haven't a lesson name, we reuse the old one because it concern the same Lesson.
+                if ('' != $semesterInfo[$idxRowData][1]) {
+                    $tempLesson = $semesterInfo[$idxRowData][1];
+                }
+
+                // We put all the informations retrieve into the final array of Data.
+                $finalData[array_keys($data)[$idxSemetre]][$tempSubject][$tempLesson][] = $tabLessonInformation;
+            }
+
+            ++$idxSemetre;
+        }
+
+        return $finalData;
     }
 }
