@@ -17,7 +17,7 @@ class LessonTypeGetCest
         ];
     }
 
-    public function getLessonInformation(ApiTester $I): void
+    public function getLessonType(ApiTester $I): void
     {
         // 1. 'Arrange'
 
@@ -36,7 +36,7 @@ class LessonTypeGetCest
         $I->seeResponseIsAnItem(self::expectedProperties(), $data);
     }
 
-    public function getWeeks(ApiTester $I): void
+    public function getLessonTypes(ApiTester $I): void
     {
         // 1. 'Arrange'
         LessonTypeFactory::createMany(3);
