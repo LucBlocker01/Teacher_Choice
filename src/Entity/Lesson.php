@@ -30,7 +30,7 @@ class Lesson
     #[ORM\ManyToMany(targetEntity: Subject::class, inversedBy: 'lessons')]
     private Collection $subjects;
 
-    #[ORM\OneToMany(mappedBy: 'Lesson', targetEntity: LessonInformation::class)]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
     private Collection $lessonInformation;
 
     public function __construct()
