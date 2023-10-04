@@ -3,6 +3,7 @@
 namespace App\Tests\Api\User;
 
 use App\Entity\User;
+use App\Factory\StatusFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
 use Codeception\Attribute\DataProvider;
@@ -19,12 +20,14 @@ class UserPatchCest
             'roles' => 'array',
             'firstname' => 'string',
             'lastname' => 'string',
+            'status' => 'string',
         ];
     }
 
     public function anonymousUserForbiddenToPatchUser(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         UserFactory::createOne();
 
         // 2. 'Act'
@@ -37,6 +40,7 @@ class UserPatchCest
     public function authenticatedUserForbiddenToPatchOtherUser(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $user = UserFactory::createOne()->object();
         UserFactory::createOne();
         $I->amLoggedInAs($user);
@@ -51,6 +55,7 @@ class UserPatchCest
     public function authenticatedUserCanPatchOwnData(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $dataInit = [
             'login' => 'user1',
         ];
@@ -74,6 +79,7 @@ class UserPatchCest
     public function authenticatedUserCanChangeHisPassword(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $dataInit = [
             'login' => 'user',
             'password' => 'password',
@@ -117,6 +123,7 @@ class UserPatchCest
     public function invalidDataLeadsToUnprocessableEntity(ApiTester $I, Example $example): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $user = UserFactory::createOne()->object();
         $I->amLoggedInAs($user);
 
