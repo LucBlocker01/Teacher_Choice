@@ -13,8 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
 #[ApiResource(
     operations: [
-        new Get(),
-        new GetCollection(),
+        new Get(
+            security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
+        ),
+        new GetCollection(
+            security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
+        ),
     ]
 )]
 class Subject
