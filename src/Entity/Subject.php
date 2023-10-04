@@ -29,7 +29,7 @@ class Subject
 
     #[ORM\ManyToOne(inversedBy: 'subjects')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Semester $Semester = null;
+    private ?Semester $semester = null;
 
     #[ORM\ManyToMany(targetEntity: Lesson::class, mappedBy: 'subjects')]
     private Collection $lessons;
@@ -61,12 +61,12 @@ class Subject
 
     public function getSemester(): ?Semester
     {
-        return $this->Semester;
+        return $this->semester;
     }
 
-    public function setSemester(?Semester $Semester): static
+    public function setSemester(?Semester $semester): static
     {
-        $this->Semester = $Semester;
+        $this->semester = $semester;
 
         return $this;
     }

@@ -5,8 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Put;
 use App\Repository\SemesterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -39,30 +37,6 @@ use Doctrine\ORM\Mapping as ORM;
             ],
             security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
         ),
-        new Put(
-            openapiContext: [
-                'summary' => 'Replaces Semester informations with ID',
-                'description' => 'Semester informations response',
-                'responses' => [
-                    '200' => [
-                        'description' => 'new informations for semester to be returned',
-                    ],
-                ],
-            ],
-            security: "is_granted('ROLE_ADMIN')",
-        ),
-        new Patch(
-            openapiContext: [
-                'summary' => 'Modify Semester informations with ID',
-                'description' => 'Semester informations response',
-                'responses' => [
-                    '200' => [
-                        'description' => 'new informations for semester to be returned',
-                    ],
-                ],
-            ],
-            security: "is_granted('ROLE_ADMIN')",
-        ),
     ]
 )]
 class Semester
@@ -78,16 +52,16 @@ class Semester
     #[ORM\Column]
     private ?int $year = null;
 
-    #[ORM\OneToMany(mappedBy: 'Semester', targetEntity: Subject::class)]
+    #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
     private Collection $subjects;
 
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: WeekStatus::class)]
-    private Collection $WeekStatus;
+    private Collection $weekStatus;
 
     public function __construct()
     {
         $this->subjects = new ArrayCollection();
-        $this->WeekStatus = new ArrayCollection();
+        $this->weekStatus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,13 +128,13 @@ class Semester
      */
     public function getWeekStatus(): Collection
     {
-        return $this->WeekStatus;
+        return $this->weekStatus;
     }
 
     public function addWeekStatus(WeekStatus $weekStatus): static
     {
-        if (!$this->WeekStatus->contains($weekStatus)) {
-            $this->WeekStatus->add($weekStatus);
+        if (!$this->weekStatus->contains($weekStatus)) {
+            $this->weekStatus->add($weekStatus);
             $weekStatus->setSemester($this);
         }
 
@@ -169,7 +143,7 @@ class Semester
 
     public function removeWeekStatus(WeekStatus $weekStatus): static
     {
-        if ($this->WeekStatus->removeElement($weekStatus)) {
+        if ($this->weekStatus->removeElement($weekStatus)) {
             // set the owning side to null (unless already changed)
             if ($weekStatus->getSemester() === $this) {
                 $weekStatus->setSemester(null);

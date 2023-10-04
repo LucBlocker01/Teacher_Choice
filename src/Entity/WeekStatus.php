@@ -33,7 +33,7 @@ class WeekStatus
     #[ORM\Column]
     private ?bool $internship = null;
 
-    #[ORM\ManyToOne(inversedBy: 'WeekStatus')]
+    #[ORM\ManyToOne(inversedBy: 'weekStatus')]
     private ?Semester $semester = null;
 
     #[ORM\ManyToOne(inversedBy: 'weeksStatus')]
@@ -87,14 +87,6 @@ class WeekStatus
         $this->internship = $internship;
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Week>
-     */
-    public function getWeeks(): Collection
-    {
-        return $this->weeks;
     }
 
     public function getSemester(): ?Semester
