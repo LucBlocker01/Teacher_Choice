@@ -3,6 +3,7 @@
 namespace App\Tests\Api\User;
 
 use App\Entity\User;
+use App\Factory\StatusFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
 use Codeception\Util\HttpCode;
@@ -22,12 +23,14 @@ class UserGetMeCest
             'postcode' => 'string',
             'city' => 'string',
             'address' => 'string',
+            'status' => 'string',
         ];
     }
 
     public function authenticatedUserOnMeGetData(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         $user = UserFactory::createOne()->object();
         UserFactory::createOne();
         $I->amLoggedInAs($user);
@@ -45,6 +48,7 @@ class UserGetMeCest
     public function anonymousMeIsUnauthorized(ApiTester $I): void
     {
         // 1. 'Arrange'
+        StatusFactory::createMany(5);
         UserFactory::createOne();
 
         // 2. 'Act'
