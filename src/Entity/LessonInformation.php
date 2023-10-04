@@ -28,15 +28,15 @@ class LessonInformation
     private ?int $nbGroups = null;
 
     #[ORM\Column(length: 4, nullable: true)]
-    private ?string $SAESupport = null;
+    private ?string $saeSupport = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Lesson $Lesson = null;
+    private ?Lesson $lesson = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?LessonType $LessonType = null;
+    private ?LessonType $lessonType = null;
 
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class)]
     private Collection $lessonPlannings;
@@ -67,38 +67,38 @@ class LessonInformation
         return $this;
     }
 
-    public function getSAESupport(): ?string
+    public function getSaeSupport(): ?string
     {
-        return $this->SAESupport;
+        return $this->saeSupport;
     }
 
-    public function setSAESupport(?string $SAESupport): static
+    public function setSaeSupport(?string $saeSupport): static
     {
-        $this->SAESupport = $SAESupport;
+        $this->saeSupport = $saeSupport;
 
         return $this;
     }
 
     public function getLesson(): ?Lesson
     {
-        return $this->Lesson;
+        return $this->lesson;
     }
 
-    public function setLesson(?Lesson $Lesson): static
+    public function setLesson(?Lesson $lesson): static
     {
-        $this->Lesson = $Lesson;
+        $this->lesson = $lesson;
 
         return $this;
     }
 
     public function getLessonType(): ?LessonType
     {
-        return $this->LessonType;
+        return $this->lessonType;
     }
 
-    public function setLessonType(?LessonType $LessonType): static
+    public function setLessonType(?LessonType $lessonType): static
     {
-        $this->LessonType = $LessonType;
+        $this->lessonType = $lessonType;
 
         return $this;
     }
