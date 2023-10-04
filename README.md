@@ -43,7 +43,7 @@ composer start
 
 ``start`` : Launch the local server 
 
-``test:cs`` : Test the quality of code
+``test:cs`` : Tests the code quality
 
 ``fix:cs`` : Corrects the code
 
@@ -51,9 +51,11 @@ composer start
 
 ``test:twig`` : Test Twig files located in templates folder
 
-``test:codeception`` : Initiates the test database
+``test:codeception`` : Launch codeception tests
 
-``db`` : Delete the existing database and create a new one, using the most recent migration
+``test`` : Tests the code quality, then launch codeception tests
+
+``db`` : Deletes the existing database and create a new one, using the most recent migration
 
 ## Authentication
 
