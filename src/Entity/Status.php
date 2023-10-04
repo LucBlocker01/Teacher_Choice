@@ -28,10 +28,10 @@ class Status
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $min_hours = null;
+    private ?float $minHours = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $max_hours = null;
+    private ?float $maxHours = null;
 
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: User::class)]
     private Collection $users;
@@ -60,24 +60,24 @@ class Status
 
     public function getMinHours(): ?float
     {
-        return $this->min_hours;
+        return $this->minHours;
     }
 
-    public function setMinHours(?float $min_hours): static
+    public function setMinHours(?float $minHours): static
     {
-        $this->min_hours = $min_hours;
+        $this->minHours = $minHours;
 
         return $this;
     }
 
     public function getMaxHours(): ?float
     {
-        return $this->max_hours;
+        return $this->maxHours;
     }
 
-    public function setMaxHours(?float $max_hours): static
+    public function setMaxHours(?float $maxHours): static
     {
-        $this->max_hours = $max_hours;
+        $this->maxHours = $maxHours;
 
         return $this;
     }
