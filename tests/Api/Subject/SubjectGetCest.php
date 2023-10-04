@@ -52,4 +52,34 @@ class SubjectGetCest
 
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
+
+    public function ConnectedUserCanGetSubjectCollection(ApiTester $I): void
+    {
+        $I->amLoggedInAs(UserFactory::createOne([
+            'status' => StatusFactory::createOne(),
+        ])->object());
+
+        SubjectFactory::createOne([
+            'name' => 'MR???',
+            'semester' => SemesterFactory::createOne(),
+            'speciality' => '',
+        ]);
+
+        $I->sendGet('/api/subjects');
+
+        $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    public function AnonymousUserCannotGetSemesterCollection(ApiTester $I): void
+    {
+        SubjectFactory::createOne([
+            'name' => 'MR???',
+            'semester' => SemesterFactory::createOne(),
+            'speciality' => '',
+        ]);
+
+        $I->sendGet('/api/subjects');
+
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
 }
