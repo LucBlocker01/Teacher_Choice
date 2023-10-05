@@ -41,9 +41,16 @@ class Subject
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $speciality = null;
 
-    public function __construct()
-    {
+    public function __construct(
+        string $name = null,
+        Semester $semester = null,
+        string $speciality = null,
+    ) {
         $this->lessons = new ArrayCollection();
+
+        $this->name = $name;
+        $this->semester = $semester;
+        $this->speciality = $speciality;
     }
 
     public function getId(): ?int
