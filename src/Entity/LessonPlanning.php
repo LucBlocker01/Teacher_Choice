@@ -33,6 +33,16 @@ class LessonPlanning
     #[ORM\JoinColumn(nullable: false)]
     private ?WeekStatus $weekStatus = null;
 
+    public function __construct(
+        int $nbHours = null,
+        LessonInformation $lessonInformation = null,
+        WeekStatus $weekStatus = null,
+    ) {
+        $this->nbHours = $nbHours;
+        $this->information = $lessonInformation;
+        $this->weekStatus = $weekStatus;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
