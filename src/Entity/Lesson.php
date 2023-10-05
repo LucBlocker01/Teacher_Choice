@@ -36,10 +36,12 @@ class Lesson
 
     public function __construct(
         string $name = null,
+        Subject $subject = null,
     ) {
         $this->lessonInformation = new ArrayCollection();
 
         $this->name = $name;
+        $this->subject = $subject;
     }
 
     public function getId(): ?int
