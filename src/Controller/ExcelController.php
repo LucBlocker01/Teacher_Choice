@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Lesson;
+use App\Entity\LessonInformation;
+use App\Entity\LessonPlanning;
+use App\Entity\LessonType;
 use App\Entity\Semester;
 use App\Entity\Subject;
+use App\Entity\Week;
+use App\Entity\WeekStatus;
 use Doctrine\Persistence\ManagerRegistry;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,12 +37,11 @@ class ExcelController extends AbstractController
             $spreadsheets = IOFactory::load($fileExcel)->getAllSheets();
 
             $data = $this->spreadsheetsToData($spreadsheets);
-
-            return new JsonResponse($data);
             $organisedData = $this->organiseData($data);
 
             $this->importDataToDatabase($organisedData, $doctrine);
 
+            return new JsonResponse($organisedData);
             // OrganisedData to Database.
         }
 
@@ -78,26 +83,26 @@ class ExcelController extends AbstractController
                 switch ($color) {
                     // If the color is for Holiday.
                     case 'FFDBB6':
-                        $semesterSpecialWeek['holiday'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                        $semesterSpecialWeek[$spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue()][] = 'holiday';
 
                         if ('S5' == $title || 'S6' == $title) {
-                            $semesterSpecialWeek['workStudy'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                            $semesterSpecialWeek[$spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue()][] = 'workStudy';
                         }
 
                         break;
 
                         // If the color is for WorkStudy.
                     case '77BC65':
-                        $semesterSpecialWeek['workStudy'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                        $semesterSpecialWeek[$spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue()][] = 'workStudy';
 
                         break;
 
                         // If the color is for Internship.
                     case 'FF6D6D':
-                        $semesterSpecialWeek['internship'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                        $semesterSpecialWeek[$spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue()][] = 'internship';
 
                         if ('S5' == $title || 'S6' == $title) {
-                            $semesterSpecialWeek['workStudy'][] = $spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue();
+                            $semesterSpecialWeek[$spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue()][] = 'workStudy';
                         }
 
                         break;
@@ -142,6 +147,8 @@ class ExcelController extends AbstractController
         foreach ($data as $semesterInfo) {
             $tempSubject = '';
             $tempLesson = '';
+
+            $finalData[array_keys($data)[$idxSemetre]]['specialWeek'] = $semesterInfo['specialWeek'];
 
             // For each Row of the Semester.
             for ($idxRowData = 1; $idxRowData < sizeof($semesterInfo) - 1; ++$idxRowData) {
@@ -190,15 +197,63 @@ class ExcelController extends AbstractController
             $semester = new Semester($semesterKey, 2022);
             $doctrine->getManager()->persist($semester);
 
-            foreach ($semesterData as $subjectKey => $subjectData) {
-                $subject = new Subject($subjectKey, $semester, null);
-                $doctrine->getManager()->persist($subject);
+            foreach ($semesterData['specialWeek'] as $specialWeekKey => $specialWeek) {
+                $week = $doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $specialWeekKey]);
+                $isHoliday = false;
+                $isWorkStudy = false;
+                $isInternship = false;
 
-                /*
-                 foreach ($subjectData as $lessonKey => $lessonData) {
+                foreach ($specialWeek as $typeWeek) {
+                    switch ($typeWeek) {
+                        case 'holiday':
+                            $isHoliday = true;
+                            break;
 
+                        case 'workStudy':
+                            $isWorkStudy = true;
+                            break;
+
+                        case 'internship':
+                            $isInternship = true;
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
-                */
+
+                $weekStatus = new WeekStatus($isHoliday, $isWorkStudy, $isInternship, $semester, $week);
+                $doctrine->getManager()->persist($weekStatus);
+            }
+
+            $doctrine->getManager()->flush();
+
+            foreach ($semesterData as $subjectKey => $subjectData) {
+                if ('specialWeek' != $subjectKey) {
+                    $subject = new Subject($subjectKey, $semester, null);
+                    $doctrine->getManager()->persist($subject);
+
+                    foreach ($subjectData as $lessonKey => $lessonData) {
+                        $lesson = new Lesson($lessonKey, $subject);
+                        $doctrine->getManager()->persist($lesson);
+
+                        foreach ($lessonData as $lessonInformationData) {
+                            $lessonType = $doctrine->getRepository(LessonType::class)->findOneBy(['name' => $lessonInformationData['type']]);
+                            $lessonInformation = new LessonInformation($lessonInformationData['group'], $lessonInformationData['sae'], $lesson, $lessonType);
+                            $doctrine->getManager()->persist($lessonInformation);
+
+                            /*
+                            foreach ($lessonInformationData['planning'] as $lessonPlanningData) {
+                                $week = $doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $lessonPlanningData['week']]);
+                                $weekStatus = $doctrine->getRepository(WeekStatus::class)->findOneBy(['semester'=> $semester, 'week' => $week]);
+
+                                $lessonPlanning = new LessonPlanning(intval($lessonPlanningData['nbHours']), $lessonInformation, $weekStatus);
+                                $doctrine->getManager()->persist($lessonPlanning);
+                            }
+                            */
+                        }
+                    }
+                }
             }
         }
 
