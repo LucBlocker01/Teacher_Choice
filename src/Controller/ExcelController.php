@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Semester;
+use App\Entity\Subject;
 use Doctrine\Persistence\ManagerRegistry;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +31,12 @@ class ExcelController extends AbstractController
             $spreadsheets = IOFactory::load($fileExcel)->getAllSheets();
 
             $data = $this->spreadsheetsToData($spreadsheets);
+
+            return new JsonResponse($data);
             $organisedData = $this->organiseData($data);
 
             $this->importDataToDatabase($organisedData, $doctrine);
 
-            return new JsonResponse($organisedData);
             // OrganisedData to Database.
         }
 
@@ -182,5 +185,23 @@ class ExcelController extends AbstractController
 
     public function importDataToDatabase(array $data, ManagerRegistry $doctrine)
     {
+        // For each Semester in the data, we create one.
+        foreach ($data as $semesterKey => $semesterData) {
+            $semester = new Semester($semesterKey, 2022);
+            $doctrine->getManager()->persist($semester);
+
+            foreach ($semesterData as $subjectKey => $subjectData) {
+                $subject = new Subject($subjectKey, $semester, null);
+                $doctrine->getManager()->persist($subject);
+
+                /*
+                 foreach ($subjectData as $lessonKey => $lessonData) {
+
+                }
+                */
+            }
+        }
+
+        $doctrine->getManager()->flush();
     }
 }
