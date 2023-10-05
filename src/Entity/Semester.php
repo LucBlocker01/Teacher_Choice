@@ -58,8 +58,12 @@ class Semester
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: WeekStatus::class)]
     private Collection $weekStatus;
 
-    public function __construct()
-    {
+    public function __construct(
+        $name = null,
+        $year = null,
+    ) {
+        $this->name = $name;
+        $this->year = $year;
         $this->subjects = new ArrayCollection();
         $this->weekStatus = new ArrayCollection();
     }
