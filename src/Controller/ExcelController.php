@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +21,7 @@ class ExcelController extends AbstractController
     }
 
     #[Route('/excel/import', name: 'app_excel_import')]
-    public function import(Request $request): Response
+    public function import(Request $request, ManagerRegistry $doctrine): Response
     {
         $fileExcel = strval($request->files->get('excel'));
 
@@ -29,6 +30,8 @@ class ExcelController extends AbstractController
 
             $data = $this->spreadsheetsToData($spreadsheets);
             $organisedData = $this->organiseData($data);
+
+            $this->importDataToDatabase($organisedData, $doctrine);
 
             return new JsonResponse($organisedData);
             // OrganisedData to Database.
@@ -175,5 +178,9 @@ class ExcelController extends AbstractController
         }
 
         return $finalData;
+    }
+
+    public function importDataToDatabase(array $data, ManagerRegistry $doctrine)
+    {
     }
 }
