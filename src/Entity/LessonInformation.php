@@ -44,10 +44,19 @@ class LessonInformation
     #[ORM\OneToMany(mappedBy: 'lessonInformation', targetEntity: Choice::class)]
     private Collection $choices;
 
-    public function __construct()
-    {
+    public function __construct(
+        int $nbGroups = null,
+        string $saeSupport = null,
+        Lesson $lesson = null,
+        LessonType $lessonType = null,
+    ) {
         $this->lessonPlannings = new ArrayCollection();
         $this->choices = new ArrayCollection();
+
+        $this->nbGroups = $nbGroups;
+        $this->saeSupport = $saeSupport;
+        $this->lesson = $lesson;
+        $this->lessonType = $lessonType;
     }
 
     public function getId(): ?int
