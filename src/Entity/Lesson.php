@@ -33,10 +33,13 @@ class Lesson
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
     private Collection $lessonInformation;
 
-    public function __construct()
-    {
+    public function __construct(
+        string $name = null,
+    ) {
         $this->subjects = new ArrayCollection();
         $this->lessonInformation = new ArrayCollection();
+
+        $this->name = $name;
     }
 
     public function getId(): ?int
