@@ -6,6 +6,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\SubjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
@@ -36,6 +38,9 @@ class Subject
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $speciality = null;
 
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Lesson::class)]
+    private Collection $lessons;
+
     public function __construct(
         string $name = null,
         Semester $semester = null,
@@ -44,6 +49,7 @@ class Subject
         $this->name = $name;
         $this->semester = $semester;
         $this->speciality = $speciality;
+        $this->lessons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +89,36 @@ class Subject
     public function setSpeciality(?string $speciality): static
     {
         $this->speciality = $speciality;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lesson>
+     */
+    public function getLessons(): Collection
+    {
+        return $this->lessons;
+    }
+
+    public function addLesson(Lesson $lesson): static
+    {
+        if (!$this->lessons->contains($lesson)) {
+            $this->lessons->add($lesson);
+            $lesson->setSubject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): static
+    {
+        if ($this->lessons->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getSubject() === $this) {
+                $lesson->setSubject(null);
+            }
+        }
 
         return $this;
     }

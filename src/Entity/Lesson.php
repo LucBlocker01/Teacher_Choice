@@ -30,6 +30,10 @@ class Lesson
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
     private Collection $lessonInformation;
 
+    #[ORM\ManyToOne(inversedBy: 'lessons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Subject $subject = null;
+
     public function __construct(
         string $name = null,
     ) {
@@ -81,6 +85,18 @@ class Lesson
                 $lessonInformation->setLesson(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?Subject $subject): static
+    {
+        $this->subject = $subject;
 
         return $this;
     }
