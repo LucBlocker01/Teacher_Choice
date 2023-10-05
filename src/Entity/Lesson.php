@@ -27,16 +27,12 @@ class Lesson
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Subject::class, inversedBy: 'lessons')]
-    private Collection $subjects;
-
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
     private Collection $lessonInformation;
 
     public function __construct(
         string $name = null,
     ) {
-        $this->subjects = new ArrayCollection();
         $this->lessonInformation = new ArrayCollection();
 
         $this->name = $name;
@@ -55,30 +51,6 @@ class Lesson
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Subject>
-     */
-    public function getSubjects(): Collection
-    {
-        return $this->subjects;
-    }
-
-    public function addSubject(Subject $subject): static
-    {
-        if (!$this->subjects->contains($subject)) {
-            $this->subjects->add($subject);
-        }
-
-        return $this;
-    }
-
-    public function removeSubject(Subject $subject): static
-    {
-        $this->subjects->removeElement($subject);
 
         return $this;
     }
