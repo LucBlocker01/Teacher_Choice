@@ -43,9 +43,20 @@ class WeekStatus
     #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: LessonPlanning::class)]
     private Collection $lessonPlannings;
 
-    public function __construct()
-    {
+    public function __construct(
+        bool $holiday = null,
+        bool $work_study = null,
+        bool $internship = null,
+        Semester $semester = null,
+        Week $week = null,
+    ) {
         $this->lessonPlannings = new ArrayCollection();
+
+        $this->holiday = $holiday;
+        $this->work_study = $work_study;
+        $this->internship = $internship;
+        $this->semester = $semester;
+        $this->week = $week;
     }
 
     public function getId(): ?int
