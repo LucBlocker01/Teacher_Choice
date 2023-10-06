@@ -1,7 +1,8 @@
 import React from "react";
-function ChoiceItem() {
+function ChoiceItem({ data }) {
+    // data -> nbGroupSelected, year, lessonInformation
     return (
-        <div></div>
+        <div>{data.nbGroupSelected}</div>
     );
 }
 
