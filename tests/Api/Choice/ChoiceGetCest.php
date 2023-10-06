@@ -77,4 +77,20 @@ class ChoiceGetCest
         $i->seeResponseIsJson();
         $i->seeResponseIsAnEntity(Choice::class, '/api/choices/1');
     }
+
+    public function getOtherChoice(ApiTester $i): void
+    {
+        // Generate User
+        StatusFactory::createMany(4);
+        UserFactory::createOne(['roles' => ['ROLE_USER']]);
+
+        $this->setup();
+
+        $user = UserFactory::createOne(['roles' => ['ROLE_USER']])->object();
+        $i->amLoggedInAs($user);
+
+        $i->sendGet('/api/choices/1');
+
+        $i->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
 }
