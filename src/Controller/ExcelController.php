@@ -13,7 +13,6 @@ use App\Entity\WeekStatus;
 use Doctrine\Persistence\ManagerRegistry;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,9 +39,6 @@ class ExcelController extends AbstractController
             $organisedData = $this->organiseData($data);
 
             $this->importDataToDatabase($organisedData, $doctrine);
-
-            return new JsonResponse($organisedData);
-            // OrganisedData to Database.
         }
 
         return $this->redirectToRoute('app_excel');
@@ -240,15 +236,18 @@ class ExcelController extends AbstractController
                         foreach ($lessonData as $lessonInformationData) {
                             $lessonType = $doctrine->getRepository(LessonType::class)->findOneBy(['name' => $lessonInformationData['type']]);
                             $lessonInformation = new LessonInformation($lessonInformationData['group'], $lessonInformationData['sae'], $lesson, $lessonType);
-                            $doctrine->getManager()->persist($lessonInformation);
 
                             foreach ($lessonInformationData['planning'] as $lessonPlanningData) {
                                 $week = $doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $lessonPlanningData['week']]);
                                 $weekStatus = $doctrine->getRepository(WeekStatus::class)->findOneBy(['semester' => $semester, 'week' => $week]);
 
-                                $lessonPlanning = new LessonPlanning(intval($lessonPlanningData['nbHours']), $lessonInformation, $weekStatus);
-                                $doctrine->getManager()->persist($lessonPlanning);
+                                if (0 != intval($lessonPlanningData['nbHours']) || null != $weekStatus) {
+                                    $lessonPlanning = new LessonPlanning(intval($lessonPlanningData['nbHours']), $lessonInformation, $weekStatus);
+                                    $doctrine->getManager()->persist($lessonPlanning);
+                                }
                             }
+
+                            $doctrine->getManager()->persist($lessonInformation);
                         }
                     }
                 }

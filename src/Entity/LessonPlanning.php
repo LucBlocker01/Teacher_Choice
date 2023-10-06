@@ -30,7 +30,7 @@ class LessonPlanning
     private ?LessonInformation $information = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonPlannings')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?WeekStatus $weekStatus = null;
 
     public function __construct(
