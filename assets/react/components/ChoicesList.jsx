@@ -17,6 +17,16 @@ function ChoicesList() {
     }, []);
 
     return (
+        <Stack spacing={2} sx={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "primary.main",
+            border: 1,
+            marginBottom: 2,
+            borderRadius: "5px",
+        }}>
+            {ChoiceList}
+        </Stack>
     );
 }
 
