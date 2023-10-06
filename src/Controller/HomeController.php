@@ -17,6 +17,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/react', name: 'app_react')]
+    #[Route('/react/choices', 'app_react_choices')]
     #[IsGranted('ROLE_USER')]
     public function react(): Response
     {
