@@ -32,7 +32,6 @@ use Doctrine\ORM\Mapping as ORM;
                     ],
                 ],
             ],
-            normalizationContext: ['groups' => ['get_Me', 'get_User']],
             security: "is_granted('ROLE_USER')"
         ),
         new GetCollection(
