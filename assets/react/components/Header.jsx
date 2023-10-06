@@ -1,12 +1,21 @@
-import React from 'react'
-import {AppBar, Box, Container} from "@mui/material";
+import React, {useEffect, useState} from 'react'
+import {AppBar, Box, Button, Container} from "@mui/material";
+import useGetMe from "../hooks/useGetMe";
 
 
 function Header() {
-    return(
+    const [user, setUserData] = useState({});
+        useEffect(() => {
+            async function grabUser() {
+                await useGetMe(user, setUserData);
+            }
+            grabUser();
+        }, []);
+        console.log(user.status);
+    return (
         <Box sx={{
             mb: "100px",
-        }} >
+        }}>
 
             <AppBar sx={{
                 display: "flex",
@@ -21,7 +30,14 @@ function Header() {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
-                    <p>Hello, user</p>
+                    {user.status === "/api/statuses/1"? <Button sx={{
+                        color: "white",
+                    }}
+                    ><a href="https://localhost:8000/excel">Excel</a></Button>: null }
+
+                    <Button sx={{
+                        color: "white",
+                    }}><a href={`https://localhost:8000/profil/${user.id}`}>Profil</a></Button>
                 </Container>
 
             </AppBar>
