@@ -59,5 +59,6 @@ composer start
 
 ## Authentication
 
-username : admin
-password : test
+### Admin auth
+Username : admin \
+Password : test
