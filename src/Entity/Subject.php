@@ -35,22 +35,21 @@ class Subject
     #[ORM\JoinColumn(nullable: false)]
     private ?Semester $semester = null;
 
-    #[ORM\ManyToMany(targetEntity: Lesson::class, mappedBy: 'subjects')]
-    private Collection $lessons;
-
     #[ORM\Column(length: 1, nullable: true)]
     private ?string $speciality = null;
+
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Lesson::class)]
+    private Collection $lessons;
 
     public function __construct(
         string $name = null,
         Semester $semester = null,
         string $speciality = null,
     ) {
-        $this->lessons = new ArrayCollection();
-
         $this->name = $name;
         $this->semester = $semester;
         $this->speciality = $speciality;
+        $this->lessons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +81,18 @@ class Subject
         return $this;
     }
 
+    public function getSpeciality(): ?string
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?string $speciality): static
+    {
+        $this->speciality = $speciality;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Lesson>
      */
@@ -94,7 +105,7 @@ class Subject
     {
         if (!$this->lessons->contains($lesson)) {
             $this->lessons->add($lesson);
-            $lesson->addSubject($this);
+            $lesson->setSubject($this);
         }
 
         return $this;
@@ -103,20 +114,11 @@ class Subject
     public function removeLesson(Lesson $lesson): static
     {
         if ($this->lessons->removeElement($lesson)) {
-            $lesson->removeSubject($this);
+            // set the owning side to null (unless already changed)
+            if ($lesson->getSubject() === $this) {
+                $lesson->setSubject(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getSpeciality(): ?string
-    {
-        return $this->speciality;
-    }
-
-    public function setSpeciality(?string $speciality): static
-    {
-        $this->speciality = $speciality;
 
         return $this;
     }

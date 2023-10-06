@@ -27,19 +27,21 @@ class Lesson
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Subject::class, inversedBy: 'lessons')]
-    private Collection $subjects;
-
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
     private Collection $lessonInformation;
 
+    #[ORM\ManyToOne(inversedBy: 'lessons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Subject $subject = null;
+
     public function __construct(
         string $name = null,
+        Subject $subject = null,
     ) {
-        $this->subjects = new ArrayCollection();
         $this->lessonInformation = new ArrayCollection();
 
         $this->name = $name;
+        $this->subject = $subject;
     }
 
     public function getId(): ?int
@@ -55,30 +57,6 @@ class Lesson
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Subject>
-     */
-    public function getSubjects(): Collection
-    {
-        return $this->subjects;
-    }
-
-    public function addSubject(Subject $subject): static
-    {
-        if (!$this->subjects->contains($subject)) {
-            $this->subjects->add($subject);
-        }
-
-        return $this;
-    }
-
-    public function removeSubject(Subject $subject): static
-    {
-        $this->subjects->removeElement($subject);
 
         return $this;
     }
@@ -109,6 +87,18 @@ class Lesson
                 $lessonInformation->setLesson(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?Subject $subject): static
+    {
+        $this->subject = $subject;
 
         return $this;
     }

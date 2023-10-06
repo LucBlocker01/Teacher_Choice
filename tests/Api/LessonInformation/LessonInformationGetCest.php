@@ -12,6 +12,7 @@ use App\Factory\LessonPlanningFactory;
 use App\Factory\LessonTypeFactory;
 use App\Factory\SemesterFactory;
 use App\Factory\StatusFactory;
+use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Factory\WeekFactory;
 use App\Factory\WeekStatusFactory;
@@ -38,6 +39,7 @@ class LessonInformationGetCest
         StatusFactory::createMany(3);
         UserFactory::createOne();
         SemesterFactory::createMany(3);
+        SubjectFactory::createMany(3);
         WeekFactory::createMany(3);
         LessonFactory::createMany(3);
         LessonTypeFactory::createMany(3);
@@ -66,6 +68,7 @@ class LessonInformationGetCest
         StatusFactory::createMany(3);
         UserFactory::createOne();
         SemesterFactory::createMany(3);
+        SubjectFactory::createMany(3);
         WeekFactory::createMany(3);
         LessonFactory::createMany(3);
         LessonTypeFactory::createMany(3);
