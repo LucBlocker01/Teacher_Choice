@@ -1,5 +1,5 @@
 import React from 'react'
-import {AppBar, Box, Container} from "@mui/material";
+import {AppBar, Box, Button, Container} from "@mui/material";
 
 
 function Header() {
@@ -21,7 +21,9 @@ function Header() {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
-                    <p>Hello, user</p>
+                    <Button sx={{
+                        color:"white",
+                    }}><a>Profil</a></Button>
                 </Container>
 
             </AppBar>
