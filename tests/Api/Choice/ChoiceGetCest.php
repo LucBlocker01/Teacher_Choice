@@ -46,25 +46,30 @@ class ChoiceGetCest
         $i->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
-    public function getChoiceWithConnectedUser(ApiTester $i): void
+    public function getChoiceWithAdminUser(ApiTester $i): void
     {
         // Generate User
         StatusFactory::createMany(4);
         $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']])->object();
         $i->amLoggedInAs($user);
 
-        // Generate lesson
-        SemesterFactory::createOne();
-        WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
-        SubjectFactory::createOne();
-        LessonFactory::createOne([
-            'name' => 'Maths',
-        ]);
-        LessonTypeFactory::createMany(5);
-        LessonInformationFactory::createMany(5);
-        LessonPlanningFactory::createMany(5);
-        ChoiceFactory::createOne(['teacher' => $user]);
+        $this->setup();
+
+        $i->sendGet('/api/choices/1');
+
+        $i->seeResponseCodeIsSuccessful();
+        $i->seeResponseIsJson();
+        $i->seeResponseIsAnEntity(Choice::class, '/api/choices/1');
+    }
+
+    public function getOwnChoice(ApiTester $i): void
+    {
+        // Generate User
+        StatusFactory::createMany(4);
+        $user = UserFactory::createOne(['roles' => ['ROLE_USER']])->object();
+        $i->amLoggedInAs($user);
+
+        $this->setup();
 
         $i->sendGet('/api/choices/1');
 
