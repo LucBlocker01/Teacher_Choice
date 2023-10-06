@@ -31,7 +31,7 @@ function Header() {
                 }}>
                     <Button sx={{
                         color: "white",
-                    }}><a>Profil</a></Button>
+                    }}><a href={`https://localhost:8000/profil/${user.id}`}>Profil</a></Button>
                 </Container>
 
             </AppBar>
