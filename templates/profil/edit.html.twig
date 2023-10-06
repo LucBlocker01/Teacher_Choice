@@ -1,9 +1,17 @@
-{{ form_start(form) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
     {{ form_row(form.mail, {'label': 'Email'}) }}
     {{ form_row(form.phone, {'label': 'Phone'}) }}
     {{ form_row(form.postcode, {'label': 'Postcode'}) }}
     {{ form_row(form.city, {'label': 'City'}) }}
     {{ form_row(form.address, {'label': 'Address'}) }}
 
-<input type="submit" value="Modifier" />
-{{ form_end(form)}}
+    <input type="submit" value="Modifier" />
+    {{ form_end(form)}}
+    {{ form_end(form)}}
+
+{% endblock %}
