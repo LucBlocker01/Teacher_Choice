@@ -1,19 +1,10 @@
-import React from "react";
-import {Container} from "@mui/material";
-
+import React, {useEffect, useState} from "react";
 
 function ChoicesList() {
+    const [ ChoiceList, setChoiceList ] = useState() ;
+
     return (
-        <Container sx={{
-            display: "flex",
-            justifyContent: "center",
-            backgroundColor: "primary.main",
-            border: 1,
-            marginBottom: 2,
-            borderRadius: "5px",
-        }}>
-            ds
-        </Container>
+        <div></div>
     );
 }
 
