@@ -49,7 +49,7 @@ use Doctrine\ORM\Mapping as ORM;
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
         ),
         new Delete(
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+            security: "is_granted('ROLE_USER') and object.getTeacher() == user",
         ),
         ]
 )]
