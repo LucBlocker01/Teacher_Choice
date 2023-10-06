@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
         ),
 
         new GetCollection(
-            uriTemplate: '/api/choice/me',
+            uriTemplate: '/choice/me',
             controller: GetMyChoiceController::class,
             openapiContext: [
                 'summary' => 'get your own choice',
