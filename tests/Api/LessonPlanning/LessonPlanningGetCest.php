@@ -11,6 +11,7 @@ use App\Factory\LessonPlanningFactory;
 use App\Factory\LessonTypeFactory;
 use App\Factory\SemesterFactory;
 use App\Factory\StatusFactory;
+use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Factory\WeekFactory;
 use App\Factory\WeekStatusFactory;
@@ -31,6 +32,7 @@ class LessonPlanningGetCest
     public function anonymousUserGetLessonPlanning(ApiTester $I): void
     {
         SemesterFactory::createOne();
+        SubjectFactory::createMany(3);
         WeekFactory::createOne();
         WeekStatusFactory::createMany(3);
         LessonTypeFactory::createMany(3);
@@ -55,6 +57,7 @@ class LessonPlanningGetCest
     {
         StatusFactory::createOne();
         SemesterFactory::createOne();
+        SubjectFactory::createMany(3);
         WeekFactory::createOne();
         WeekStatusFactory::createMany(3);
         LessonTypeFactory::createMany(3);
