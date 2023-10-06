@@ -46,7 +46,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return new RedirectResponse('http://localhost:8000/api');
+        return new RedirectResponse('http://localhost:8000/react');
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));

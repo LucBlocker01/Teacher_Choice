@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Profile{% endblock %}
+
 {% block body %}
 
-    <h1>Vos information {{ user.firstname }} {{ user.lastname }}</h1>
+    <div {{ react_component('AppBar') }}></div>
+    <h1 class="title">{{ user.firstname }} {{ user.lastname }}</h1>
+    <div class="information">
+        <p class="information_text">Adresse mail : {{ user.mail }}</p>
+        <p class="information_text">Téléphone : {{ user.phone }}</p>
+        <p class="information_text">Adresse : {{ user.address }} {{ user.city }} {{ user.postcode }}</p>
+        <button onclick="location.href='/profil/'+ {{ user.id }} +'/edit'" class="button">Editer</button>
+    </div>
 
-    <p>mail : {{ user.mail }}</p>
-    <p>phone : {{ user.phone }}</p>
-    <p>adress : {{ user.address }}</p>
-    <p>city : {{ user.city }}</p>
-    <p>postcode : {{ user.postcode }}</p>
 
 {%  endblock %}
