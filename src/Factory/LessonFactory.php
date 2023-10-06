@@ -50,6 +50,7 @@ final class LessonFactory extends ModelFactory
     {
         return [
             'name' => faker()->text(25),
+            'subject' => SubjectFactory::random(),
         ];
     }
 

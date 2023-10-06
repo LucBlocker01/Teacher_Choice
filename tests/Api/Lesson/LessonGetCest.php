@@ -7,6 +7,7 @@ namespace App\Tests\Api\Lesson;
 use App\Entity\Lesson;
 use App\Factory\LessonFactory;
 use App\Factory\StatusFactory;
+use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
 
@@ -17,13 +18,14 @@ class LessonGetCest
         return [
             'id' => 'integer',
             'name' => 'string',
-            'subjects' => 'array',
+            'subject' => 'string',
             'lessonInformation' => 'array',
         ];
     }
 
     public function anonymousUserGetLessonElement(ApiTester $I): void
     {
+        SubjectFactory::createMany(3);
         $data = [
             'name' => 'test_lesson',
         ];
@@ -40,6 +42,7 @@ class LessonGetCest
     public function authenticatedUserGetLessonElement(ApiTester $I): void
     {
         StatusFactory::createMany(5);
+        SubjectFactory::createMany(3);
         $data = [
             'name' => 'test_lesson',
         ];
