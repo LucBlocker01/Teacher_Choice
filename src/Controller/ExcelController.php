@@ -242,15 +242,13 @@ class ExcelController extends AbstractController
                             $lessonInformation = new LessonInformation($lessonInformationData['group'], $lessonInformationData['sae'], $lesson, $lessonType);
                             $doctrine->getManager()->persist($lessonInformation);
 
-                            /*
                             foreach ($lessonInformationData['planning'] as $lessonPlanningData) {
                                 $week = $doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $lessonPlanningData['week']]);
-                                $weekStatus = $doctrine->getRepository(WeekStatus::class)->findOneBy(['semester'=> $semester, 'week' => $week]);
+                                $weekStatus = $doctrine->getRepository(WeekStatus::class)->findOneBy(['semester' => $semester, 'week' => $week]);
 
                                 $lessonPlanning = new LessonPlanning(intval($lessonPlanningData['nbHours']), $lessonInformation, $weekStatus);
                                 $doctrine->getManager()->persist($lessonPlanning);
                             }
-                            */
                         }
                     }
                 }
