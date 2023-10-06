@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource(
     operations: [
         new Get(
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object.getTeacher() == user",
         ),
         new GetCollection(
             uriTemplate: '/user/choice/{id}',
