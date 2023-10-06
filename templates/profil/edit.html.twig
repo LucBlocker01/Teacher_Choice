@@ -3,15 +3,16 @@
 {% block title %}Edit{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.mail, {'label': 'Email'}) }}
-    {{ form_row(form.phone, {'label': 'Phone'}) }}
-    {{ form_row(form.postcode, {'label': 'Postcode'}) }}
-    {{ form_row(form.city, {'label': 'City'}) }}
-    {{ form_row(form.address, {'label': 'Address'}) }}
-
-    <input type="submit" value="Modifier" />
-    {{ form_end(form)}}
-    {{ form_end(form)}}
+    <div {{ react_component('AppBar') }}></div>
+    <div class="form">
+        {{ form_start(form) }}
+        <div class="form_text">{{ form_row(form.mail, {'label': 'Adresse Mail : '}) }}</div>
+        <div class="form_text">{{ form_row(form.phone, {'label': 'Téléphone : '}) }}</div>
+        <div class="form_text">{{ form_row(form.address, {'label': 'Adresse : '}) }}</div>
+        <div class="form_text">{{ form_row(form.city, {'label': 'Ville : '}) }}</div>
+        <div class="form_text">{{ form_row(form.postcode, {'label': 'Code postale : '}) }}</div>
+        <input class="button" type="submit" value="Modifier" />
+        {{ form_end(form)}}
+    </div>
 
 {% endblock %}
