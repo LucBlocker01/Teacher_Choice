@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Controller\GetSubjectBySemesterController;
 use App\Repository\SubjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,15 @@ use Doctrine\ORM\Mapping as ORM;
     operations: [
         new Get(
             security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
+        ),
+        new GetCollection(
+            uriTemplate: '/subjects/semester/{id}',
+            controller: GetSubjectBySemesterController::class,
+            openapiContext: [
+                'summary' => 'get subject from a given semester',
+                'description' => 'Will return all subject of the semester given',
+            ],
+            security: "is_granted('ROLE_USER')"
         ),
         new GetCollection(
             security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
