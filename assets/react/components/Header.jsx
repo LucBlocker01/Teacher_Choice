@@ -11,6 +11,7 @@ function Header() {
             }
             grabUser();
         }, []);
+        console.log(user.status);
     return (
         <Box sx={{
             mb: "100px",
@@ -29,6 +30,11 @@ function Header() {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
+                    {user.status === "/api/statuses/1"? <Button sx={{
+                        color: "white",
+                    }}
+                    ><a href="https://localhost:8000/excel">Excel</a></Button>: null }
+
                     <Button sx={{
                         color: "white",
                     }}><a href={`https://localhost:8000/profil/${user.id}`}>Profil</a></Button>
