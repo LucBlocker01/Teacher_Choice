@@ -49,8 +49,6 @@ final class LessonInformationFactory extends ModelFactory
             'lessonType' => LessonTypeFactory::random(),
             'nbGroups' => self::faker()->randomNumber(),
             'SAESupport' => null,
-            'choices' => [],
-            'lessonPlannings' => [],
         ];
     }
 
