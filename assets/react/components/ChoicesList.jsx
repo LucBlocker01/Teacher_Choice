@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Stack} from "@mui/material";
 import {fetchMyChoice} from "../services/api/api";
+import ChoiceItem from "./ChoiceItem";
 
 
 function ChoicesList() {
