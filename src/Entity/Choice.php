@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Controller\GetChoiceByTeacherController;
+use App\Controller\GetMyChoiceController;
 use App\Repository\ChoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,6 +18,22 @@ use Doctrine\ORM\Mapping as ORM;
     operations: [
         new Get(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object.getTeacher() == user",
+        ),
+
+        new GetCollection(
+            uriTemplate: '/api/choice/me',
+            controller: GetMyChoiceController::class,
+            openapiContext: [
+                'summary' => 'get your own choice',
+                'description' => 'Will return all choices of the connected user',
+                'responses' => [
+                    '200' => [
+                        'description' => 'User logged in & choices found',
+                    ],
+                ],
+            ],
+            normalizationContext: ['groups' => ['get_Me', 'get_User']],
+            security: "is_granted('ROLE_USER')"
         ),
         new GetCollection(
             uriTemplate: '/user/choice/{id}',
@@ -33,7 +50,7 @@ use Doctrine\ORM\Mapping as ORM;
                     ],
                 ],
             ],
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')",
         ),
         new GetCollection(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
