@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import {Button, Container, createTheme, ThemeProvider} from "@mui/material";
+import {createTheme, ThemeProvider} from "@mui/material";
 import {Normal} from "../themes/Normal";
 import Home from "../components/Home";
 import {Route, Router} from "wouter";
@@ -13,6 +13,9 @@ function App() {
             <Router>
                 <Route path="/react">
                     <Home/>
+                </Route>
+                <Route path="/react/choices">
+                    <Choices></Choices>
                 </Route>
             </Router>
         </ThemeProvider>
