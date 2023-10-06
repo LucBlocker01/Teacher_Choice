@@ -40,7 +40,7 @@ use Doctrine\ORM\Mapping as ORM;
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
         ),
         new Post(
-            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
+            security: "is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN')",
         ),
         new Put(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
