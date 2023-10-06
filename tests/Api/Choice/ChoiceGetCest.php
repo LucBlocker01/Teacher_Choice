@@ -2,6 +2,7 @@
 
 namespace App\Tests\Api\Choice;
 
+use App\Entity\Choice;
 use App\Factory\ChoiceFactory;
 use App\Factory\LessonFactory;
 use App\Factory\LessonInformationFactory;
@@ -18,12 +19,8 @@ use Codeception\Util\HttpCode;
 
 class ChoiceGetCest
 {
-    public function getChoiceWithAnonymousUser(ApiTester $i): void
+    protected static function setup(): void
     {
-        // Generate User
-        StatusFactory::createMany(4);
-        UserFactory::createOne();
-
         // Generate lesson
         SemesterFactory::createOne();
         WeekFactory::createMany(5);
@@ -36,8 +33,43 @@ class ChoiceGetCest
         LessonInformationFactory::createMany(5);
         LessonPlanningFactory::createMany(5);
         ChoiceFactory::createOne();
+    }
+
+    public function getChoiceWithAnonymousUser(ApiTester $i): void
+    {
+        // Generate User
+        StatusFactory::createMany(4);
+        UserFactory::createOne();
+        $this->setup();
 
         $i->sendGet('/api/choices/1');
         $i->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
+
+    public function getChoiceWithConnectedUser(ApiTester $i): void
+    {
+        // Generate User
+        StatusFactory::createMany(4);
+        $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']])->object();
+        $i->amLoggedInAs($user);
+
+        // Generate lesson
+        SemesterFactory::createOne();
+        WeekFactory::createMany(5);
+        WeekStatusFactory::createMany(5);
+        SubjectFactory::createOne();
+        LessonFactory::createOne([
+            'name' => 'Maths',
+        ]);
+        LessonTypeFactory::createMany(5);
+        LessonInformationFactory::createMany(5);
+        LessonPlanningFactory::createMany(5);
+        ChoiceFactory::createOne(['teacher' => $user]);
+
+        $i->sendGet('/api/choices/1');
+
+        $i->seeResponseCodeIsSuccessful();
+        $i->seeResponseIsJson();
+        $i->seeResponseIsAnEntity(Choice::class, '/api/choices/1');
     }
 }
