@@ -62,3 +62,7 @@ composer start
 ### Admin auth
 Username : admin \
 Password : test
+
+### Teacher auth
+Username : teacher \
+Password : test
