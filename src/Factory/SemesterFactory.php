@@ -48,7 +48,7 @@ final class SemesterFactory extends ModelFactory
     {
         return [
             'name' => 'S?',
-            'year' => self::faker()->numberBetween(2021, 2023),
+            'year' => '1000/1001',
         ];
     }
 
