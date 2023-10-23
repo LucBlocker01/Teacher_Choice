@@ -11,7 +11,7 @@ function ChoicesList() {
         fetchMyChoice().then((data) => {
             setChoiceList(
                 data["hydra:member"].map((choice) => (
-                    <ChoiceItem data={choice}></ChoiceItem>
+                    <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
                 ))
             );
         });
