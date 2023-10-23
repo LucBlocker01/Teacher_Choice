@@ -20,6 +20,7 @@ class LessonGetCest
             'name' => 'string',
             'subject' => 'string',
             'lessonInformation' => 'array',
+            'tags' => 'array',
         ];
     }
 
