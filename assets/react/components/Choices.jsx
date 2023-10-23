@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Container} from "@mui/material";
+import {Box, Button, Container} from "@mui/material";
 import ChoicesList from "./ChoicesList";
 
 
@@ -10,21 +10,30 @@ function Choices() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                flexWrap: "wrap"
+                flexWrap: "wrap",
+                flexDirection: "column"
+
             }}>
                 <ChoicesList />
-                <Button sx={{
-                    border: 1,
-                    backgroundColor: "secondary.main",
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    width: "100%"
                 }}>
-                    Ajouter voeux
-                </Button>
-                <Button sx={{
-                    border: 1,
-                    backgroundColor: "secondary.main",
-                }}>
-                    Valider voeux
-                </Button>
+                    <Button sx={{
+                        border: 1,
+                        backgroundColor: "secondary.main",
+                    }}>
+                        Ajouter voeux
+                    </Button>
+                    <Button sx={{
+                        border: 1,
+                        backgroundColor: "secondary.main",
+                    }}>
+                        Valider voeux
+                    </Button>
+                </Box>
             </Container>
         </>
     );

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Stack} from "@mui/material";
+import {Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {fetchMyChoice} from "../services/api/api";
 import ChoiceItem from "./ChoiceItem";
+import Paper from "@mui/material/Paper";
 
 
 function ChoicesList() {
@@ -18,16 +19,34 @@ function ChoicesList() {
     }, []);
 
     return (
-        <Stack spacing={2} sx={{
+        <TableContainer sx={{
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "primary.main",
+            backgroundColor: "secondary.main",
             border: 1,
             marginBottom: 2,
             borderRadius: "5px",
-        }}>
-            {ChoiceList}
-        </Stack>
+            overflowX: "hidden",
+            overflowY: "auto",
+            maxHeight: "500px",
+        }} >
+            <Table sx={{
+                minWidth: 800,
+            }} size="small" aria-label="simple table">
+                <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
+                    <TableRow>
+                        <TableCell>Matière</TableCell>
+                        <TableCell align="right">Ressource</TableCell>
+                        <TableCell align="right">Nombres de groupes sélectionnés</TableCell>
+                        <TableCell align="right" />
+                        <TableCell align="right" />
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {ChoiceList}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }
 

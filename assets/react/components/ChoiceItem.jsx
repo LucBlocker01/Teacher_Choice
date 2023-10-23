@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Button, Container} from "@mui/material";
+import {Box, Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import { fetchByApiUrl } from "../services/api/api";
+
 function ChoiceItem({ data }) {
     // data -> id, nbGroupSelected, year, lessonInformation
 
     const [ lessonInformation, setLessonInformation ] = useState({}) ;
     const [ lesson, setLesson ] = useState({}) ;
     const [ subject, setSubject ] = useState({}) ;
-    const [ semester, setSemester ] = useState({}) ;
 
     useEffect(() => {
         fetchByApiUrl(data.lessonInformation).then((dataInfo) => setLessonInformation(dataInfo))
@@ -25,35 +25,19 @@ function ChoiceItem({ data }) {
         }
     }, [lesson]);
 
-    useEffect(() => {
-        if (subject.semester !== undefined) {
-            fetchByApiUrl(subject.semester).then((dataSemester) => setSemester(dataSemester))
-        }
-    }, [subject]);
-
     // console.log(lessonInformation);
     return (
-        <Container id={data.id} sx={{
-            backgroundColor: "secondary.main",
-            margin: "10px",
-            display: "flex"
-        }}>
-            <Container sx={{
-                margin: "10px",
-                display: "flex",
-                flexDirection: "column"
-            }}>
-                <div>{data.year}</div>
-                <div>{data.nbGroupSelected}</div>
-                <div>{lesson.name}</div>
-                <div>{subject.name}</div>
-                <div>{semester.name}</div>
-            </Container>
-            <Button sx={{
-                border: 1,
-                backgroundColor: "secondary.main"
-            }}>Modifier</Button>
-        </Container>
+        <TableRow>
+            <TableCell component="th" scope="row">{lesson.name}</TableCell>
+            <TableCell align="right">{subject.name}</TableCell>
+            <TableCell align="right">{data.nbGroupSelected}</TableCell>
+            <TableCell>
+                <Button sx={{ border: 1 }}>Modifier</Button>
+            </TableCell>
+            <TableCell>
+                <Button sx={{ border: 1 }}>Supprimer</Button>
+            </TableCell>
+        </TableRow>
     );
 }
 
