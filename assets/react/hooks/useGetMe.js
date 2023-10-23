@@ -2,7 +2,7 @@ import React from "react"
 
 function useGetMe(user, setUserData) {
 
-    fetch("https://localhost:8000/api/me", { credentials: 'include' })
+    fetch("/api/me", { credentials: 'include' })
         .then((response) => {
             return response.json();
         }).then((data) => {

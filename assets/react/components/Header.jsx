@@ -33,11 +33,11 @@ function Header() {
                     {user.status === "/api/statuses/1"? <Button sx={{
                         color: "white",
                     }}
-                    ><a href="https://localhost:8000/excel">Excel</a></Button>: null }
+                    ><a href="/excel">Excel</a></Button>: null }
 
                     <Button sx={{
                         color: "white",
-                    }}><a href={`https://localhost:8000/profil/${user.id}`}>Profil</a></Button>
+                    }}><a href={`/profil/${user.id}`}>Profil</a></Button>
                 </Container>
 
             </AppBar>
