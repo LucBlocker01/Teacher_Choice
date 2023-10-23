@@ -49,14 +49,14 @@ class Semester
     #[ORM\Column(length: 2)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $year = null;
-
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
     private Collection $subjects;
 
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: WeekStatus::class)]
     private Collection $weekStatus;
+
+    #[ORM\Column(length: 9)]
+    private ?string $year = null;
 
     public function __construct(
         $name = null,
@@ -81,18 +81,6 @@ class Semester
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getYear(): ?int
-    {
-        return $this->year;
-    }
-
-    public function setYear(int $year): static
-    {
-        $this->year = $year;
 
         return $this;
     }
@@ -153,6 +141,18 @@ class Semester
                 $weekStatus->setSemester(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getYear(): ?string
+    {
+        return $this->year;
+    }
+
+    public function setYear(string $year): static
+    {
+        $this->year = $year;
 
         return $this;
     }
