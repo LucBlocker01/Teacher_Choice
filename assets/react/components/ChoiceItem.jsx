@@ -8,7 +8,8 @@ function ChoiceItem({ data }) {
     const [ lessonInformation, setLessonInformation ] = useState({}) ;
     const [ lesson, setLesson ] = useState({}) ;
     const [ subject, setSubject ] = useState({}) ;
-
+    const [ type, setType ] = useState({}) ;
+    console.log(lessonInformation);
     useEffect(() => {
         fetchByApiUrl(data.lessonInformation).then((dataInfo) => setLessonInformation(dataInfo))
     }, [data]);
@@ -25,12 +26,20 @@ function ChoiceItem({ data }) {
         }
     }, [lesson]);
 
+    useEffect(() => {
+        if (lessonInformation.lessonType){
+            fetchByApiUrl(lessonInformation.lessonType).then((dataType) => setType(dataType))
+        }
+    }, [lessonInformation]);
+
     // console.log(lessonInformation);
     return (
         <TableRow>
             <TableCell component="th" scope="row">{lesson.name}</TableCell>
             <TableCell align="right">{subject.name}</TableCell>
             <TableCell align="right">{data.nbGroupSelected}</TableCell>
+            <TableCell align="right">{lessonInformation.nbGroups}</TableCell>
+            <TableCell align="right">{type.name}</TableCell>
             <TableCell>
                 <Button sx={{ border: 1 }}>Modifier</Button>
             </TableCell>

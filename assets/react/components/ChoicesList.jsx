@@ -21,23 +21,25 @@ function ChoicesList() {
     return (
         <TableContainer sx={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             backgroundColor: "secondary.main",
             border: 1,
             marginBottom: 2,
             borderRadius: "5px",
-            overflowX: "hidden",
+            overflowX: "auto",
             overflowY: "auto",
             maxHeight: "500px",
         }} >
             <Table sx={{
-                minWidth: 800,
+                minWidth: 600
             }} size="small" aria-label="simple table">
                 <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
                     <TableRow>
                         <TableCell>Matière</TableCell>
                         <TableCell align="right">Ressource</TableCell>
                         <TableCell align="right">Nombres de groupes sélectionnés</TableCell>
+                        <TableCell align="right">Nombres de groupes en tout à encadrer</TableCell>
+                        <TableCell align="right">Type de cours</TableCell>
                         <TableCell align="right" />
                         <TableCell align="right" />
                     </TableRow>
