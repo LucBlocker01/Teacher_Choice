@@ -47,7 +47,6 @@ final class TagFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'code' => self::faker()->text(30),
             'name' => self::faker()->text(150),
         ];
     }

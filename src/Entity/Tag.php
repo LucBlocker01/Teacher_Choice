@@ -17,9 +17,6 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $code = null;
-
     #[ORM\Column(length: 150)]
     private ?string $name = null;
 
@@ -34,18 +31,6 @@ class Tag
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setCode(string $code): static
-    {
-        $this->code = $code;
-
-        return $this;
     }
 
     public function getName(): ?string
