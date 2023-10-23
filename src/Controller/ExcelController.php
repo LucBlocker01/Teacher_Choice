@@ -205,9 +205,11 @@ class ExcelController extends AbstractController
 
     public function importDataToDatabase(array $data, ManagerRegistry $doctrine)
     {
+        $year = date('Y').'/'.(date('Y') + 1);
+
         // For each Semester in the data, we create one.
         foreach ($data as $semesterKey => $semesterData) {
-            $semester = new Semester($semesterKey, 2022);
+            $semester = new Semester($semesterKey, $year);
             $doctrine->getManager()->persist($semester);
 
             foreach ($semesterData['specialWeek'] as $specialWeekKey => $specialWeek) {
