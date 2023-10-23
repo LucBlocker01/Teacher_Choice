@@ -6,6 +6,8 @@ function ChoiceItem({ data }) {
 
     const [ lessonInformation, setLessonInformation ] = useState({}) ;
     const [ lesson, setLesson ] = useState({}) ;
+    const [ subject, setSubject ] = useState({}) ;
+    const [ semester, setSemester ] = useState({}) ;
 
     useEffect(() => {
         fetchByApiUrl(data.lessonInformation).then((dataInfo) => setLessonInformation(dataInfo))
@@ -13,26 +15,43 @@ function ChoiceItem({ data }) {
 
     useEffect(() => {
         if (lessonInformation.lesson !== undefined) {
-            console.log(lessonInformation.lesson);
             fetchByApiUrl(lessonInformation.lesson).then((dataLesson) => setLesson(dataLesson))
         }
     }, [lessonInformation]);
 
+    useEffect(() => {
+        if (lesson.subject !== undefined) {
+            fetchByApiUrl(lesson.subject).then((dataSubject) => setSubject(dataSubject))
+        }
+    }, [lesson]);
+
+    useEffect(() => {
+        if (subject.semester !== undefined) {
+            fetchByApiUrl(subject.semester).then((dataSemester) => setSemester(dataSemester))
+        }
+    }, [subject]);
+
     // console.log(lessonInformation);
-    console.log(lesson);
     return (
         <Container id={data.id} sx={{
             backgroundColor: "secondary.main",
-            margin: "1%"
+            margin: "10px",
+            display: "flex"
         }}>
-            <div>{data.year}</div>
-            <div>{data.nbGroupSelected}</div>
-            <div>{lessonInformation.id}</div>
+            <Container sx={{
+                margin: "10px",
+                display: "flex",
+                flexDirection: "column"
+            }}>
+                <div>{data.year}</div>
+                <div>{data.nbGroupSelected}</div>
+                <div>{lesson.name}</div>
+                <div>{subject.name}</div>
+                <div>{semester.name}</div>
+            </Container>
             <Button sx={{
                 border: 1,
-                backgroundColor: "primary.main",
-                color: "secondary.main",
-                borderColor: "secondary.main"
+                backgroundColor: "secondary.main"
             }}>Modifier</Button>
         </Container>
     );

@@ -10,7 +10,7 @@ function Choices() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                flexWrap: "wrap",
+                flexWrap: "wrap"
             }}>
                 <ChoicesList />
                 <Button sx={{
