@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {AppBar, Box, Button, Container} from "@mui/material";
+import {AppBar, Box, Button, Container, Link} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
 
 
@@ -20,6 +20,7 @@ function Header() {
             <AppBar sx={{
                 display: "flex",
                 flexDirection: "row",
+                alignItems: "center",
             }}>
                 <Container sx={{
                     m: '0'
@@ -30,14 +31,31 @@ function Header() {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
-                    {user.status === "/api/statuses/1"? <Button sx={{
+                    {user.status === "/api/statuses/1" ? <Link sx={{
+                        textDecoration: "none",
+                        mr: "3px",
+                        "&:hover" : {
+                            backgroundColor: "secondary.main",
+                            borderRadius: "4px",
+                        }
+                    }} href="/excel">
+                        <Button sx={{
+                        backgroundColor: "accent.main",
+                        color: "white",
+                        }}
+                        >Excel</Button></Link>: null }
+                    <Link sx={{
+                        textDecoration: "none",
+                        "&:hover" : {
+                            backgroundColor: "secondary.main",
+                            borderRadius: "4px",
+                        }
+                    }} href={`/profil/${user.id}`}>
+                    <Button sx={{
+                        backgroundColor: "accent.main",
                         color: "white",
                     }}
-                    ><a href="/excel">Excel</a></Button>: null }
-
-                    <Button sx={{
-                        color: "white",
-                    }}><a href={`/profil/${user.id}`}>Profil</a></Button>
+                    >Profil</Button></Link>
                 </Container>
 
             </AppBar>
