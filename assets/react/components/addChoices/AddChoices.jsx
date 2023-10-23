@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import SubjectList from "./SubjectList";
 
 // permet de gérer les onglets et de les générers
 function TabPanel({ children, value, index, ...other }) {
@@ -31,15 +32,6 @@ function AddChoices() {
   const [semesters, setSemesters] = useState(null);
 
   useEffect(() => {
-    fetchSemesters().then((data) => {
-      console.log(data["hydra:member"])
-      setSemestersList(
-        data["hydra:member"].map((semester) => (
-          <SemesterItem key={semester.id} data={semester} />
-        ))
-      );
-    });
-    
     // fetch tout les semestres et les gardes en json
     fetchSemesters().then((data) => {
       setSemesters(data["hydra:member"]);
@@ -65,8 +57,7 @@ function AddChoices() {
 
       {semesters.map((semester, index) => (
         <TabPanel key={semester.id} value={currentTab} index={index}>
-          {semester.year}
-          {index}
+          <SubjectList data={semester.id} />
         </TabPanel>
       ))}
     </div>
