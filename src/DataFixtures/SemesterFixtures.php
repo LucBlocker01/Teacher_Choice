@@ -10,11 +10,11 @@ class SemesterFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        SemesterFactory::createOne(['name' => 'S1', 'year' => 2023]);
-        SemesterFactory::createOne(['name' => 'S2', 'year' => 2023]);
-        SemesterFactory::createOne(['name' => 'S3', 'year' => 2023]);
-        SemesterFactory::createOne(['name' => 'S4', 'year' => 2023]);
-        SemesterFactory::createOne(['name' => 'S5', 'year' => 2023]);
-        SemesterFactory::createOne(['name' => 'S6', 'year' => 2023]);
+        SemesterFactory::createOne(['name' => 'S1', 'year' => '2020/2021']);
+        SemesterFactory::createOne(['name' => 'S2', 'year' => '2020/2021']);
+        SemesterFactory::createOne(['name' => 'S3', 'year' => '2020/2021']);
+        SemesterFactory::createOne(['name' => 'S4', 'year' => '2020/2021']);
+        SemesterFactory::createOne(['name' => 'S5', 'year' => '2020/2021']);
+        SemesterFactory::createOne(['name' => 'S6', 'year' => '2020/2021']);
     }
 }
