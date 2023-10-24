@@ -45,6 +45,7 @@ class Subject
 
     #[ORM\ManyToOne(inversedBy: 'subjects')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Choice'])]
     private ?Semester $semester = null;
 
     #[ORM\Column(length: 1, nullable: true)]
