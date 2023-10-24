@@ -21,6 +21,17 @@ class ChoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Choice::class);
     }
 
+    public function getChoiceInformations(int $userId): array
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.lessonInformation', 'lI')
+            ->innerJoin('lI.lesson', 'le')
+            ->andWhere('c.teacher = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Choice[] Returns an array of Choice objects
     //     */

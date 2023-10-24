@@ -14,10 +14,13 @@ class GetMyChoiceController extends AbstractController
         $this->repository = $repository;
     }
 
-    public function __invoke(): \Doctrine\Common\Collections\Collection
+    public function __invoke(): array
     {
         if ($this->getUser()) {
-            return $this->getUser()->getChoice();
+            // return $this->getUser()->getChoice();
+            $user = $this->getUser();
+
+            return $this->repository->getChoiceInformations($user->getId());
         } else {
             throw $this->createNotFoundException('Aucun utilisateur trouvé');
         }
