@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import {createTheme, useMediaQuery} from "@mui/material";
 import {Normal} from "../themes/Normal";
 import {Dark} from "../themes/Dark";
@@ -26,3 +26,5 @@ function useTheme() {
 
     return {isNormal, theme, toggleTheme}
 }
+
+export default useTheme;

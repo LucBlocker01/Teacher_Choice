@@ -1,15 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
 import {createTheme, ThemeProvider} from "@mui/material";
-import {Normal} from "../themes/Normal";
-import {Dark} from "../themes/Dark";
+import useTheme from "../hooks/useTheme"
 import Home from "../components/Home";
 import {Route, Router} from "wouter";
 import Choices from "../components/Choices";
 import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
-    const theme = createTheme(Normal);
+    const {isNormal, theme, toggleTheme} = useTheme();
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
