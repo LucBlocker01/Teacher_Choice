@@ -3,7 +3,7 @@ import {AppBar, Box, Button, Container, Link} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
 
 
-function Header() {
+function Header({toggleTheme}) {
     const [user, setUserData] = useState({});
         useEffect(() => {
             async function grabUser() {
@@ -44,6 +44,13 @@ function Header() {
                         color: "white",
                         }}
                         >Excel</Button></Link>: null }
+                    <Button sx={{
+                        backgroundColor: "accent.main",
+                        color: "white",
+                        mr: "3px",
+                    }}
+                            onClick={toggleTheme}
+                    >Swap Theme</Button>
                     <Link sx={{
                         textDecoration: "none",
                         "&:hover" : {
