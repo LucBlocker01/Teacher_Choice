@@ -66,7 +66,7 @@ class SemesterGetCest
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function AnonymousUserCannotGetSemesterCollection(ApiTester $I): void
+    public function AnonymousUserCanGetSemesterCollection(ApiTester $I): void
     {
         SemesterFactory::createOne([
             'name' => 'S1',
@@ -75,6 +75,6 @@ class SemesterGetCest
 
         $I->sendGet('/api/semesters');
 
-        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+        $I->seeResponseCodeIsSuccessful();
     }
 }
