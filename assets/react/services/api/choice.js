@@ -7,3 +7,7 @@ export function fetchSemesters() {
 export function fetchSubjectBySemester(id) {
     return fetch(`/api/subjects/semester/${id}`).then(response => response.json());
 }
+
+export function fetchLessonBySubject(id) {
+    return fetch(`/api/lessons/subject/${id}`).then(response => response.json());
+}
