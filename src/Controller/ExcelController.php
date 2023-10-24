@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -39,6 +40,8 @@ class ExcelController extends AbstractController
 
             $data = $this->spreadsheetsToData($spreadsheets);
             $organisedData = $this->organiseData($data);
+
+            return new JsonResponse($organisedData);
 
             $this->importDataToDatabase($organisedData, $doctrine);
         }
@@ -88,7 +91,7 @@ class ExcelController extends AbstractController
             }
 
             // Get the color of cellule for search if the week is a Work Study, Internship, Holiday.
-            $idxCheckWeek = 'G';
+            $idxCheckWeek = 'F';
             while ($idxCheckWeek != $maxCol) {
                 $color = $spreadsheet->getCell($idxCheckWeek.'1')->getStyle()->getFill()->getStartColor()->getRGB();
 
@@ -160,6 +163,7 @@ class ExcelController extends AbstractController
         foreach ($data as $semesterInfo) {
             $tempSubject = '';
             $tempLesson = '';
+            $tempTag = '';
 
             $finalData[array_keys($data)[$idxSemetre]]['specialWeek'] = $semesterInfo['specialWeek'];
 
@@ -168,7 +172,7 @@ class ExcelController extends AbstractController
                 // Retrieve all the information of the hours for this Lesson.
                 $tabPlanning = [];
 
-                for ($idxPlanning = 6; $idxPlanning <= sizeof($semesterInfo[$idxRowData]) - 1; ++$idxPlanning) {
+                for ($idxPlanning = 7; $idxPlanning <= sizeof($semesterInfo[$idxRowData]) - 1; ++$idxPlanning) {
                     $tabPlanning[] = [
                         'week' => $semesterInfo[0][$idxPlanning],
                         'nbHours' => $semesterInfo[$idxRowData][$idxPlanning],
@@ -193,8 +197,15 @@ class ExcelController extends AbstractController
                     $tempLesson = $semesterInfo[$idxRowData][1];
                 }
 
+                // If the Row haven't a lesson name, we reuse the old one because it concern the same Lesson.
+                if ('' != $semesterInfo[$idxRowData][6]) {
+                    $tempTag = $semesterInfo[$idxRowData][6];
+                }
+
                 // We put all the informations retrieve into the final array of Data.
                 $finalData[array_keys($data)[$idxSemetre]][$tempSubject][$tempLesson][] = $tabLessonInformation;
+                // We put the tags in the array.
+                $finalData[array_keys($data)[$idxSemetre]][$tempSubject][$tempLesson]['tags'] = $tempTag;
             }
 
             ++$idxSemetre;
