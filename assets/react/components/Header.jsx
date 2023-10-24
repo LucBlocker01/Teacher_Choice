@@ -64,7 +64,19 @@ function Header({toggleTheme}) {
                                 backgroundColor: "accent.main",
                                 color: "white",
                             }}
-                            >Profil</Button></Link> : null}
+                            >Profil</Button></Link> :
+                        <Link sx={{
+                            textDecoration: "none",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
+                        }} href={`/login`}>
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                            }}
+                            >Se connecter</Button></Link>}
 
                 </Container>
 
