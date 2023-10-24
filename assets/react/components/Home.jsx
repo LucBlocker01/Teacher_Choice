@@ -1,5 +1,6 @@
-import {Button, Container} from "@mui/material";
+import {Button, Container, Typography} from "@mui/material";
 import React from "react";
+import {Link} from "wouter";
 
 function Home() {
     return (
@@ -9,13 +10,17 @@ function Home() {
             justifyContent: "center",
             height: "100%",
         }}>
+            <Link href="/react/choices">
             <Button sx={{
                 border: 1,
                 mt: "15%",
                 mr: "7%",
                 p: "15%",
                 backgroundColor: "secondary.main",
-            }}>Emettre ses voeux</Button>
+            }}><Typography sx={{
+                textAlign: "center",
+            }}>Emettre ses voeux</Typography></Button>
+            </Link>
             <Button sx={{
                 border: 1,
                 ml: "7%",

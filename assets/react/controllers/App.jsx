@@ -12,12 +12,8 @@ function App() {
         <ThemeProvider theme={theme}>
             <Header></Header>
             <Router>
-                <Route path="/react">
-                    <Home/>
-                </Route>
-                <Route path="/react/choices">
-                    <Choices></Choices>
-                </Route>
+                <Route path="/react" component={Home}/>
+                <Route path="/react/choices" component={Choices}/>
             </Router>
         </ThemeProvider>
     );
