@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { fetchSubjectBySemester } from "../../services/api/choice";
-import LessonItem from "./LessonItem";
+import { fetchLessonBySubject } from "../../services/api/choice";
+import LessonList from "./LessonList";
 
 function SubjectItem({ data }) {
 
@@ -8,17 +8,19 @@ function SubjectItem({ data }) {
 
     const SubjectClick = () => {
         console.log(data.id);
-        //fetchLessonBySubject a faire en back
-        fetchSubjectBySemester(1).then((data) => {
+        fetchLessonBySubject(data.id).then((data) => {
             setLessons(data["hydra:member"].map((lesson) => (
-                <LessonItem key={lesson.id} data={lesson} />
+                <LessonList key={lesson.id} data={lesson} />
             )));
         });
     }
 
   return (
-    <div className={data.id} onClick={SubjectClick}>{data.name}
-        {lessons}
+    <div className={data.id}>
+        <span onClick={SubjectClick}>{data.name}</span>
+        <div>
+            {lessons}
+        </div>
     </div>
   )
 }
