@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button} from "@mui/material";
+import {Box, Button, Table, TableContainer, TableHead, TableRow} from "@mui/material";
 import useGetSemesters from "../hooks/useGetSemesters";
 
 
@@ -36,10 +36,35 @@ function Index() {
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",
+                mb: "5px"
             }}>
                 {semestersList}
             </Box>
-            {semester !== undefined ? <p>{semester.name}</p> : null }
+            <TableContainer sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                backgroundColor: "secondary.main",
+                border: 1,
+                marginBottom: 2,
+                borderRadius: "5px",
+                overflowX: "auto",
+                overflowY: "auto",
+                maxHeight: "500px",
+            }}>
+                <Table sx={{
+                    minWidth: 600
+                }} size="small" aria-label="simple table">
+                    <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
+                        <TableRow>
+                            head
+                        </TableRow>
+                        </TableHead>
+                    <TableRow>
+                        {semester !== undefined ? <p>{semester.name}</p> : <p></p> }
+                    </TableRow>
+                </Table>
+            </TableContainer>
+
 
         </Box>
     )
