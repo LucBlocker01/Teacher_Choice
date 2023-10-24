@@ -12,4 +12,7 @@ export const Normal = {
             main: '#97537A'
         }
     },
+    typography: {
+        fontFamily: 'Lato'
+    }
 };
