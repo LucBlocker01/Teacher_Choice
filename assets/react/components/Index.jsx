@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import useGetSemesters from "../hooks/useGetSemesters";
 
 
@@ -9,7 +9,16 @@ function Index() {
         useGetSemesters().then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
-                    <Box key={semester.id}>{semester.name}</Box>
+                    <Button sx={{
+                        width: "12%",
+                        mr: "3px",
+                        fontSize: "2em",
+                        backgroundColor: "accent.main",
+                        color: "white"
+                    }}
+                            key={semester.id}>
+                        {semester.name}
+                    </Button>
                 ))
             )
         })
@@ -19,7 +28,13 @@ function Index() {
             mb: "100px",
         }}>
             <h1 className="title">Liste des matières par semestre</h1>
-            {semestersList}
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+            }}>
+                {semestersList}
+            </Box>
+
         </Box>
     )
 }
