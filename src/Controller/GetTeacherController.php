@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\User\UserInterface;
 
-class GetTeacherByIdController extends AbstractController
+class GetTeacherController extends AbstractController
 {
     private UserRepository $repository;
 
@@ -15,12 +15,15 @@ class GetTeacherByIdController extends AbstractController
         $this->repository = $repository;
     }
 
-    public function __invoke(int $id): UserInterface
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function __invoke(): array
     {
         $repository = $this->repository;
-        $teacher = $repository->teacherById($id);
-        if ($teacher) {
-            return $teacher;
+        $teachers = $repository->getTeachers();
+        if ($teachers) {
+            return $teachers;
         } else {
             throw $this->createNotFoundException('Aucun utilisateur trouvé');
         }

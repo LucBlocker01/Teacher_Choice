@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use App\Controller\GetMeController;
-use App\Controller\GetTeacherByIdController;
+use App\Controller\GetTeacherController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -54,8 +54,8 @@ use Symfony\Component\Validator\Constraints\Regex;
             security: "is_granted('ROLE_USER') and object == user",
         ),
         new GetCollection(
-            uriTemplate: '/teacher/{id}',
-            controller: GetTeacherByIdController::class,
+            uriTemplate: '/teachers',
+            controller: GetTeacherController::class,
             openapiContext: [
                 'summary' => 'get teacher by id',
                 'description' => 'Get the teacher by him id',

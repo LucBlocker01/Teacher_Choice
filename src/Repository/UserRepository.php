@@ -44,14 +44,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @throws NonUniqueResultException
      */
-    public function teacherById(int $id)
+    public function getTeachers(): array
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.status != 1')
-            ->andWhere('u.id = :id')
-            ->setParameter('id', $id)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
     }
 
     //    /**
