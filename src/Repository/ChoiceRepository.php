@@ -24,9 +24,8 @@ class ChoiceRepository extends ServiceEntityRepository
     public function getChoiceInformations(int $userId): array
     {
         return $this->createQueryBuilder('c')
-            ->leftJoin('c.lessonInformation', 'l')
-            ->innerJoin('l.lesson', 'lesson')
-            ->addSelect('lesson as lesson1')
+            ->leftJoin('c.lessonInformation', 'lI')
+            ->innerJoin('lI.lesson', 'le')
             ->andWhere('c.teacher = :userId')
             ->setParameter('userId', $userId)
             ->getQuery()
