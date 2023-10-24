@@ -4,19 +4,22 @@ import useGetSemesters from "../hooks/useGetSemesters";
 
 
 function Index() {
-    const [semester, setSemesterData] = useState(undefined);
+    const [semestersList, setSemesterList] = useState();
     useEffect(() => {
-        async function grabSemester() {
-            await useGetSemesters(semester, setSemesterData);
-        }
-        grabSemester();
+        useGetSemesters().then((data) => {
+            setSemesterList(
+                data["hydra:member"].map((semester) => (
+                    <Box key={semester.id}>{semester.name}</Box>
+                ))
+            )
+        })
     }, []);
     return(
         <Box sx={{
             mb: "100px",
         }}>
             <h1 className="title">Liste des matières par semestre</h1>
-
+            {semestersList}
         </Box>
     )
 }
