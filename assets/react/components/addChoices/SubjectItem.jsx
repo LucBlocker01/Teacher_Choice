@@ -17,7 +17,7 @@ function SubjectItem({ data }) {
     }
 
   return (
-    <div onClick={SubjectClick}>{data.name}
+    <div className={data.id} onClick={SubjectClick}>{data.name}
         {lessons}
     </div>
   )
