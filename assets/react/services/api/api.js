@@ -5,6 +5,9 @@ export function fetchMyChoice(){
 export function fetchTeacherChoice(id){
     return fetch(`/api/choice/${id}`).then((response) => response.json());
 }
+export function fetchTeacherById(id){
+    return fetch(`/api/teacher/${id}`).then((response) => response.json());
+}
 export function fetchByApiUrl(urlApi){
     return fetch(`${urlApi}`).then((response) => response.json());
 }
