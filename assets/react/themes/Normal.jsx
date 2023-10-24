@@ -1,4 +1,3 @@
-import { ThemeOptions } from '@mui/material/styles';
 
 export const Normal = {
     palette: {
@@ -9,5 +8,8 @@ export const Normal = {
         secondary: {
             main: '#E6D1DD',
         },
+        accent: {
+            main: '#97537A'
+        }
     },
 };
