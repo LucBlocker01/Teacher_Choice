@@ -52,18 +52,20 @@ function Header({toggleTheme}) {
                     }}
                             onClick={toggleTheme}
                     >Swap Theme</Button>
-                    <Link sx={{
-                        textDecoration: "none",
-                        "&:hover" : {
-                            backgroundColor: "secondary.main",
-                            borderRadius: "4px",
-                        }
-                    }} href={`/profil/${user.id}`}>
-                    <Button sx={{
-                        backgroundColor: "accent.main",
-                        color: "white",
-                    }}
-                    >Profil</Button></Link>
+                    { user.id !== undefined ?
+                        <Link sx={{
+                            textDecoration: "none",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
+                        }} href={`/profil/${user.id}`}>
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                            }}
+                            >Profil</Button></Link> : null}
+
                 </Container>
 
             </AppBar>
