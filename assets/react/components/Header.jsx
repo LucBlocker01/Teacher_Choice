@@ -11,7 +11,6 @@ function Header() {
             }
             grabUser();
         }, []);
-        console.log(user.status);
     return (
         <Box sx={{
             mb: "100px",
@@ -21,6 +20,7 @@ function Header() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                backgroundColor: "primary.main",
             }}>
                 <Container sx={{
                     m: '0'
