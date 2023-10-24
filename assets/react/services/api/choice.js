@@ -11,3 +11,13 @@ export function fetchSubjectBySemester(id) {
 export function fetchLessonBySubject(id) {
     return fetch(`/api/lessons/subject/${id}`).then(response => response.json());
 }
+
+export function postChoice(data) {
+    return fetch('/api/choices', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => response);
+}
