@@ -1,5 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    Badge,
+    Box,
+    Button,
+    Container,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
 import {deleteChoiceById, fetchByApiUrl} from "../services/api/api";
 
 function ChoiceItem({ data }) {
@@ -33,7 +44,9 @@ function ChoiceItem({ data }) {
         }
     }, [lessonInformation]);*/
 
-    //console.log(data);
+    var attributed = 'non attribué';
+
+
     return (
         <TableRow>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
@@ -41,7 +54,17 @@ function ChoiceItem({ data }) {
             <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
             <TableCell align="right">{data.nbGroupSelected}</TableCell>
             <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
-            <TableCell align="right">{data.nbGroupAttributed}</TableCell>
+            <TableCell align="right">
+                <Box sx={{
+                    margin: "1%",
+                    backgroundColor: "accent.main",
+                    color: "secondary.main",
+                    borderRadius: "5px",
+                    textAlign: "center"
+                }}>
+                    {data.nbGroupAttributed ? data.nbGroupAttributed : 'non attribué'}
+                </Box>
+            </TableCell>
             <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
             <TableCell>
                 <Button sx={{ border: 1 }}>Modifier</Button>
