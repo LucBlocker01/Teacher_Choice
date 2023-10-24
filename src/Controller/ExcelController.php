@@ -8,6 +8,7 @@ use App\Entity\LessonPlanning;
 use App\Entity\LessonType;
 use App\Entity\Semester;
 use App\Entity\Subject;
+use App\Entity\Tag;
 use App\Entity\Week;
 use App\Entity\WeekStatus;
 use Doctrine\Persistence\ManagerRegistry;
@@ -276,6 +277,22 @@ class ExcelController extends AbstractController
                                 }
 
                                 $doctrine->getManager()->persist($lessonInformation);
+                            }
+                        }
+
+                        $tabTags = explode(' / ', $lessonData['tags']);
+
+                        foreach ($tabTags as $tag) {
+                            $searchTag = $doctrine->getRepository(Tag::class)->findOneBy(['name' => $tag]);
+
+                            if (null == $searchTag) {
+                                $tagCreate = new Tag($tag);
+                                $tagCreate->addLesson($lesson);
+
+                                $doctrine->getManager()->persist($tagCreate);
+                                $doctrine->getManager()->flush();
+                            } else {
+                                $searchTag->addLesson($lesson);
                             }
                         }
                     }
