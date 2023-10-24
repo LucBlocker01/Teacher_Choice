@@ -40,7 +40,6 @@ function ChoicesList() {
                     top: 0,
                 }}>
                     <TableRow>
-
                         <TableCell>Matière</TableCell>
                         <TableCell align="right">Semestre</TableCell>
                         <TableCell align="right">Ressource</TableCell>
@@ -53,7 +52,11 @@ function ChoicesList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {ChoiceList}
+                    { ChoiceList  ?
+                        <TableRow>
+                            <TableCell align="center">Aucun voeux n'a été ajouté</TableCell>
+                        </TableRow>
+                        : ChoiceList}
                 </TableBody>
             </Table>
         </TableContainer>

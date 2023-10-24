@@ -28,7 +28,7 @@ class UserType extends AbstractType
                 'minlength' => 3,
                 'maxlength' => 100,
             ]])
-        ;
+            ->get('address')->setRequired(false);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
