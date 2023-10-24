@@ -30,6 +30,19 @@ class ExcelController extends AbstractController
         ]);
     }
 
+    #[Route('/excel/fixtures', name: 'app_excel_fixtures')]
+    public function setupExcelFixtures(ManagerRegistry $doctrine): void
+    {
+        $spreadsheets = IOFactory::load('excel/Voeux.xlsx')->getAllSheets();
+
+        $data = $this->spreadsheetsToData($spreadsheets);
+        $organisedData = $this->organiseData($data);
+
+        $this->importDataToDatabase($organisedData, $doctrine);
+
+        $this->redirectToRoute('app_excel');
+    }
+
     #[Route('/excel/import', name: 'app_excel_import')]
     public function import(Request $request, ManagerRegistry $doctrine): Response
     {
