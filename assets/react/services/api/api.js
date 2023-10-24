@@ -9,3 +9,17 @@ export function fetchByApiUrl(urlApi){
 export function deleteChoiceById(id){
     return fetch(`/api/choices/${id}`, {method: 'DELETE'}).then((response) => response.json());
 }
+
+export function modifyChoiceById(id, nb){
+    return fetch(`/api/choices/${id}`, {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/merge-patch+json"
+        },
+        method: 'PATCH',
+        body: JSON.stringify({
+            nbGroupSelected: parseInt(nb),
+        }),
+    })
+        .then((response) => response.json());
+}
