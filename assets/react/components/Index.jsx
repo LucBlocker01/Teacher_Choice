@@ -4,19 +4,24 @@ import useGetSemesters from "../hooks/useGetSemesters";
 
 
 function Index() {
+    const [semester, setSemester] = useState();
     const [semestersList, setSemesterList] = useState();
     useEffect(() => {
         useGetSemesters().then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
-                    <Button sx={{
+                    <Button
+                        sx={{
                         width: "12%",
                         mr: "3px",
                         fontSize: "2em",
                         backgroundColor: "accent.main",
                         color: "white"
                     }}
-                            key={semester.id}>
+                        key={semester.id}
+                        onClick={() => {
+                            setSemester(semester)
+                        }}>
                         {semester.name}
                     </Button>
                 ))
@@ -34,6 +39,7 @@ function Index() {
             }}>
                 {semestersList}
             </Box>
+            {semester !== undefined ? <p>{semester.name}</p> : null }
 
         </Box>
     )
