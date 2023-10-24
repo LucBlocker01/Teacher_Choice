@@ -33,13 +33,15 @@ function ChoiceItem({ data }) {
         }
     }, [lessonInformation]);*/
 
-    console.log(data);
+    //console.log(data);
     return (
         <TableRow>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
+            <TableCell align="right">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
             <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
             <TableCell align="right">{data.nbGroupSelected}</TableCell>
             <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
+            <TableCell align="right">{data.nbGroupAttributed}</TableCell>
             <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
             <TableCell>
                 <Button sx={{ border: 1 }}>Modifier</Button>
