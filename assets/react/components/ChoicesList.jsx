@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {fetchMyChoice} from "../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";

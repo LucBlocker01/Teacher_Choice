@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Button, Container} from "@mui/material";
 import ChoicesList from "./ChoicesList";
+import {Link} from "wouter";
 
 
 function Choices() {
@@ -24,15 +25,17 @@ function Choices() {
                     <Button sx={{
                         border: 1,
                         backgroundColor: "secondary.main",
-                    }}>
+                    }} >
                         Ajouter voeux
                     </Button>
-                    <Button sx={{
-                        border: 1,
-                        backgroundColor: "secondary.main",
-                    }}>
-                        Valider voeux
-                    </Button>
+                    <Link href="/react/">
+                        <Button sx={{
+                            border: 1,
+                            backgroundColor: "secondary.main",
+                        }}>
+                            Valider voeux
+                        </Button>
+                    </Link>
                 </Box>
             </Container>
         </>

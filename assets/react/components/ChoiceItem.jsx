@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {
-    Badge,
     Box,
     Button,
-    Container,
-    Table,
-    TableBody,
     TableCell,
-    TableContainer,
-    TableHead,
     TableRow
 } from "@mui/material";
-import {deleteChoiceById, fetchByApiUrl} from "../services/api/api";
+import {deleteChoiceById} from "../services/api/api";
 
 function ChoiceItem({ data }) {
     // data -> id, nbGroupSelected, year, lessonInformation
@@ -44,9 +38,6 @@ function ChoiceItem({ data }) {
         }
     }, [lessonInformation]);*/
 
-    var attributed = 'non attribué';
-
-
     return (
         <TableRow>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
@@ -58,7 +49,6 @@ function ChoiceItem({ data }) {
                 <Box sx={{
                     margin: "1%",
                     backgroundColor: "accent.main",
-                    color: "secondary.main",
                     borderRadius: "5px",
                     textAlign: "center"
                 }}>
