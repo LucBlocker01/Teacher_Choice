@@ -52,11 +52,7 @@ function ChoicesList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { ChoiceList  ?
-                        <TableRow>
-                            <TableCell align="center">Aucun voeux n'a été ajouté</TableCell>
-                        </TableRow>
-                        : ChoiceList}
+                    { ChoiceList }
                 </TableBody>
             </Table>
         </TableContainer>

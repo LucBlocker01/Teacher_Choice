@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
     Box,
-    Button,
+    Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     TableCell,
     TableRow
 } from "@mui/material";
@@ -38,34 +38,67 @@ function ChoiceItem({ data }) {
         }
     }, [lessonInformation]);*/
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleAccept = () => {
+        setOpen(false);
+        deleteChoiceById(data.id).then();
+        location.reload();
+    };
+
     return (
-        <TableRow>
-            <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
-            <TableCell align="right">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
-            <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
-            <TableCell align="right">{data.nbGroupSelected}</TableCell>
-            <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
-            <TableCell align="right">
-                <Box sx={{
-                    margin: "1%",
-                    backgroundColor: "accent.main",
-                    borderRadius: "5px",
-                    textAlign: "center"
-                }}>
-                    {data.nbGroupAttributed ? data.nbGroupAttributed : 'non attribué'}
-                </Box>
-            </TableCell>
-            <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
-            <TableCell>
-                <Button sx={{ border: 1 }}>Modifier</Button>
-            </TableCell>
-            <TableCell>
-                <Button sx={{ border: 1 }} onClick={() => {
-                    deleteChoiceById(data.id).then();
-                    location.reload();
-                }}>Supprimer</Button>
-            </TableCell>
-        </TableRow>
+        <>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">
+                    {"Supperssion"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Supprimer ce voeux pour de bon ?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Ne pas supprimer</Button>
+                    <Button onClick={handleAccept} autoFocus>
+                        Supprimer
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <TableRow>
+                <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
+                <TableCell align="right">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
+                <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
+                <TableCell align="right">{data.nbGroupSelected}</TableCell>
+                <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
+                <TableCell align="right">
+                    <Box sx={{
+                        margin: "1%",
+                        backgroundColor: "accent.main",
+                        borderRadius: "5px",
+                        textAlign: "center"
+                    }}>
+                        {data.nbGroupAttributed ? data.nbGroupAttributed : 'non attribué'}
+                    </Box>
+                </TableCell>
+                <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
+                <TableCell>
+                    <Button sx={{ border: 1 }}>Modifier</Button>
+                </TableCell>
+                <TableCell>
+                    <Button sx={{ border: 1 }} onClick={() => {
+                        handleClickOpen();
+                    }}>Supprimer</Button>
+                </TableCell>
+            </TableRow>
+        </>
     );
 }
 
