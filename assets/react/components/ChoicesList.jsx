@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {fetchMyChoice} from "../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
@@ -29,16 +29,24 @@ function ChoicesList() {
             overflowX: "auto",
             overflowY: "auto",
             maxHeight: "500px",
-        }} >
+            borderColor: "primary.main"
+        }} component={Paper}>
             <Table sx={{
-                minWidth: 600
+                minWidth: 600,
             }} size="small" aria-label="simple table">
-                <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
+                <TableHead sx={{
+                    backgroundColor: "primary.main",
+                    position:"sticky",
+                    top: 0,
+                }}>
                     <TableRow>
+
                         <TableCell>Matière</TableCell>
+                        <TableCell align="right">Semestre</TableCell>
                         <TableCell align="right">Ressource</TableCell>
                         <TableCell align="right">Nombres de groupes sélectionnés</TableCell>
                         <TableCell align="right">Nombres de groupes en tout à encadrer</TableCell>
+                        <TableCell align="right">Nombres de groupes attribués</TableCell>
                         <TableCell align="right">Type de cours</TableCell>
                         <TableCell align="right" />
                         <TableCell align="right" />

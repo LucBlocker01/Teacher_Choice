@@ -25,9 +25,12 @@ class ChoiceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.lessonInformation', 'lI')
-            ->innerJoin('lI.lesson', 'le')
+            ->leftJoin('lI.lesson', 'le')
+            ->leftJoin('le.subject', 'sub')
+            ->leftJoin('sub.semester', 'sem')
             ->andWhere('c.teacher = :userId')
             ->setParameter('userId', $userId)
+            ->orderBy('sem.name', 'ASC')
             ->getQuery()
             ->getResult();
     }

@@ -48,7 +48,7 @@ final class ChoiceFactory extends ModelFactory
     {
         return [
             'nbGroupSelected' => self::faker()->numberBetween(1, 4),
-            'nbGroupAttributed' => 0,
+            'nbGroupAttributed' => null,
             'LessonInformation' => LessonInformationFactory::random(),
             'teacher' => UserFactory::random(),
             'year' => self::faker()->numberBetween(2021, 2023),

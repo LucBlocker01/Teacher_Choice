@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {deleteChoiceById, fetchByApiUrl} from "../services/api/api";
+import {
+    Box,
+    Button,
+    TableCell,
+    TableRow
+} from "@mui/material";
+import {deleteChoiceById} from "../services/api/api";
 
 function ChoiceItem({ data }) {
     // data -> id, nbGroupSelected, year, lessonInformation
@@ -33,13 +38,23 @@ function ChoiceItem({ data }) {
         }
     }, [lessonInformation]);*/
 
-    console.log(data);
     return (
         <TableRow>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
+            <TableCell align="right">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
             <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
             <TableCell align="right">{data.nbGroupSelected}</TableCell>
             <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
+            <TableCell align="right">
+                <Box sx={{
+                    margin: "1%",
+                    backgroundColor: "accent.main",
+                    borderRadius: "5px",
+                    textAlign: "center"
+                }}>
+                    {data.nbGroupAttributed ? data.nbGroupAttributed : 'non attribué'}
+                </Box>
+            </TableCell>
             <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
             <TableCell>
                 <Button sx={{ border: 1 }}>Modifier</Button>
