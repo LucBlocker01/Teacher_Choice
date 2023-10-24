@@ -4,13 +4,13 @@ export const Dark = {
     palette: {
         mode: 'dark',
         primary: {
-            main: '#B37BB7',
+            main: '#3f2b41',
         },
         secondary: {
-            main: '#E6D1DD',
+            main: '#6b5365',
         },
         accent: {
-            main: '#97537A'
+            main: '#5b3248'
         }
     },
     components: {
