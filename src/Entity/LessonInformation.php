@@ -9,6 +9,7 @@ use App\Repository\LessonInformationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LessonInformationRepository::class)]
 #[ApiResource(
@@ -25,6 +26,7 @@ class LessonInformation
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?int $nbGroups = null;
 
     #[ORM\Column(length: 4, nullable: true)]
@@ -32,10 +34,12 @@ class LessonInformation
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Choice'])]
     private ?Lesson $lesson = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Choice'])]
     private ?LessonType $lessonType = null;
 
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class)]

@@ -12,6 +12,7 @@ use App\Controller\GetChoiceByTeacherController;
 use App\Controller\GetMyChoiceController;
 use App\Repository\ChoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ChoiceRepository::class)]
 #[ApiResource(
@@ -32,7 +33,8 @@ use Doctrine\ORM\Mapping as ORM;
                     ],
                 ],
             ],
-            security: "is_granted('ROLE_USER')"
+            normalizationContext: ['groups' => ['get_Choice']],
+            security: "is_granted('ROLE_USER')",
         ),
         new GetCollection(
             uriTemplate: '/user/choice/{id}',
@@ -70,23 +72,29 @@ class Choice
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?int $nbGroupSelected = null;
 
     #[ORM\Column(length: 4)]
+    #[Groups(['get_Choice'])]
     private ?string $year = null;
 
     #[ORM\ManyToOne(inversedBy: 'choice')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Choice'])]
     private ?User $teacher = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['get_Choice'])]
     private ?int $nbGroupAttributed = null;
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Choice'])]
     private ?LessonInformation $lessonInformation = null;
 
     public function getId(): ?int
