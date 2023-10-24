@@ -57,6 +57,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
         ),
         new Post(
+            normalizationContext: ['groups' => ['post_Choice']],
             security: "is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN')",
         ),
         new Patch(
@@ -73,20 +74,20 @@ class Choice
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice'])]
     private ?int $nbGroupSelected = null;
 
     #[ORM\Column(length: 4)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice'])]
     private ?string $year = null;
 
     #[ORM\ManyToOne(inversedBy: 'choice')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice'])]
     private ?User $teacher = null;
 
     #[ORM\Column(nullable: true)]
@@ -95,7 +96,7 @@ class Choice
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice'])]
     private ?LessonInformation $lessonInformation = null;
 
     public function getId(): ?int
