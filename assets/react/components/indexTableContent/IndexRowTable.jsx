@@ -7,12 +7,14 @@ function IndexRowTable({data}) {
     const [cell, setCell] = useState(null);
     useEffect(() => {
         fetchSubjectBySemester(data.id).then((data) => {
-            console.log(data["hydra:member"])
             setCell(data["hydra:member"].map((subject) => (
-                <TableRow>
-                <TableCell key={subject.id}>
-                    <Typography>{subject.name}</Typography>
-                </TableCell>
+                <TableRow key={subject.id}>
+                    <TableCell>
+                        <Typography>{subject.name}</Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography>{subject.lessons.map((lesson) => lesson.name)}</Typography>
+                    </TableCell>
                 </TableRow>
             )))
             })
