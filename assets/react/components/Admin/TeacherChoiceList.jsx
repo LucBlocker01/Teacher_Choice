@@ -19,6 +19,7 @@ function TeacherChoiceList({id}){
 
     return (
         <TableContainer sx={{
+            zIndex: -1,
             display: "flex",
             justifyContent: "flex-start",
             backgroundColor: "secondary.main",
