@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import '../../../public/CSS/app.css'
-import {fetchMyChoice, fetchTeachers} from "../services/api/api";
-import ChoiceItem from "./ChoiceItem";
+import '../../../../public/CSS/app.css'
+import {fetchMyChoice, fetchTeachers} from "../../services/api/api";
+import ChoiceItem from "../ChoiceItem";
 import {element} from "prop-types";
+import TeacherChoiceList from "./TeacherChoiceList";
 
 function AdminPanel() {
     const [teachers, setTeachers] = useState();
+    const [currentTeacher, setCurrentTeacher] = useState();
 
     useEffect(() => {
         fetchTeachers().then((data) => {
@@ -26,11 +28,16 @@ function AdminPanel() {
         setValue(value);
         setId(id);
     }
+
+    function HandleClick(id){
+        console.log(`HandleClick, id: ${id}`);
+        setCurrentTeacher(<TeacherChoiceList id={id}/>);
+    }
     return (
         <div className="searchBar">
             <div className="inputSearch">
                 <input type="text" value={value} onChange={handleChange} />
-                <button onClick={() => console.log(id)}>
+                <button onClick={() => HandleClick(id)}>
                     <span className="material-symbols-outlined">search</span>
                 </button>
             </div>
@@ -46,6 +53,7 @@ function AdminPanel() {
                             </li>
                         ))}
             </ul>
+            {currentTeacher}
         </div>
     );
 }
