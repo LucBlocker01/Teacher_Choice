@@ -4,16 +4,25 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Lesson;
+use App\Entity\LessonInformation;
+use App\Entity\LessonPlanning;
+use App\Entity\LessonType;
+use App\Entity\Semester;
+use App\Entity\Subject;
+use App\Entity\Tag;
+use App\Entity\Week;
+use App\Entity\WeekStatus;
+use Doctrine\Persistence\ManagerRegistry;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ExcelManager
 {
-    private EntityManagerInterface $entityManager;
+    private ManagerRegistry $doctrine;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(ManagerRegistry $doctrine)
     {
-        $this->entityManager = $entityManager;
+        $this->doctrine = $doctrine;
     }
 
     public function importExcel(string $path = 'excel/Voeux.xlsx')
@@ -21,6 +30,7 @@ class ExcelManager
         $spreadsheets = IOFactory::load($path)->getAllSheets();
         $rawData = $this->spreadsheetsToData($spreadsheets);
         $organisedData = $this->organiseData($rawData);
+        $this->importDataToDatabase($organisedData);
     }
 
     /**
@@ -171,5 +181,96 @@ class ExcelManager
         }
 
         return $finalData;
+    }
+
+    public function importDataToDatabase(array $data)
+    {
+        $year = date('Y').'/'.(date('Y') + 1);
+
+        // For each Semester in the data, we create one.
+        foreach ($data as $semesterKey => $semesterData) {
+            $semester = new Semester($semesterKey, $year);
+            $this->doctrine->getManager()->persist($semester);
+
+            foreach ($semesterData['specialWeek'] as $specialWeekKey => $specialWeek) {
+                $week = $this->doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $specialWeekKey]);
+                $isHoliday = false;
+                $isWorkStudy = false;
+                $isInternship = false;
+
+                foreach ($specialWeek as $typeWeek) {
+                    switch ($typeWeek) {
+                        case 'holiday':
+                            $isHoliday = true;
+                            break;
+
+                        case 'workStudy':
+                            $isWorkStudy = true;
+                            break;
+
+                        case 'internship':
+                            $isInternship = true;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                $weekStatus = new WeekStatus($isHoliday, $isWorkStudy, $isInternship, $semester, $week);
+                $this->doctrine->getManager()->persist($weekStatus);
+            }
+
+            $this->doctrine->getManager()->flush();
+
+            foreach ($semesterData as $subjectKey => $subjectData) {
+                if ('specialWeek' != $subjectKey) {
+                    $subject = new Subject($subjectKey, $semester, null);
+                    $this->doctrine->getManager()->persist($subject);
+
+                    foreach ($subjectData as $lessonKey => $lessonData) {
+                        $lesson = new Lesson($lessonKey, $subject);
+                        $this->doctrine->getManager()->persist($lesson);
+
+                        foreach ($lessonData as $lessonInformationKey => $lessonInformationData) {
+                            if ('tags' != $lessonInformationKey) {
+                                $lessonType = $this->doctrine->getRepository(LessonType::class)->findOneBy(['name' => $lessonInformationData['type']]);
+                                $lessonInformation = new LessonInformation($lessonInformationData['group'], $lessonInformationData['sae'], $lesson, $lessonType);
+
+                                foreach ($lessonInformationData['planning'] as $lessonPlanningData) {
+                                    $week = $this->doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $lessonPlanningData['week']]);
+                                    $weekStatus = $this->doctrine->getRepository(WeekStatus::class)->findOneBy(['semester' => $semester, 'week' => $week]);
+
+                                    if (0 != intval($lessonPlanningData['nbHours']) || null != $weekStatus) {
+                                        $lessonPlanning = new LessonPlanning(intval($lessonPlanningData['nbHours']), $lessonInformation, $weekStatus);
+                                        $this->doctrine->getManager()->persist($lessonPlanning);
+                                    }
+                                }
+
+                                $this->doctrine->getManager()->persist($lessonInformation);
+                            }
+                        }
+
+                        $tabTags = explode(' / ', $lessonData['tags']);
+
+                        foreach ($tabTags as $tag) {
+                            $searchTag = $this->doctrine->getRepository(Tag::class)->findOneBy(['name' => $tag]);
+
+                            if (null == $searchTag) {
+                                $tagCreate = new Tag($tag);
+                                $tagCreate->addLesson($lesson);
+
+                                $this->doctrine->getManager()->persist($tagCreate);
+                                $this->doctrine->getManager()->flush();
+                            } else {
+                                $searchTag->addLesson($lesson);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->doctrine->getManager()->flush();
     }
 }
