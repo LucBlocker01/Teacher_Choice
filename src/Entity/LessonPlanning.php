@@ -32,18 +32,16 @@ class LessonPlanning
     private ?LessonInformation $information = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonPlannings')]
-    #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['get_Choice'])]
-    private ?WeekStatus $weekStatus = null;
+    private ?Week $week = null;
 
     public function __construct(
         int $nbHours = null,
         LessonInformation $lessonInformation = null,
-        WeekStatus $weekStatus = null,
+        Week $week = null,
     ) {
         $this->nbHours = $nbHours;
         $this->information = $lessonInformation;
-        $this->weekStatus = $weekStatus;
+        $this->week = $week;
     }
 
     public function getId(): ?int
@@ -75,14 +73,14 @@ class LessonPlanning
         return $this;
     }
 
-    public function getWeekStatus(): ?WeekStatus
+    public function getWeek(): ?Week
     {
-        return $this->weekStatus;
+        return $this->week;
     }
 
-    public function setWeekStatus(?WeekStatus $weekStatus): static
+    public function setWeek(?Week $week): static
     {
-        $this->weekStatus = $weekStatus;
+        $this->week = $week;
 
         return $this;
     }
