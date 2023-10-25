@@ -8,6 +8,7 @@ import TeacherChoiceList from "./TeacherChoiceList";
 function AdminPanel() {
     const [teachers, setTeachers] = useState();
     const [currentTeacher, setCurrentTeacher] = useState();
+    const [TeacherName, setTeacherName] = useState();
     const [value, setValue] = useState("");
     const [id, setId] = useState();
     const [display, setDisplay] = useState({display: "content"})
@@ -33,6 +34,7 @@ function AdminPanel() {
     function HandleClick(id){
         console.log(`HandleClick, id: ${id}`);
         setCurrentTeacher(<TeacherChoiceList id={id}/>);
+        setTeacherName(<h1>{value}</h1>)
         setDisplay({display: "none"});
     }
     return (
@@ -55,6 +57,7 @@ function AdminPanel() {
                             </li>
                         ))}
             </ul>
+            {TeacherName}
             {currentTeacher}
         </div>
     );

@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {deleteChoiceById, fetchMyChoice, fetchTeacherChoice} from "../../services/api/api";
-import ChoiceItem from "../ChoiceItem";
+import TeacherChoiceItem from "./TeacherChoiceItem";
+
 
 function TeacherChoiceList({id}){
     console.log(`Teacher id : ${id}`);
@@ -11,12 +12,11 @@ function TeacherChoiceList({id}){
         fetchTeacherChoice(id).then((data) => {
             setTeacherChoiceList(
                 data["hydra:member"].map((choice) => (
-                    <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
+                    <TeacherChoiceItem key={choice.id} data={choice}></TeacherChoiceItem>
                 ))
             );
         });
     }, [id]);
-
     return (
         <TableContainer sx={{
             zIndex: -1,
@@ -40,8 +40,7 @@ function TeacherChoiceList({id}){
                         <TableCell align="right">Nombres de groupes sélectionnés</TableCell>
                         <TableCell align="right">Nombres de groupes en tout à encadrer</TableCell>
                         <TableCell align="right">Type de cours</TableCell>
-                        <TableCell align="right" />
-                        <TableCell align="right" />
+                        <TableCell align="right" >Nombre de groupes attribués</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
