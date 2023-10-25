@@ -23,8 +23,10 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Lesson::class, inversedBy: 'tags')]
     private Collection $lessons;
 
-    public function __construct()
-    {
+    public function __construct(
+        string $name = null,
+    ) {
+        $this->name = $name;
         $this->lessons = new ArrayCollection();
     }
 

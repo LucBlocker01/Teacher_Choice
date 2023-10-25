@@ -17,8 +17,8 @@ class ChoiceFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            LessonInformationFixtures::class,
             UserFixtures::class,
+            ExcelDataFixtures::class,
         ];
     }
 }
