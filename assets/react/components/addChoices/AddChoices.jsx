@@ -13,7 +13,7 @@ function TabPanel({ children, value, index, ...other }) {
     <div role="tabpanel" hidden={value !== index} {...other}>
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'} >{children}</Typography>
         </Box>
       )}
     </div>
