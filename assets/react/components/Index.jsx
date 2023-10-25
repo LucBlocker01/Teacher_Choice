@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
+import IndexRowTable from "./indexTableContent/IndexRowTable";
 
 
 function Index() {
@@ -60,9 +61,15 @@ function Index() {
                         </TableRow>
                         </TableHead>
                     <TableBody>
-                    <TableRow>
-                        {semester !== undefined ?<TableCell> {semester.name} </TableCell>:<TableCell> Aucun semestre sélectionné </TableCell> }
-                    </TableRow>
+                        {semester !== undefined ?
+                            <IndexRowTable data={semester}/> :
+                            <TableRow>
+                                <TableCell>
+                                    <Typography>Aucun semestre sélectionné</Typography>
+                                </TableCell>
+                            </TableRow>
+                        }
+
                     </TableBody>
                 </Table>
             </TableContainer>
