@@ -32,7 +32,7 @@ function Header({toggleTheme}) {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
-                    {user.status === "/api/statuses/1" ? <Link sx={{
+                    {user !== null && user.status === "/api/statuses/1" ? <Link sx={{
                         textDecoration: "none",
                         mr: "3px",
                         "&:hover" : {
@@ -52,7 +52,7 @@ function Header({toggleTheme}) {
                     }}
                             onClick={toggleTheme}
                     >Swap Theme</Button>
-                    { user.id !== undefined ?
+                    { user !== null ?
                         <Link sx={{
                             textDecoration: "none",
                             "&:hover" : {
