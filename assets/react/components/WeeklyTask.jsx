@@ -9,19 +9,18 @@ function WeeklyTask(){
     let objectWeek = [];
 
     useEffect(() => {
-        fetchAllWeeks().then((data) => {
-            data["hydra:member"].map((week) => {
-                objectWeek[week.weekNum] = 0;
-            });
-            setWeeklyTask(objectWeek);
-        } )
-    }, []);
-
-    useEffect(() => {
         fetchMyChoice().then((data) => {
             data["hydra:member"].map((choice) => {
                 choice.lessonInformation.lessonPlannings.map((lessonPlanning) => {
-                    objectWeek[lessonPlanning.weekStatus.week.weekNum] += lessonPlanning.nbHours
+                    //console.log(lessonPlanning.weekStatus.week.weekNum);
+                    var weeknum = lessonPlanning.weekStatus.week.weekNum;
+                    var semester = choice.lessonInformation.lesson.subject.semester.name;
+                    if (objectWeek[weeknum]){
+                        objectWeek[weeknum]["total"] += lessonPlanning.nbHours * choice.nbGroupSelected;
+                    } else {
+                        objectWeek[weeknum] = { "total": lessonPlanning.nbHours * choice.nbGroupSelected };
+                    }
+
                     setWeeklyTask(objectWeek);
                 })
             })
@@ -57,7 +56,7 @@ function WeeklyTask(){
                 </TableHead>
                 <TableBody>
                     <TableRow>
-
+                        <TableCell>test</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>

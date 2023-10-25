@@ -44,7 +44,8 @@ function Choices() {
                 alignItems: "center",
                 justifyContent: "space-around",
                 flexWrap: "wrap",
-                flexDirection: "column"
+                flexDirection: "column",
+                marginTop: "2%"
             }}>
                <WeeklyTask></WeeklyTask>
             </Container>
