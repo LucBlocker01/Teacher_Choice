@@ -3,7 +3,7 @@ export function fetchMyChoice(){
 }
 
 export function fetchTeacherChoice(id){
-    return fetch(`/api/choice/${id}`).then((response) => response.json());
+    return fetch(`/api/user/choice/${id}`).then((response) => response.json());
 }
 export function fetchTeachers(){
     return fetch(`/api/teachers`).then((response) => response.json());

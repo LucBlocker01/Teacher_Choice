@@ -51,6 +51,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                     ],
                 ],
             ],
+            normalizationContext: ['groups' => ['get_Choice']],
             security: "is_granted('ROLE_ADMIN')",
         ),
         new GetCollection(

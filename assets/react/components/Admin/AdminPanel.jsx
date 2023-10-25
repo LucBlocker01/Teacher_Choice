@@ -8,6 +8,9 @@ import TeacherChoiceList from "./TeacherChoiceList";
 function AdminPanel() {
     const [teachers, setTeachers] = useState();
     const [currentTeacher, setCurrentTeacher] = useState();
+    const [value, setValue] = useState("");
+    const [id, setId] = useState();
+    const [display, setDisplay] = useState("none");
 
     useEffect(() => {
         fetchTeachers().then((data) => {
@@ -16,9 +19,6 @@ function AdminPanel() {
             }));
         })
     }, []);
-
-    const [value, setValue] = useState("");
-    const [id, setId] = useState();
 
     function handleChange(event) {
         setValue(event.target.value);
@@ -32,6 +32,7 @@ function AdminPanel() {
     function HandleClick(id){
         console.log(`HandleClick, id: ${id}`);
         setCurrentTeacher(<TeacherChoiceList id={id}/>);
+
     }
     return (
         <div className="searchBar">
@@ -48,7 +49,7 @@ function AdminPanel() {
                             element[1].toLowerCase().includes(value.toLowerCase())
                         )
                         .map((element, index) => (
-                            <li onClick={() => setValues(element[0], element[1])} key={index}>
+                            <li onClick={() => setValues(element[0], element[1])} key={index} >
                                 {element[1]}
                             </li>
                         ))}

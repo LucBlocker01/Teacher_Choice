@@ -15,7 +15,7 @@ function TeacherChoiceList({id}){
                 ))
             );
         });
-    }, []);
+    }, [id]);
 
     return (
         <TableContainer sx={{
@@ -44,7 +44,7 @@ function TeacherChoiceList({id}){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {TeacherChoiceList }
+                    {TeacherChoiceList}
                 </TableBody>
             </Table>
         </TableContainer>
