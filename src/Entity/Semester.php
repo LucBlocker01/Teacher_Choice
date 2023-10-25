@@ -64,7 +64,6 @@ class Semester
         $this->name = $name;
         $this->year = $year;
         $this->subjects = new ArrayCollection();
-        $this->weekStatus = new ArrayCollection();
     }
 
     public function getId(): ?int
