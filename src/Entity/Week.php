@@ -9,12 +9,13 @@ use App\Repository\WeekRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: WeekRepository::class)]
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(paginationEnabled: false),
     ]
 )]
 class Week
@@ -25,6 +26,7 @@ class Week
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?int $weekNum = null;
 
     #[ORM\OneToMany(mappedBy: 'week', targetEntity: WeekStatus::class)]

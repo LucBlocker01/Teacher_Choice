@@ -9,6 +9,7 @@ use App\Repository\WeekStatusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: WeekStatusRepository::class)]
 #[ApiResource(
@@ -38,6 +39,7 @@ class WeekStatus
 
     #[ORM\ManyToOne(inversedBy: 'weeksStatus')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['get_Choice'])]
     private ?Week $week = null;
 
     #[ORM\OneToMany(mappedBy: 'weekStatus', targetEntity: LessonPlanning::class)]
