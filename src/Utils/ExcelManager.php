@@ -25,7 +25,7 @@ class ExcelManager
         $this->doctrine = $doctrine;
     }
 
-    public function importExcel(string $path = 'excel/Voeux.xlsx')
+    public function importExcel(string $path = 'excel/Voeux.xlsx'): void
     {
         $spreadsheets = IOFactory::load($path)->getAllSheets();
         $rawData = $this->spreadsheetsToData($spreadsheets);
@@ -235,7 +235,7 @@ class ExcelManager
                         foreach ($lessonData as $lessonInformationKey => $lessonInformationData) {
                             if ('tags' != $lessonInformationKey) {
                                 $lessonType = $this->doctrine->getRepository(LessonType::class)->findOneBy(['name' => $lessonInformationData['type']]);
-                                $lessonInformation = new LessonInformation($lessonInformationData['group'], $lessonInformationData['sae'], $lesson, $lessonType);
+                                $lessonInformation = new LessonInformation($lessonInformationData['group'], strval($lessonInformationData['sae']), $lesson, $lessonType);
 
                                 foreach ($lessonInformationData['planning'] as $lessonPlanningData) {
                                     $week = $this->doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $lessonPlanningData['week']]);
