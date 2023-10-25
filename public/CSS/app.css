@@ -21,10 +21,11 @@
 }
 
 .inputSearch input {
-    font-size: 2rem;
-    color: white;
-    border: none;
-    background-color: #1c1c1d;
+    z-index: 1;
+    font-size: 0.875rem;
+    color: black;
+    border: 1px solid black;
+    background-color: #E6D1DD;
     display: flex;
     padding: 1rem;
 }
@@ -34,15 +35,12 @@
 }
 
 .searchBar ul {
-    width: 100%;
     list-style: none;
-    background-color: #1c1c1d;
-    border-radius: 5px;
-    font-size: 2rem;
-    color: white;
-    overflow: hidden;
+    background-color: #e9e9ed;
+    font-size: 0.875rem;
+    color: black;
     position: absolute;
-    top: 5rem;
+    top: 2.5rem;
 }
 
 .searchBar ul li {
@@ -51,10 +49,10 @@
 }
 
 .searchBar ul li:hover {
-    background-color: black;
+    background-color: #d1a4be;
 }
 
 .inputSearch span {
-    color: white;
-    padding: 1rem 2rem;
+    color: black;
+    padding: 1rem;
 }

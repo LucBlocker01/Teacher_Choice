@@ -10,7 +10,7 @@ function AdminPanel() {
     const [currentTeacher, setCurrentTeacher] = useState();
     const [value, setValue] = useState("");
     const [id, setId] = useState();
-    const [display, setDisplay] = useState("none");
+    const [display, setDisplay] = useState({display: "content"})
 
     useEffect(() => {
         fetchTeachers().then((data) => {
@@ -22,6 +22,7 @@ function AdminPanel() {
 
     function handleChange(event) {
         setValue(event.target.value);
+        setDisplay({display: "content"})
     }
 
     function setValues(id, value) {
@@ -32,14 +33,14 @@ function AdminPanel() {
     function HandleClick(id){
         console.log(`HandleClick, id: ${id}`);
         setCurrentTeacher(<TeacherChoiceList id={id}/>);
-
+        setDisplay({display: "none"});
     }
     return (
         <div className="searchBar">
             <div className="inputSearch">
                 <input type="text" value={value} onChange={handleChange} />
                 <button onClick={() => HandleClick(id)}>
-                    <span className="material-symbols-outlined">search</span>
+                    <span>Rechercher</span>
                 </button>
             </div>
             <ul>
@@ -49,7 +50,7 @@ function AdminPanel() {
                             element[1].toLowerCase().includes(value.toLowerCase())
                         )
                         .map((element, index) => (
-                            <li onClick={() => setValues(element[0], element[1])} key={index} >
+                            <li onClick={() => setValues(element[0], element[1])} key={index} style={display}>
                                 {element[1]}
                             </li>
                         ))}
