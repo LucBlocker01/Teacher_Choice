@@ -26,12 +26,15 @@ class WeekStatus
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?bool $holiday = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?bool $work_study = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?bool $internship = null;
 
     #[ORM\ManyToOne(inversedBy: 'weekStatus')]
