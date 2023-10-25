@@ -1,14 +1,13 @@
 import React from "react"
 
-function useGetMe(user, setUserData) {
-
-    fetch("/api/me", { credentials: 'include' })
+function useGetMe() {
+    return fetch("/api/me", { credentials: 'include' })
         .then((response) => {
+            if (response.status === 401) {
+                return Promise.resolve(null);
+            }
             return response.json();
-        }).then((data) => {
-            setUserData(data);
         });
-    return user;
 }
 
 export default useGetMe;

@@ -26,7 +26,7 @@ class LessonType
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_Lesson'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lessonType', targetEntity: LessonInformation::class)]

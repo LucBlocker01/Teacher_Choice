@@ -6,6 +6,7 @@ import Home from "../components/Home";
 import {Route, Router} from "wouter";
 import Choices from "../components/Choices";
 import CssBaseline from '@mui/material/CssBaseline';
+import AddChoices from "../components/addChoices/AddChoices";
 
 function App() {
     const {isNormal, theme, toggleTheme} = useTheme();
@@ -16,6 +17,7 @@ function App() {
             <Router>
                 <Route path="/react" component={Home}/>
                 <Route path="/react/choices" component={Choices}/>
+                <Route path="/react/choices/add" component={AddChoices}/>
             </Router>
         </ThemeProvider>
     );

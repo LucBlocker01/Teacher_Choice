@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Controller\GetLessonBySubjectController;
 use App\Repository\LessonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new Get(),
+        new GetCollection(
+            uriTemplate: '/lessons/subject/{id}',
+            controller: GetLessonBySubjectController::class,
+            openapiContext: [
+                'summary' => 'get lessons from a given subject',
+                'description' => 'Will return all lessons of the subject given',
+            ],
+            normalizationContext: ['groups' => ['get_Lesson']],
+            security: "is_granted('ROLE_USER')",
+        ),
         new GetCollection(),
     ],
 )]
@@ -23,13 +34,15 @@ class Lesson
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_Lesson'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_Lesson'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
+    #[Groups(['get_Lesson'])]
     private Collection $lessonInformation;
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]

@@ -5,12 +5,13 @@ import useGetMe from "../hooks/useGetMe";
 
 function Header({toggleTheme}) {
     const [user, setUserData] = useState({});
-        useEffect(() => {
-            async function grabUser() {
-                await useGetMe(user, setUserData);
-            }
-            grabUser();
-        }, []);
+
+    useEffect(() => {
+        useGetMe().then((data) => {
+            setUserData(data);
+        })
+    }, [])
+
     return (
         <Box sx={{
             mb: "100px",
