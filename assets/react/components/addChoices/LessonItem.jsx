@@ -27,15 +27,22 @@ function LessonItem({data}) {
             nbGroupSelected,
             year
         }
-        postChoice(dataPost)
+
+        if (nbGroupSelected <= data.nbGroups && nbGroupSelected > 0) {
+            postChoice(dataPost);
+            console.log("bon");
+        } else {
+            console.log("erreur");
+        }
         console.log({teacher, lessonInformation, nbGroupSelected, year});
   }
 
   return (
     <div>
       {data.lessonType.name}
+        {console.log(data)}
       <form onSubmit={submitChoice}>
-        <input name='nbGroupe' type='number' placeholder='1'/>
+        <input name='nbGroupe' type='number' placeholder='1'/> / {data.nbGroups}
         <input name='userID' type='hidden' value={user.id} />
         <button type='submit'>Choisir</button>
       </form>
