@@ -28,11 +28,11 @@ function ChoicesList() {
             borderRadius: "5px",
             overflowX: "auto",
             overflowY: "auto",
-            maxHeight: "500px",
+            maxHeight: "800px",
             borderColor: "primary.main"
         }} component={Paper}>
             <Table sx={{
-                minWidth: 600,
+                minWidth: 800,
             }} size="small" aria-label="simple table">
                 <TableHead sx={{
                     backgroundColor: "primary.main",
@@ -52,11 +52,7 @@ function ChoicesList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { ChoiceList  ?
-                        <TableRow>
-                            <TableCell align="center">Aucun voeux n'a été ajouté</TableCell>
-                        </TableRow>
-                        : ChoiceList}
+                    { ChoiceList }
                 </TableBody>
             </Table>
         </TableContainer>

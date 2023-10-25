@@ -60,7 +60,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN')",
         ),
         new Patch(
-            security: "is_granted('ROLE_USER') and object.getTeacher() == user",
+            normalizationContext: ['groups' => ['patch_Choice_Admin', 'patch_Choice_User']],
+            security: "(is_granted('ROLE_USER') and object.getTeacher() == user) or is_granted('ROLE_ADMIN')"
         ),
         new Delete(
             security: "is_granted('ROLE_USER') and object.getTeacher() == user",
