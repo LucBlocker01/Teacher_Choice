@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import useGetSemesters from "../hooks/useGetSemesters";
+import {fetchSemesters} from "../services/api/choice";
 
 
 function Index() {
     const [semester, setSemester] = useState();
     const [semestersList, setSemesterList] = useState();
     useEffect(() => {
-        useGetSemesters().then((data) => {
+        fetchSemesters().then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
                     <Button
