@@ -2,6 +2,7 @@ import React from "react";
 import {Box, Button, Container} from "@mui/material";
 import ChoicesList from "./ChoicesList";
 import {Link} from "wouter";
+import WeeklyTask from "./WeeklyTask";
 
 
 function Choices() {
@@ -37,6 +38,15 @@ function Choices() {
                         </Button>
                     </Link>
                 </Box>
+            </Container>
+            <Container sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+                flexWrap: "wrap",
+                flexDirection: "column"
+            }}>
+               <WeeklyTask></WeeklyTask>
             </Container>
         </>
     );
