@@ -28,7 +28,7 @@ function ChoicesList() {
             borderRadius: "5px",
             overflowX: "auto",
             overflowY: "auto",
-            maxHeight: "800px",
+            maxHeight: "500px",
             borderColor: "primary.main"
         }} component={Paper}>
             <Table sx={{

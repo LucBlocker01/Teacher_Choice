@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\LessonPlanningRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LessonPlanningRepository::class)]
 #[ApiResource(
@@ -23,6 +24,7 @@ class LessonPlanning
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['get_Choice'])]
     private ?int $nbHours = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonPlannings')]
@@ -31,6 +33,7 @@ class LessonPlanning
 
     #[ORM\ManyToOne(inversedBy: 'lessonPlannings')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['get_Choice'])]
     private ?WeekStatus $weekStatus = null;
 
     public function __construct(

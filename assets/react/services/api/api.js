@@ -23,3 +23,7 @@ export function modifyChoiceById(id, nb){
     })
         .then((response) => response.json());
 }
+
+export function fetchAllWeeks(){
+    return fetch(`/api/weeks`).then((response) => response.json());
+}
