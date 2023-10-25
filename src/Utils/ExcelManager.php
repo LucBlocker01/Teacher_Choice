@@ -92,7 +92,9 @@ class ExcelManager
 
                         break;
 
-                    default:
+                    case 'FFFFFF':
+                        $semesterSpecialWeek[$spreadsheet->getCell($idxCheckWeek.'1')->getCalculatedValue()][] = 'lesson';
+
                         break;
                 }
 
