@@ -25,7 +25,7 @@ class ExcelManager
         $this->doctrine = $doctrine;
     }
 
-    public function importExcel(string $path = 'excel/Voeux.xlsx'): void
+    public function importExcel(string $path = 'public/excel/Voeux.xlsx'): void
     {
         $spreadsheets = IOFactory::load($path)->getAllSheets();
         $rawData = $this->spreadsheetsToData($spreadsheets);
