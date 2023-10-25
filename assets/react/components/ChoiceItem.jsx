@@ -137,6 +137,7 @@ function ChoiceItem({ data }) {
                     <Box sx={{
                         margin: "1%",
                         backgroundColor: "accent.main",
+                        color: "secondary.main",
                         borderRadius: "5px",
                         textAlign: "center"
                     }}>

@@ -28,11 +28,11 @@ function ChoicesList() {
             borderRadius: "5px",
             overflowX: "auto",
             overflowY: "auto",
-            maxHeight: "500px",
+            maxHeight: "800px",
             borderColor: "primary.main"
         }} component={Paper}>
             <Table sx={{
-                minWidth: 600,
+                minWidth: 800,
             }} size="small" aria-label="simple table">
                 <TableHead sx={{
                     backgroundColor: "primary.main",
