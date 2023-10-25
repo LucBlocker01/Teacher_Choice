@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Table, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import useGetSemesters from "../hooks/useGetSemesters";
 
 
@@ -56,12 +56,14 @@ function Index() {
                 }} size="small" aria-label="simple table">
                     <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
                         <TableRow>
-                            head
+                            <TableCell>head</TableCell>
                         </TableRow>
                         </TableHead>
+                    <TableBody>
                     <TableRow>
-                        {semester !== undefined ? <p>{semester.name}</p> : <p></p> }
+                        {semester !== undefined ?<TableCell> {semester.name} </TableCell>:<TableCell> Aucun semestre sélectionné </TableCell> }
                     </TableRow>
+                    </TableBody>
                 </Table>
             </TableContainer>
 
