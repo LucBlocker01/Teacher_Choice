@@ -64,9 +64,18 @@ function ChoiceItem({ data }) {
     };
 
     const handleAcceptEdit = () => {
-        setOpenEdit(false);
-        modifyChoiceById(data.id, document.getElementById('nbGroupSelected').value).then();
-        location.reload();
+        var nbGroups = document.getElementById('nbGroupSelected').value;
+        const nbGroupsMax = data.lessonInformation.nbGroups;
+        if (nbGroups <= nbGroupsMax && nbGroups >= 0) {
+            setOpenEdit(false);
+            modifyChoiceById(data.id, nbGroups).then();
+            location.reload();
+        } else {
+           document.getElementById("alertEdit").innerHTML = "La saisie doit être entre 0 et "+nbGroupsMax+" pour être valide !!";
+           setTimeout(()=>{
+               document.getElementById("alertEdit").innerHTML = "";
+           }, 3000);
+        }
     };
 
     return (
@@ -95,6 +104,9 @@ function ChoiceItem({ data }) {
                 <DialogContent sx={{ textAlign: "center" }}>
                     <DialogContentText id="alert-dialog-description" sx={{ marginBottom: "5%" }}>
                         Placer ici le nouveau nombre de groupes a encadrer pour ce {data.lessonInformation.lessonType.name} de {data.lessonInformation.lesson.name}
+                        <Box id="alertEdit" sx={{
+                            color: "red"
+                        }}></Box>
                     </DialogContentText>
                     <TextField
                         id="nbGroupSelected"
