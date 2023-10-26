@@ -4,23 +4,24 @@ import Paper from "@mui/material/Paper";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
 function WeeklyTask(){
-    const [ weeklyTask, setWeeklyTask ] = useState({}) ;
+    const [ weeklyTask, setWeeklyTask ] = useState({});
 
     let objectWeek = [];
+
+    useEffect(() => {
+        fetchAllWeeks().then((week) => {
+            objectWeek[week.weekNum] = 0
+            setWeeklyTask(objectWeek);
+        })
+    }, []);
 
     useEffect(() => {
         fetchMyChoice().then((data) => {
             data["hydra:member"].map((choice) => {
                 choice.lessonInformation.lessonPlannings.map((lessonPlanning) => {
-                    //console.log(lessonPlanning.weekStatus.week.weekNum);
-                    var weeknum = lessonPlanning.weekStatus.week.weekNum;
+                    var weeknum = lessonPlanning.week.weekNum;
                     var semester = choice.lessonInformation.lesson.subject.semester.name;
-                    if (objectWeek[weeknum]){
-                        objectWeek[weeknum]["total"] += lessonPlanning.nbHours * choice.nbGroupSelected;
-                    } else {
-                        objectWeek[weeknum] = { "total": lessonPlanning.nbHours * choice.nbGroupSelected };
-                    }
-
+                    objectWeek[weeknum] = lessonPlanning.nbHours * choice.nbGroupSelected;
                     setWeeklyTask(objectWeek);
                 })
             })
@@ -51,12 +52,10 @@ function WeeklyTask(){
                     top: 0,
                 }}>
                     <TableRow>
-
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow>
-                        <TableCell>test</TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
