@@ -57,7 +57,9 @@ function Index() {
                 }} size="small" aria-label="simple table">
                     <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
                         <TableRow>
-                            <TableCell>head</TableCell>
+                            <TableCell>Ressource</TableCell>
+                            <TableCell>Lessons</TableCell>
+                            <TableCell>Tags</TableCell>
                         </TableRow>
                         </TableHead>
                     <TableBody>
