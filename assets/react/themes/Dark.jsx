@@ -13,6 +13,9 @@ export const Dark = {
             main: '#5b3248'
         }
     },
+    typography: {
+        fontFamily: 'Lato'
+    },
     components: {
         MuiCssBaseline: {
             styleOverrides: (themeParam) => ({
