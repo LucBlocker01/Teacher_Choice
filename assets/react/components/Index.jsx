@@ -41,41 +41,35 @@ function Index() {
             }}>
                 {semestersList}
             </Box>
-            <TableContainer sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                backgroundColor: "secondary.main",
-                border: 1,
-                marginBottom: 2,
-                borderRadius: "5px",
-                overflowX: "auto",
-                overflowY: "auto",
-                maxHeight: "500px",
-            }}>
-                <Table sx={{
-                    minWidth: 600
-                }} size="small" aria-label="simple table">
-                    <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
-                        <TableRow>
-                            <TableCell>Ressource</TableCell>
-                            <TableCell>Lessons</TableCell>
-                            <TableCell>Tags</TableCell>
-                        </TableRow>
-                        </TableHead>
-                    <TableBody>
-                        {semester !== undefined ?
-                            <IndexRowTable data={semester}/> :
+            {semester !== undefined ?
+                <TableContainer sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    backgroundColor: "secondary.main",
+                    border: 1,
+                    marginBottom: 2,
+                    borderRadius: "5px",
+                    overflowX: "auto",
+                    overflowY: "auto",
+                    maxHeight: "500px",
+                }}>
+                    <Table sx={{
+                        minWidth: 600
+                    }} size="small" aria-label="simple table">
+                        <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
                             <TableRow>
-                                <TableCell>
-                                    <Typography>Aucun semestre sélectionné</Typography>
-                                </TableCell>
+                                <TableCell>Ressource</TableCell>
+                                <TableCell>Lessons</TableCell>
+                                <TableCell>Tags</TableCell>
                             </TableRow>
-                        }
-
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
+                        </TableHead>
+                        <TableBody>
+                                <IndexRowTable data={semester}/>
+                        </TableBody>
+                    </Table>
+                </TableContainer> :
+                        <Typography>Aucun semestre sélectionné</Typography>
+            }
 
         </Box>
     )
