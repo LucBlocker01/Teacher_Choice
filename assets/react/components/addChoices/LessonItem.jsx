@@ -1,23 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import useGetMe from "../../hooks/useGetMe";
+import React, { useState } from 'react'
 import {postChoice} from "../../services/api/choice";
 import {Alert, Button, Container, Snackbar, TextField} from "@mui/material";
 
-function LessonItem({data}) {
-
-    const [user, setUser] = useState(useGetMe());
+function LessonItem({data, user}) {
     //useState lié au snackbar
     const [open, setOpen] = useState(false);
     const [snackBarType, setSnackBarType] = useState("success");
     const [message, setMessage] = useState("Votre choix a bien été pris en compte");
     //useState lié a l'accordéon
 
-    //User
-    useEffect(() => {
-        useGetMe().then((data) => {
-            setUser(data);
-        })
-    }, [])
+    const inputNbGroup = "Nombre de groupe | "+data.nbGroups;
+    console.log(user);
     const submitChoice = (event) => {
         event.preventDefault();
         console.log(event.target);
@@ -25,7 +18,7 @@ function LessonItem({data}) {
         const lessonInformation = data["@id"];
         const nbGroupSelectedTemp = event.target[0].value;
         const nbGroupSelected = parseInt(nbGroupSelectedTemp);
-        const teacher = "/api/users/"+event.target[2].value;
+        const teacher = "/api/users/"+user.id;
         const dataPost = {
             teacher,
             lessonInformation,
@@ -55,12 +48,11 @@ function LessonItem({data}) {
   return (
     <Container sx={{margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px"}}>
       {data.lessonType.name}
-        {console.log(data)}
       <form onSubmit={submitChoice} style={{display: "flex"}}>
           <TextField
             id="nbGroupe"
             name="nbGroupe"
-            label="Nombre de groupe |"
+            label={inputNbGroup}
             type="number"
             InputLabelProps={{
                 shrink: true,
@@ -71,7 +63,6 @@ function LessonItem({data}) {
           <Button
               type="submit"
               label="Submit"
-              primary={true}
               sx={{
                   border: 1,
                   backgroundColor: "secondary.main",
