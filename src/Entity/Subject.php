@@ -26,7 +26,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'description' => 'Will return all subject of the semester given',
             ],
             normalizationContext: ['groups' => ['get_SubjectBySemester']],
-            security: "is_granted('ROLE_USER')"
         ),
         new GetCollection(
             security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
