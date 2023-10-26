@@ -52,6 +52,13 @@ function Index() {
             }}>
                 {semestersList}
             </Box>
+            <Container sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+                flexWrap: "wrap",
+                flexDirection: "column"
+            }}>
             {semester !== undefined ?
                 <TableContainer sx={{
                     display: "flex",
@@ -65,7 +72,7 @@ function Index() {
                     maxHeight: "500px",
                 }}>
                     <Table sx={{
-                        minWidth: 600
+                        minWidth: 800
                     }} size="small" aria-label="simple table">
                         <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
                             <TableRow>
@@ -87,6 +94,7 @@ function Index() {
                             borderRadius: "4px",
                         }}>Aucun semestre sélectionné</Container>
             }
+            </Container>
 
         </Box>
     )
