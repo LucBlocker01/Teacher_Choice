@@ -38,6 +38,14 @@ class ExcelController extends AbstractController
         return $this->redirectToRoute('app_excel');
     }
 
+    #[Route('/excel/export', name: 'app_excel_export')]
+    public function export()
+    {
+        $this->excelManager->writeExcel();
+
+        return $this->redirectToRoute('app_excel');
+    }
+
     #[Route('/excel/export/modele', name: 'app_excel_export_modele')]
     public function downloadExcelModele(): BinaryFileResponse
     {

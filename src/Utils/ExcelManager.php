@@ -12,25 +12,197 @@ use App\Entity\Semester;
 use App\Entity\Subject;
 use App\Entity\Tag;
 use App\Entity\Week;
-use App\Entity\WeekStatus;
+use App\Repository\SemesterRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExcelManager
 {
     private ManagerRegistry $doctrine;
+    private ObjectManager $entityManager;
+    private SemesterRepository $semesterRepository;
 
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine, SemesterRepository $semesterRepository)
     {
         $this->doctrine = $doctrine;
+        $this->entityManager = $doctrine->getManager();
+        $this->semesterRepository = $semesterRepository;
     }
 
     public function importExcel(string $path = 'public/excel/Voeux.xlsx'): void
     {
         $spreadsheets = IOFactory::load($path)->getAllSheets();
+        $this->retryImportBD($spreadsheets);
+        /*
         $rawData = $this->spreadsheetsToData($spreadsheets);
+        unset($spreadsheets);
         $organisedData = $this->organiseData($rawData);
+        unset($rawData);
         $this->importDataToDatabase($organisedData);
+        */
+    }
+
+    public function retryImportBD($excelDoc)
+    {
+        $year = date('Y').'/'.((int) date('Y') + 1);
+
+        foreach ($excelDoc as $excelPage) {
+            // On regarde si le semestre existe, sinon on le crée
+            $semesterName = $excelPage->getTitle();
+            $semester = $this->doctrine->getRepository(Semester::class)->findOneBy(['name' => $semesterName]);
+            if (null == $semester) {
+                $semester = new Semester($semesterName, $year);
+                $this->entityManager->persist($semester);
+                $this->entityManager->flush();
+            } else {
+                // Lancement d'une erreur.
+            }
+
+            // On définit la taille de la zone d'Excel.
+            $startRow = 1;
+            $startCol = 'A';
+            $maxRow = 1;
+            $maxCol = 'A';
+
+            while ('///' != $excelPage->getCell($startCol.$maxRow)->getCalculatedValue()) {
+                ++$maxRow;
+            }
+
+            while ('///' != $excelPage->getCell($maxCol.$startRow)->getCalculatedValue()) {
+                ++$maxCol;
+            }
+
+            // For each Row in the Spreadsheet, we get information in each cell and put it in a Array.
+            $tempSubject = '';
+            $tempLesson = '';
+            $tempTag = '';
+
+            for ($idxRow = 2; $idxRow <= $maxRow - 1; ++$idxRow) {
+                // Si la première colonne (le nom MR) n'est pas nulle.
+                if (null != $excelPage->getCell('A'.$idxRow)->getCalculatedValue()) {
+                    $tempSubject = $excelPage->getCell('A'.$idxRow)->getCalculatedValue();
+                }
+
+                // Si la première colonne (le nom de la Lesson) n'est pas nulle.
+                if (null != $excelPage->getCell('B'.$idxRow)->getCalculatedValue()) {
+                    $tempLesson = $excelPage->getCell('B'.$idxRow)->getCalculatedValue();
+                }
+
+                // Si le MR n'existe pas dans la BD, on le crée.
+                $subject = $this->doctrine->getRepository(Subject::class)->findOneBy(['name' => $tempSubject]);
+                if (null == $subject) {
+                    $subject = new Subject($tempSubject, $semester);
+                    $this->entityManager->persist($subject);
+                }
+
+                // Si la Lesson n'existe pas dans la BD, on le crée.
+                $lesson = $this->doctrine->getRepository(Lesson::class)->findOneBy(['name' => $tempLesson]);
+                if (null == $lesson) {
+                    $lesson = new Lesson($tempLesson, $subject);
+                    $this->entityManager->persist($lesson);
+                }
+
+                // On construit une Lesson Information avec : nbGroup ; saeSupport ;
+                $lessonType = $this->doctrine->getRepository(LessonType::class)->findOneBy(['name' => $excelPage->getCell('D'.$idxRow)->getCalculatedValue()]);
+
+                $lessonInformation = new LessonInformation(
+                    intval($excelPage->getCell('C'.$idxRow)->getCalculatedValue()),
+                    strval($excelPage->getCell('F'.$idxRow)->getCalculatedValue()),
+                    $lesson,
+                    $lessonType
+                );
+
+                $this->entityManager->persist($lessonInformation);
+
+                $actualCol = 'H';
+                while ($maxCol != $actualCol) {
+                    $week = $this->doctrine->getRepository(Week::class)->findOneBy(['weekNum' => $excelPage->getCell($actualCol.'1')->getCalculatedValue()]);
+
+                    // On construit une LessonPlanning avec : nbHours ;
+                    if (is_numeric($excelPage->getCell($actualCol.$idxRow)->getCalculatedValue())) {
+                        $lessonPlanning = new LessonPlanning(
+                            intval($excelPage->getCell($actualCol.$idxRow)->getCalculatedValue()),
+                            $lessonInformation,
+                            $week
+                        );
+
+                        $this->entityManager->persist($lessonPlanning);
+                    }
+
+                    ++$actualCol;
+                }
+
+                // Si la colonne des Tags n'est pas nulle, on change la variable temporaire.
+                if (null != $excelPage->getCell('G'.$idxRow)->getCalculatedValue()) {
+                    $tempTag = $excelPage->getCell('G'.$idxRow)->getCalculatedValue();
+                }
+
+                $tabTags = explode(' / ', $tempTag);
+
+                foreach ($tabTags as $tag) {
+                    $searchTag = $this->doctrine->getRepository(Tag::class)->findOneBy(['name' => $tag]);
+
+                    if (null == $searchTag) {
+                        $tagCreate = new Tag($tag);
+                        $tagCreate->addLesson($lesson);
+                        $this->entityManager->persist($tagCreate);
+                    } else {
+                        $searchTag->addLesson($lesson);
+                    }
+                }
+
+                $this->entityManager->flush();
+            }
+        }
+    }
+
+    public function writeExcel()
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+
+        $worksheet = new Worksheet($spreadsheet, 'S1');
+        $spreadsheet->addSheet($worksheet);
+
+        $semester = $this->semesterRepository->findOneBy(['year' => '2023/2024', 'name' => 'S1']);
+        $subjects = $semester->getSubjects();
+
+        $idx = 1;
+
+        foreach ($subjects as $subjectKey => $subject) {
+            $lessons = $subject->getLessons();
+
+            foreach ($lessons as $lessonKey => $lesson) {
+                $tags =
+                $lessonInformations = $lesson->getLessonInformation();
+
+                foreach ($lessonInformations as $lessonInformation) {
+                    $lessonPlannings = $lessonInformation->getLessonPlannings();
+
+                    $worksheet->setCellValue('A'.$idx, $subject->getName());
+                    $worksheet->setCellValue('B'.$idx, $lesson->getName());
+                    $worksheet->setCellValue('C'.$idx, $lessonInformation->getNbGroups());
+                    $worksheet->setCellValue('D'.$idx, $lessonInformation->getLessonType()->getName());
+                    $worksheet->setCellValue('F'.$idx, $lessonInformation->getSaeSupport());
+
+                    $actualColumn = 'H';
+                    foreach ($lessonPlannings as $lessonPlanning) {
+                        $worksheet->setCellValue($actualColumn.$idx, $lessonPlanning->getWeek()->getWeekNum().' : '.$lessonPlanning->getNbHours());
+
+                        ++$actualColumn;
+                    }
+
+                    ++$idx;
+                }
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('excel/output.xlsx');
     }
 
     /**
@@ -185,9 +357,9 @@ class ExcelManager
         return $finalData;
     }
 
-    public function importDataToDatabase(array $data)
+    public function importDataToDatabase(array $data): void
     {
-        $year = date('Y').'/'.(date('Y') + 1);
+        $year = date('Y').'/'.((int) date('Y') + 1);
 
         // For each Semester in the data, we create one.
         foreach ($data as $semesterKey => $semesterData) {
@@ -250,6 +422,7 @@ class ExcelManager
                                 }
 
                                 $this->doctrine->getManager()->persist($lessonInformation);
+                                $this->doctrine->getManager()->flush();
                             }
                         }
 

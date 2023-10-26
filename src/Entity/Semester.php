@@ -54,9 +54,6 @@ class Semester
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
     private Collection $subjects;
 
-    #[ORM\OneToMany(mappedBy: 'semester', targetEntity: WeekStatus::class)]
-    private Collection $weekStatus;
-
     #[ORM\Column(length: 9)]
     private ?string $year = null;
 
@@ -67,7 +64,6 @@ class Semester
         $this->name = $name;
         $this->year = $year;
         $this->subjects = new ArrayCollection();
-        $this->weekStatus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,36 +107,6 @@ class Semester
             // set the owning side to null (unless already changed)
             if ($subject->getSemester() === $this) {
                 $subject->setSemester(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, WeekStatus>
-     */
-    public function getWeekStatus(): Collection
-    {
-        return $this->weekStatus;
-    }
-
-    public function addWeekStatus(WeekStatus $weekStatus): static
-    {
-        if (!$this->weekStatus->contains($weekStatus)) {
-            $this->weekStatus->add($weekStatus);
-            $weekStatus->setSemester($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWeekStatus(WeekStatus $weekStatus): static
-    {
-        if ($this->weekStatus->removeElement($weekStatus)) {
-            // set the owning side to null (unless already changed)
-            if ($weekStatus->getSemester() === $this) {
-                $weekStatus->setSemester(null);
             }
         }
 
