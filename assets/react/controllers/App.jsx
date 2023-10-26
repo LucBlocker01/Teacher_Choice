@@ -5,7 +5,7 @@ import useTheme from "../hooks/useTheme"
 import Home from "../components/Home";
 import Index from "../components/Index";
 import {Route, Router} from "wouter";
-import Choices from "../components/Choices";
+import Choices from "../components/Choice/Choices";
 import CssBaseline from '@mui/material/CssBaseline';
 import AddChoices from "../components/addChoices/AddChoices";
 import AdminPanel from "../components/Admin/AdminPanel";

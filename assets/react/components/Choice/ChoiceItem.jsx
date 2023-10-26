@@ -5,7 +5,7 @@ import {
     TableCell,
     TableRow, TextField
 } from "@mui/material";
-import {deleteChoiceById, modifyChoiceById} from "../services/api/api";
+import {deleteChoiceById, modifyChoiceById} from "../../services/api/api";
 
 function ChoiceItem({ data }) {
     // data -> id, nbGroupSelected, year, lessonInformation

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {fetchAllWeeks, fetchMyChoice} from "../services/api/api";
+import {fetchAllWeeks, fetchMyChoice} from "../../services/api/api";
 import Paper from "@mui/material/Paper";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
