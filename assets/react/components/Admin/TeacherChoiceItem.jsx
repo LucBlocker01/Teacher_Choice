@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, TableCell, TableRow} from "@mui/material";
+import {Button, TableCell, TableRow, TextField} from "@mui/material";
 import {deleteChoiceById, PatchTeacherChoiceById} from "../../services/api/api";
 
 
@@ -12,7 +12,12 @@ function TeacherChoiceItem({ data }) {
             <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
             <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
             <TableCell align="right">
-                <input type="number" min="0" max={data.lessonInformation.nbGroups} placeholder={data.nbGroupAttributed}/>
+                <TextField
+                    sx={{
+                    zIndex: 0}}
+                    type="number"
+                    InputProps={{ inputProps: { min: 0, max: data.lessonInformation.nbGroups } }}
+                    placeholder={data.nbGroupSelected}/>
             </TableCell>
         </TableRow>
     );

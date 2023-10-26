@@ -21,7 +21,7 @@
 }
 
 .inputSearch input {
-    z-index: 1;
+
     font-size: 0.875rem;
     color: black;
     border: 1px solid black;
@@ -35,6 +35,7 @@
 }
 
 .searchBar ul {
+    z-index: 2;
     list-style: none;
     background-color: #e9e9ed;
     font-size: 0.875rem;

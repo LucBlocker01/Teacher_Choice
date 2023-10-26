@@ -18,6 +18,7 @@ function TeacherChoiceList({id}){
         });
     }, [id]);
     return (
+        <>
         <TableContainer sx={{
             zIndex: -1,
             display: "flex",
@@ -31,6 +32,7 @@ function TeacherChoiceList({id}){
             maxHeight: "500px",
         }} >
             <Table sx={{
+                zIndex: 1,
                 minWidth: 600
             }} size="small" aria-label="simple table">
                 <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
@@ -40,7 +42,7 @@ function TeacherChoiceList({id}){
                         <TableCell align="right">Nombres de groupes sélectionnés</TableCell>
                         <TableCell align="right">Nombres de groupes en tout à encadrer</TableCell>
                         <TableCell align="right">Type de cours</TableCell>
-                        <TableCell align="right" >Nombre de groupes attribués</TableCell>
+                        <TableCell align="right" >Nombre de groupes à attribués</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -48,6 +50,8 @@ function TeacherChoiceList({id}){
                 </TableBody>
             </Table>
         </TableContainer>
+        <Button>Valider</Button>
+        </>
     );
 }
 
