@@ -34,15 +34,15 @@ class Lesson
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_Lesson'])]
+    #[Groups(['get_Lesson', 'get_Subject'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_SubjectBySemester'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_SubjectBySemester'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
-    #[Groups(['get_Lesson'])]
+    #[Groups(['get_Lesson', 'get_Subject'])]
     private Collection $lessonInformation;
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]

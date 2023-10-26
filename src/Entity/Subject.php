@@ -25,7 +25,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'summary' => 'get subject from a given semester',
                 'description' => 'Will return all subject of the semester given',
             ],
-            normalizationContext: ['groups' => ['get_SubjectBySemester']],
+            normalizationContext: [
+                'groups' => ['get_Subject'],
+            ],
         ),
         new GetCollection(
             security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
@@ -37,23 +39,24 @@ class Subject
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_SubjectBySemester'])]
+    #[Groups(['get_Choice', 'get_Subject', 'get_SubjectBySemester'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice', 'get_SubjectBySemester'])]
+    #[Groups(['get_Choice', 'get_SubjectBySemester',  'get_Subject'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'subjects')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_Subject'])]
     private ?Semester $semester = null;
 
     #[ORM\Column(length: 1, nullable: true)]
+    #[Groups(['get_Subject'])]
     private ?string $speciality = null;
 
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Lesson::class)]
-    #[Groups(['get_SubjectBySemester'])]
+    #[Groups(['get_SubjectBySemester', 'get_Subject'])]
     private Collection $lessons;
 
     public function __construct(
