@@ -1,5 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography
+} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
 import IndexRowTable from "./indexTableContent/IndexRowTable";
 
@@ -59,7 +70,7 @@ function Index() {
                         <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
                             <TableRow>
                                 <TableCell>Ressource</TableCell>
-                                <TableCell>Lessons</TableCell>
+                                <TableCell>Leçons</TableCell>
                                 <TableCell>Tags</TableCell>
                             </TableRow>
                         </TableHead>
@@ -68,7 +79,13 @@ function Index() {
                         </TableBody>
                     </Table>
                 </TableContainer> :
-                        <Typography>Aucun semestre sélectionné</Typography>
+                        <Container sx={{
+                            backgroundColor : "primary.main",
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "15%",
+                            borderRadius: "4px",
+                        }}>Aucun semestre sélectionné</Container>
             }
 
         </Box>
