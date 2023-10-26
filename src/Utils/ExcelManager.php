@@ -85,23 +85,13 @@ class ExcelManager
                 // Si la première colonne (le nom MR) n'est pas nulle.
                 if (null != $excelPage->getCell('A'.$idxRow)->getCalculatedValue()) {
                     $tempSubject = $excelPage->getCell('A'.$idxRow)->getCalculatedValue();
+                    $subject = new Subject($tempSubject, $semester);
+                    $this->entityManager->persist($subject);
                 }
 
                 // Si la première colonne (le nom de la Lesson) n'est pas nulle.
                 if (null != $excelPage->getCell('B'.$idxRow)->getCalculatedValue()) {
                     $tempLesson = $excelPage->getCell('B'.$idxRow)->getCalculatedValue();
-                }
-
-                // Si le MR n'existe pas dans la BD, on le crée.
-                $subject = $this->doctrine->getRepository(Subject::class)->findOneBy(['name' => $tempSubject]);
-                if (null == $subject) {
-                    $subject = new Subject($tempSubject, $semester);
-                    $this->entityManager->persist($subject);
-                }
-
-                // Si la Lesson n'existe pas dans la BD, on le crée.
-                $lesson = $this->doctrine->getRepository(Lesson::class)->findOneBy(['name' => $tempLesson]);
-                if (null == $lesson) {
                     $lesson = new Lesson($tempLesson, $subject);
                     $this->entityManager->persist($lesson);
                 }
