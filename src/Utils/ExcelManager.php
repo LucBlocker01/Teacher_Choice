@@ -12,20 +12,25 @@ use App\Entity\Semester;
 use App\Entity\Subject;
 use App\Entity\Tag;
 use App\Entity\Week;
-use App\Entity\WeekStatus;
+use App\Repository\SemesterRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExcelManager
 {
     private ManagerRegistry $doctrine;
     private ObjectManager $entityManager;
+    private SemesterRepository $semesterRepository;
 
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine, SemesterRepository $semesterRepository)
     {
         $this->doctrine = $doctrine;
         $this->entityManager = $doctrine->getManager();
+        $this->semesterRepository = $semesterRepository;
     }
 
     public function importExcel(string $path = 'public/excel/Voeux.xlsx'): void
@@ -153,6 +158,51 @@ class ExcelManager
                 $this->entityManager->flush();
             }
         }
+    }
+
+    public function writeExcel()
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->removeSheetByIndex(0);
+
+        $worksheet = new Worksheet($spreadsheet, 'S1');
+        $spreadsheet->addSheet($worksheet);
+
+        $semester = $this->semesterRepository->findOneBy(['year' => '2023/2024', 'name' => 'S1']);
+        $subjects = $semester->getSubjects();
+
+        $idx = 1;
+
+        foreach ($subjects as $subjectKey => $subject) {
+            $lessons = $subject->getLessons();
+
+            foreach ($lessons as $lessonKey => $lesson) {
+                $tags =
+                $lessonInformations = $lesson->getLessonInformation();
+
+                foreach ($lessonInformations as $lessonInformation) {
+                    $lessonPlannings = $lessonInformation->getLessonPlannings();
+
+                    $worksheet->setCellValue('A'.$idx, $subject->getName());
+                    $worksheet->setCellValue('B'.$idx, $lesson->getName());
+                    $worksheet->setCellValue('C'.$idx, $lessonInformation->getNbGroups());
+                    $worksheet->setCellValue('D'.$idx, $lessonInformation->getLessonType()->getName());
+                    $worksheet->setCellValue('F'.$idx, $lessonInformation->getSaeSupport());
+
+                    $actualColumn = 'H';
+                    foreach ($lessonPlannings as $lessonPlanning) {
+                        $worksheet->setCellValue($actualColumn.$idx, $lessonPlanning->getWeek()->getWeekNum().' : '.$lessonPlanning->getNbHours());
+
+                        ++$actualColumn;
+                    }
+
+                    ++$idx;
+                }
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('excel/output.xlsx');
     }
 
     /**
