@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {fetchSubjectBySemester} from "../../services/api/choice";
-import {TableCell, TableRow, Typography} from "@mui/material";
+import {Badge, TableCell, TableRow, Typography} from "@mui/material";
 
 
 function IndexRowTable({data}) {
@@ -13,7 +13,15 @@ function IndexRowTable({data}) {
                         <Typography>{subject.name}</Typography>
                     </TableCell>
                     <TableCell>
-                        <Typography>{subject.lessons.map((lesson) => lesson.name)}</Typography>
+                        {subject.lessons.map((lesson) => (
+                            <Typography>{lesson.name}</Typography>
+                        ))}
+                    </TableCell>
+                    <TableCell>
+                        {subject.lessons.map((lesson) => (
+                                <Typography sx={{display: "flex", gap: 1}}>{lesson.tags.map((tag) => <Badge>{tag.name}</Badge>)}</Typography>
+                        )
+                        )}
                     </TableCell>
                 </TableRow>
             )))
