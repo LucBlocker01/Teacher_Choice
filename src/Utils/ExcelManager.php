@@ -76,7 +76,7 @@ class ExcelManager
             $tempLesson = '';
             $tempTag = '';
 
-            for ($idxRow = 1; $idxRow <= $maxRow - 1; ++$idxRow) {
+            for ($idxRow = 2; $idxRow <= $maxRow - 1; ++$idxRow) {
                 // Si la première colonne (le nom MR) n'est pas nulle.
                 if (null != $excelPage->getCell('A'.$idxRow)->getCalculatedValue()) {
                     $tempSubject = $excelPage->getCell('A'.$idxRow)->getCalculatedValue();
@@ -94,15 +94,19 @@ class ExcelManager
                     $this->entityManager->persist($subject);
                 }
 
-                $lesson = new Lesson($tempLesson, $subject);
-                $this->entityManager->persist($lesson);
+                // Si la Lesson n'existe pas dans la BD, on le crée.
+                $lesson = $this->doctrine->getRepository(Lesson::class)->findOneBy(['name' => $tempLesson]);
+                if (null == $lesson) {
+                    $lesson = new Lesson($tempLesson, $subject);
+                    $this->entityManager->persist($lesson);
+                }
 
                 // On construit une Lesson Information avec : nbGroup ; saeSupport ;
                 $lessonType = $this->doctrine->getRepository(LessonType::class)->findOneBy(['name' => $excelPage->getCell('D'.$idxRow)->getCalculatedValue()]);
 
                 $lessonInformation = new LessonInformation(
                     intval($excelPage->getCell('C'.$idxRow)->getCalculatedValue()),
-                    $excelPage->getCell('F'.$idxRow)->getCalculatedValue(),
+                    strval($excelPage->getCell('F'.$idxRow)->getCalculatedValue()),
                     $lesson,
                     $lessonType
                 );
@@ -126,9 +130,28 @@ class ExcelManager
 
                     ++$actualCol;
                 }
-            }
 
-            $this->entityManager->flush();
+                // Si la colonne des Tags n'est pas nulle, on change la variable temporaire.
+                if (null != $excelPage->getCell('G'.$idxRow)->getCalculatedValue()) {
+                    $tempTag = $excelPage->getCell('G'.$idxRow)->getCalculatedValue();
+                }
+
+                $tabTags = explode(' / ', $tempTag);
+
+                foreach ($tabTags as $tag) {
+                    $searchTag = $this->doctrine->getRepository(Tag::class)->findOneBy(['name' => $tag]);
+
+                    if (null == $searchTag) {
+                        $tagCreate = new Tag($tag);
+                        $tagCreate->addLesson($lesson);
+                        $this->entityManager->persist($tagCreate);
+                    } else {
+                        $searchTag->addLesson($lesson);
+                    }
+                }
+
+                $this->entityManager->flush();
+            }
         }
     }
 
