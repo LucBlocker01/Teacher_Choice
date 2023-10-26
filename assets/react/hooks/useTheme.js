@@ -5,7 +5,7 @@ import {Dark} from "../themes/Dark";
 
 function useTheme() {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-    const [isNormal, setIsNormal] = useState(true);
+    const [isNormal, setIsNormal] = useState(prefersDarkMode);
     let [theme, setTheme] = useState(
         createTheme(Normal)
     );
@@ -17,14 +17,13 @@ function useTheme() {
                 isNormal ? Normal : Dark
             )
         )
-        useEffect(() => {
-            if (prefersDarkMode) {
-                toggleTheme();
-            }
-        }, []);
     }
-
-    return {isNormal, theme, toggleTheme}
+    useEffect(() => {
+        if (prefersDarkMode) {
+            toggleTheme();
+        }
+    }, []);
+    return {prefersDarkMode, isNormal, theme, toggleTheme}
 }
 
 export default useTheme;
