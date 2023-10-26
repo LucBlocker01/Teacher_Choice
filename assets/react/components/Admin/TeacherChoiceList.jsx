@@ -35,7 +35,7 @@ function TeacherChoiceList({id}){
                 zIndex: 1,
                 minWidth: 600
             }} size="small" aria-label="simple table">
-                <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
+                <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0, zIndex: 1 }}>
                     <TableRow>
                         <TableCell>Matière</TableCell>
                         <TableCell align="right">Ressource</TableCell>
@@ -50,7 +50,13 @@ function TeacherChoiceList({id}){
                 </TableBody>
             </Table>
         </TableContainer>
-        <Button>Valider</Button>
+            <Button sx={{
+                border: 1,
+                backgroundColor: "secondary.main",
+            }}
+            >
+                Valider
+            </Button>
         </>
     );
 }
