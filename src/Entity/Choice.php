@@ -59,11 +59,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new Post(
             normalizationContext: ['groups' => ['post_Choice']],
-            security: "is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN')",
+            security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
         ),
         new Patch(
             normalizationContext: ['groups' => ['patch_Choice_Admin', 'patch_Choice_User']],
-            security: "(is_granted('ROLE_USER') and object.getTeacher() == user) or is_granted('ROLE_ADMIN')"
+            security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object.getTeacher() == user",
         ),
         new Delete(
             security: "is_granted('ROLE_USER') and object.getTeacher() == user",
