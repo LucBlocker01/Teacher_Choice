@@ -113,6 +113,7 @@ function ChoiceItem({ data }) {
                         type="number"
                         autoFocus
                         fullWidth
+                        value={data.nbGroupSelected}
                         InputLabelProps={{
                             shrink: true,
                         }}
