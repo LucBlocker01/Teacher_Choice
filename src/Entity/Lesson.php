@@ -51,6 +51,7 @@ class Lesson
     private ?Subject $subject = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'lessons')]
+    #[Groups('get_SubjectBySemester')]
     private Collection $tags;
 
     public function __construct(
