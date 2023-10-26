@@ -38,25 +38,27 @@ function AdminPanel() {
         setDisplay({display: "none"});
     }
     return (
-        <div className="searchBar">
-            <div className="inputSearch">
-                <input type="text" value={value} onChange={handleChange} />
-                <button onClick={() => HandleClick(id)}>
-                    <span>Rechercher</span>
-                </button>
+        <div>
+            <div className="searchBar">
+                <div className="inputSearch">
+                    <input type="text" value={value} onChange={handleChange} />
+                    <button onClick={() => HandleClick(id)}>
+                        <span>Rechercher</span>
+                    </button>
+                </div>
+                <ul>
+                    {value &&
+                        teachers
+                            .filter((element) =>
+                                element[1].toLowerCase().includes(value.toLowerCase())
+                            )
+                            .map((element, index) => (
+                                <li onClick={() => setValues(element[0], element[1])} key={index} style={display}>
+                                    {element[1]}
+                                </li>
+                            ))}
+                </ul>
             </div>
-            <ul>
-                {value &&
-                    teachers
-                        .filter((element) =>
-                            element[1].toLowerCase().includes(value.toLowerCase())
-                        )
-                        .map((element, index) => (
-                            <li onClick={() => setValues(element[0], element[1])} key={index} style={display}>
-                                {element[1]}
-                            </li>
-                        ))}
-            </ul>
             {TeacherName}
             {currentTeacher}
         </div>
