@@ -8,6 +8,7 @@ import {Route, Router} from "wouter";
 import Choices from "../components/Choices";
 import CssBaseline from '@mui/material/CssBaseline';
 import AddChoices from "../components/addChoices/AddChoices";
+import AdminPanel from "../components/Admin/AdminPanel";
 
 function App() {
     const {isNormal, theme, toggleTheme} = useTheme();
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/" component={Index}></Route>
                 <Route path="/react/choices" component={Choices}/>
                 <Route path="/react/choices/add" component={AddChoices}/>
+                <Route path="/react/admin" component={AdminPanel}/>
             </Router>
         </ThemeProvider>
     );
