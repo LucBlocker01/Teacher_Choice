@@ -11,7 +11,6 @@ use App\Factory\StatusFactory;
 use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ApiTester;
-use Codeception\Util\HttpCode;
 
 class GetSubjectBySemesterCest
 {
@@ -25,10 +24,10 @@ class GetSubjectBySemesterCest
         StatusFactory::createMany(3);
     }
 
-    public function anonymousUserCannotGetSubjectsBySemester(ApiTester $I)
+    public function anonymousUserCanGetSubjectsBySemester(ApiTester $I)
     {
         $I->sendGet('/api/subjects/semester/1');
-        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+        $I->seeResponseCodeIsSuccessful();
     }
 
     public function connectedUserCanGetSubjectsBySemester(ApiTester $I)
