@@ -32,7 +32,7 @@ function Header({toggleTheme}) {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
-                    {user.status === "/api/statuses/1" ? <Link sx={{
+                    {user !== null && user.status === "/api/statuses/1" ? <Link sx={{
                         textDecoration: "none",
                         mr: "3px",
                         "&:hover" : {
@@ -52,18 +52,32 @@ function Header({toggleTheme}) {
                     }}
                             onClick={toggleTheme}
                     >Swap Theme</Button>
-                    <Link sx={{
-                        textDecoration: "none",
-                        "&:hover" : {
-                            backgroundColor: "secondary.main",
-                            borderRadius: "4px",
-                        }
-                    }} href={`/profil/${user.id}`}>
-                    <Button sx={{
-                        backgroundColor: "accent.main",
-                        color: "white",
-                    }}
-                    >Profil</Button></Link>
+                    { user !== null ?
+                        <Link sx={{
+                            textDecoration: "none",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
+                        }} href={`/profil/${user.id}`}>
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                            }}
+                            >Profil</Button></Link> :
+                        <Link sx={{
+                            textDecoration: "none",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
+                        }} href={`/login`}>
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                            }}
+                            >Se connecter</Button></Link>}
+
                 </Container>
 
             </AppBar>

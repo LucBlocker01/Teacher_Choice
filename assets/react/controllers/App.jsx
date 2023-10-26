@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import {ThemeProvider} from "@mui/material";
 import useTheme from "../hooks/useTheme"
 import Home from "../components/Home";
+import Index from "../components/Index";
 import {Route, Router} from "wouter";
 import Choices from "../components/Choices";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +17,7 @@ function App() {
             <Header toggleTheme={toggleTheme}></Header>
             <Router>
                 <Route path="/react" component={Home}/>
+                <Route path="/" component={Index}></Route>
                 <Route path="/react/choices" component={Choices}/>
                 <Route path="/react/choices/add" component={AddChoices}/>
             </Router>

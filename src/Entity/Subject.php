@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'summary' => 'get subject from a given semester',
                 'description' => 'Will return all subject of the semester given',
             ],
-            security: "is_granted('ROLE_USER')"
+            normalizationContext: ['groups' => ['get_SubjectBySemester']],
         ),
         new GetCollection(
             security: "is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')",
@@ -37,10 +37,11 @@ class Subject
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_SubjectBySemester'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_SubjectBySemester'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'subjects')]
@@ -52,6 +53,7 @@ class Subject
     private ?string $speciality = null;
 
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Lesson::class)]
+    #[Groups(['get_SubjectBySemester'])]
     private Collection $lessons;
 
     public function __construct(

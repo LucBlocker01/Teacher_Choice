@@ -38,7 +38,7 @@ class Lesson
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice', 'get_Lesson'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_SubjectBySemester'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
@@ -51,6 +51,7 @@ class Lesson
     private ?Subject $subject = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'lessons')]
+    #[Groups('get_SubjectBySemester')]
     private Collection $tags;
 
     public function __construct(
