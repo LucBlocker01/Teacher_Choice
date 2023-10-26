@@ -16,6 +16,19 @@ export function deleteChoiceById(id){
     return fetch(`/api/choices/${id}`, {method: 'DELETE'}).then((response) => response.json());
 }
 
+export function PatchTeacherChoiceById(id, nbGroupAttributed){
+    return fetch(`/api/choices/${id}`,
+        {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/merge-patch+json"
+            },
+            method: 'PATCH',
+            body: JSON.stringify({
+                nbGroupAttributed: nbGroupAttributed
+            })})
+        .then((response) => response.json());
+}
 export function modifyChoiceById(id, nb){
     return fetch(`/api/choices/${id}`, {
         headers: {
