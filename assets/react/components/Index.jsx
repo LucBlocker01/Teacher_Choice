@@ -44,7 +44,12 @@ function Index() {
         <Box sx={{
             mb: "100px",
         }}>
-            <h1 className="title">Liste des matières par semestre</h1>
+            <Typography variant="h1" sx={{
+                textAlign: "center",
+                color: "#191221",
+                fontSize: "50px",
+                fontWeight: "bold",
+            }}>Set<a className="title_color_2">URCA</a>lendar</Typography>
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",
