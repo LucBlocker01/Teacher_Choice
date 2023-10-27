@@ -49,6 +49,10 @@ function Header({toggleTheme, isNormal}) {
                         backgroundColor: "accent.main",
                         color: "white",
                         mr: "3px",
+                        "&:hover" : {
+                            backgroundColor: "secondary.main",
+                            borderRadius: "4px",
+                        }
                     }}
                             onClick={toggleTheme}
                     >{isNormal ? (
