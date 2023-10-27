@@ -11,7 +11,7 @@ function SubjectItem({ data, user }) {
             setLessons(data["lessons"].map((lesson) => (
                 <LessonList key={lesson.id} data={lesson} MR={MR} user={user} />
             )));
-    }, []);
+    }, [user]);
 
     if (lessons === null) {
         return <div>Loading...</div>;
