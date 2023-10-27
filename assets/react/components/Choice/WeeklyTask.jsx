@@ -1,65 +1,35 @@
 import React, {useEffect, useState} from "react";
 import {fetchAllWeeks, fetchMyChoice} from "../../services/api/api";
-import Paper from "@mui/material/Paper";
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import { BarChart } from '@mui/x-charts/BarChart';
 
 function WeeklyTask(){
-    const [ weeklyTask, setWeeklyTask ] = useState({});
+    const [ weeks, setWeeks ] = useState([]);
+    const [ S1Data, setS1Data ] = useState([]);
+    const [ S2Data, setS2Data ] = useState([]);
+    const [ S3Data, setS3Data ] = useState([]);
+    const [ S4Data, setS4Data ] = useState([]);
+    const [ S5Data, setS5Data ] = useState([]);
+    const [ S6Data, setS6Data ] = useState([]);
 
-    let objectWeek = [];
 
     useEffect(() => {
-        fetchAllWeeks().then((week) => {
-            objectWeek[week.weekNum] = 0
-            setWeeklyTask(objectWeek);
+        fetchAllWeeks().then((weeks) => {
+            setWeeks(
+                weeks["hydra:member"].map((week) => {
+                    if (week.lessonPlannings.length !== 0){
+                        return week.weekNum
+                    }
+                })
+            );
         })
     }, []);
 
-    useEffect(() => {
-        fetchMyChoice().then((data) => {
-            data["hydra:member"].map((choice) => {
-                choice.lessonInformation.lessonPlannings.map((lessonPlanning) => {
-                    var weeknum = lessonPlanning.week.weekNum;
-                    var semester = choice.lessonInformation.lesson.subject.semester.name;
-                    objectWeek[weeknum] = lessonPlanning.nbHours * choice.nbGroupSelected;
-                    setWeeklyTask(objectWeek);
-                })
-            })
-        });
-    }, []);
+    console.log(weeks);
 
-    console.log(weeklyTask);
+    // un tableau par semestre et un tableau avec toutes les semaines
 
     return (<>
-        <TableContainer sx={{
-            display: "flex",
-            justifyContent: "flex-start",
-            backgroundColor: "secondary.main",
-            border: 1,
-            marginBottom: 2,
-            borderRadius: "5px",
-            overflowX: "auto",
-            overflowY: "auto",
-            maxHeight: "500px",
-            borderColor: "primary.main"
-        }} component={Paper}>
-            <Table sx={{
-                minWidth: 800,
-            }} size="small" aria-label="simple table">
-                <TableHead sx={{
-                    backgroundColor: "primary.main",
-                    position:"sticky",
-                    top: 0,
-                }}>
-                    <TableRow>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow>
-                    </TableRow>
-                </TableBody>
-            </Table>
-        </TableContainer>
+
     </>);
 }
 
