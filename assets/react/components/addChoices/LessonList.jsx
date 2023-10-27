@@ -3,11 +3,11 @@ import LessonItem from './LessonItem';
 import {Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
 
-function LessonList({data, MR, user}) {
+function LessonList({data, MR, user, handleChangeAccordion, expanded}) {
 
     const [lessonsInfo, setLessonsInfo] = useState(null);
-    const [expanded, setExpanded] = useState(false);
-
+    /*console.log("data.id");
+    console.log(data.id);*/
     const LessonClick = () => {
         setLessonsInfo(data["lessonInformation"].map((lessonInfo) => {
             return <LessonItem key={lessonInfo.id} data={lessonInfo} user={user} />
@@ -15,7 +15,7 @@ function LessonList({data, MR, user}) {
     }
 
   return (
-      <Accordion sx={{margin: "10px"}}>
+      <Accordion expanded={expanded === data.id} sx={{margin: "10px"}} onChange={handleChangeAccordion(data.id)}>
           <AccordionSummary expandIcon={<ExpandMore />} onClick={LessonClick}>
               {MR}&nbsp;{data.name}
           </AccordionSummary>

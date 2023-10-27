@@ -7,6 +7,11 @@ function SubjectList({ data }) {
 
     const [subjectList, setSubjectList] = useState(null);
     const [user, setUser] = useState(null);
+    const [expanded, setExpanded] = useState(false);
+
+    const handleChangeAccordion = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    }
 
     //useEffect pour récupérer l'utilisateur connecté
     useEffect(() => {
@@ -15,13 +20,13 @@ function SubjectList({ data }) {
             setUser(user);
         };
         userFetch();
-    }, []);
+    }, [expanded]);
 
     useEffect(() => {
         console.log(user);
         fetchSubjectBySemester(data).then((data) => {
             setSubjectList(data["hydra:member"].map((subject) => (
-                <SubjectItem key={subject.id} data={subject} user={user} />
+                <SubjectItem key={subject.id} data={subject} user={user} handleChangeAccordion={handleChangeAccordion} expanded={expanded} />
             )));
         });
     }, [user]);

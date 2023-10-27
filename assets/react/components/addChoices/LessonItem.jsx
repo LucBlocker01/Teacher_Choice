@@ -10,7 +10,6 @@ function LessonItem({data, user}) {
     //useState lié a l'accordéon
 
     const inputNbGroup = "Nombre de groupe | "+data.nbGroups;
-    console.log(user);
     const submitChoice = (event) => {
         event.preventDefault();
         console.log(event.target);
