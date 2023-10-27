@@ -45,9 +45,9 @@ function LessonItem({data, user}) {
     };
 
   return (
-    <Container sx={{margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px"}}>
-      {data.lessonType.name}
-      <form onSubmit={submitChoice} style={{display: "flex"}}>
+    <Container sx={{backgroundColor:"white" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px", justifyContent: "center"}}>
+      <form onSubmit={submitChoice} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <p style={{margin: "1%"}}>{data.lessonType.name}</p>
           <TextField
             id="nbGroupe"
             name="nbGroupe"
