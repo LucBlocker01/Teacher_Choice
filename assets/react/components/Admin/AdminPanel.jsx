@@ -4,6 +4,7 @@ import {fetchMyChoice, fetchTeachers} from "../../services/api/api";
 import ChoiceItem from "../ChoiceItem";
 import {element} from "prop-types";
 import TeacherChoiceList from "./TeacherChoiceList";
+import {Container} from "@mui/material";
 
 function AdminPanel() {
     const [teachers, setTeachers] = useState();
@@ -38,7 +39,8 @@ function AdminPanel() {
         setDisplay({display: "none"});
     }
     return (
-        <div>
+        <Container>
+            <h1>Gestion des voeux</h1>
             <div className="searchBar">
                 <div className="inputSearch">
                     <input type="text" value={value} onChange={handleChange} />
@@ -61,7 +63,7 @@ function AdminPanel() {
             </div>
             {TeacherName}
             {currentTeacher}
-        </div>
+        </Container>
     );
 }
 
