@@ -39,7 +39,7 @@ function IndexTable({semester}) {
                 justifyContent: "center",
                 width: "15%",
                 borderRadius: "4px",
-            }}>Aucun semestre sélectionné</Container>
+            }}>Chargement...</Container>
         }
         </>
     )

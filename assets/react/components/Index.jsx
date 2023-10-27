@@ -2,12 +2,16 @@ import React, {useEffect, useState} from "react";
 import {Box, Button, Container, Typography} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
 import IndexTable from "./indexTableContent/IndexTable";
+import {fetchDefaultSemester} from "../services/api/api";
 
 
 function Index() {
-    const [semester, setSemester] = useState();
     const [semestersList, setSemesterList] = useState();
+    const [semester, setSemester] = useState();
     useEffect(() => {
+        fetchDefaultSemester().then((data) => {
+            setSemester(data);
+        })
         fetchSemesters().then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
