@@ -29,7 +29,9 @@ body {
     border: none;
     background-color: #1c1c1d;
     display: flex;
+    /*
     padding: 1rem;
+    */
 }
 
 .inputSearch input:focus {
@@ -49,7 +51,9 @@ body {
 }
 
 .searchBar ul li {
+    /*
     padding: 1rem;
+    */
     cursor: pointer;
 }
 
@@ -59,5 +63,7 @@ body {
 
 .inputSearch span {
     color: var(--text-color);
+    /*
     padding: 1rem 2rem;
+    */
 }
