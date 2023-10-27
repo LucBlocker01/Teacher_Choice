@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../../../../public/CSS/app.css'
 import {fetchMyChoice, fetchTeachers} from "../../services/api/api";
-import ChoiceItem from "../ChoiceItem";
+import ChoiceItem from "../Choice/ChoiceItem";
 import {element} from "prop-types";
 import TeacherChoiceList from "./TeacherChoiceList";
 import {Container} from "@mui/material";
