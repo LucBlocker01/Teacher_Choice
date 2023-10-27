@@ -1,6 +1,3 @@
-body {
-    background-color: lightgray;
-}
 
 .searchBar {
     display: flex;
@@ -14,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-color);
+
 }
 
 .searchBar .inputSearch {
@@ -24,10 +21,11 @@ body {
 }
 
 .inputSearch input {
-    font-size: 2rem;
-    color: var(--text-color);
-    border: none;
-    background-color: #1c1c1d;
+
+    font-size: 0.875rem;
+    color: black;
+    border: 1px solid black;
+    background-color: #E6D1DD;
     display: flex;
     /*
     padding: 1rem;
@@ -39,15 +37,13 @@ body {
 }
 
 .searchBar ul {
-    width: 100%;
+    z-index: 2;
     list-style: none;
-    background-color: #1c1c1d;
-    border-radius: 5px;
-    font-size: 2rem;
-    color: var(--text-color);
-    overflow: hidden;
+    background-color: #e9e9ed;
+    font-size: 0.875rem;
+    color: black;
     position: absolute;
-    top: 5rem;
+    top: 1rem;
 }
 
 .searchBar ul li {
@@ -58,12 +54,12 @@ body {
 }
 
 .searchBar ul li:hover {
-    background-color: var(--primary-color);
+    background-color: #d1a4be;
 }
 
 .inputSearch span {
-    color: var(--text-color);
+    color: black;
     /*
-    padding: 1rem 2rem;
+    padding: 1rem;
     */
 }

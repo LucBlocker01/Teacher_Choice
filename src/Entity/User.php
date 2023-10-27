@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use App\Controller\GetMeController;
+use App\Controller\GetTeacherController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -51,6 +52,23 @@ use Symfony\Component\Validator\Constraints\Regex;
             normalizationContext: ['groups' => ['get_User']],
             denormalizationContext: ['groups' => ['set_User']],
             security: "is_granted('ROLE_USER') and object == user",
+        ),
+        new GetCollection(
+            uriTemplate: '/teachers',
+            controller: GetTeacherController::class,
+            openapiContext: [
+                'summary' => 'get teacher by id',
+                'description' => 'Get the teacher by him id',
+                'responses' => [
+                    '200' => [
+                        'description' => 'Teacher :',
+                    ],
+                    '404' => [
+                        'description' => 'User not found',
+                    ],
+                ],
+            ],
+            security: "is_granted('ROLE_ADMIN')",
         ),
     ],
     normalizationContext: ['groups' => ['get_User']],

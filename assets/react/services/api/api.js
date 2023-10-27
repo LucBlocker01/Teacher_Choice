@@ -2,6 +2,12 @@ export function fetchMyChoice(){
     return fetch(`/api/choice/me`).then((response) => response.json());
 }
 
+export function fetchTeacherChoice(id){
+    return fetch(`/api/user/choice/${id}`).then((response) => response.json());
+}
+export function fetchTeachers(){
+    return fetch(`/api/teachers`).then((response) => response.json());
+}
 export function fetchByApiUrl(urlApi){
     return fetch(`${urlApi}`).then((response) => response.json());
 }
@@ -10,6 +16,19 @@ export function deleteChoiceById(id){
     return fetch(`/api/choices/${id}`, {method: 'DELETE'}).then((response) => response.json());
 }
 
+export function PatchTeacherChoiceById(id, nbGroupAttributed){
+    return fetch(`/api/choices/${id}`,
+        {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/merge-patch+json"
+            },
+            method: 'PATCH',
+            body: JSON.stringify({
+                nbGroupAttributed: parseInt(nbGroupAttributed)
+            })})
+        .then((response) => response.json());
+}
 export function modifyChoiceById(id, nb){
     return fetch(`/api/choices/${id}`, {
         headers: {
