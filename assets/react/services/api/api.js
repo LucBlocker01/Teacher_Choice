@@ -46,3 +46,7 @@ export function modifyChoiceById(id, nb){
 export function fetchAllWeeks(){
     return fetch(`/api/weeks`).then((response) => response.json());
 }
+
+export function fetchDefaultSemester() {
+    return fetch('/api/semesters/1').then(response => response.json());
+}

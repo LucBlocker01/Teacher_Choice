@@ -11,6 +11,9 @@ export const Dark = {
         },
         accent: {
             main: '#5b3248'
+        },
+        text: {
+            main: '#ffffff'
         }
     },
     typography: {

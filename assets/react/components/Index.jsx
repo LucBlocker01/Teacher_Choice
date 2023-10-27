@@ -1,24 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {
-    Box,
-    Button,
-    Container,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Typography
-} from "@mui/material";
+import {Box, Button, Container, Typography} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
-import IndexRowTable from "./indexTableContent/IndexRowTable";
+import IndexTable from "./indexTableContent/IndexTable";
+import {fetchDefaultSemester} from "../services/api/api";
 
 
 function Index() {
-    const [semester, setSemester] = useState();
     const [semestersList, setSemesterList] = useState();
+    const [semester, setSemester] = useState();
     useEffect(() => {
+        fetchDefaultSemester().then((data) => {
+            setSemester(data);
+        })
         fetchSemesters().then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
@@ -44,7 +37,12 @@ function Index() {
         <Box sx={{
             mb: "100px",
         }}>
-            <h1 className="title">Liste des matières par semestre</h1>
+            <Typography variant="h1" sx={{
+                textAlign: "center",
+                color: "text.main",
+                fontSize: "50px",
+                fontWeight: "bold",
+            }}>Set<a className="title_color_2">URCA</a>lendar</Typography>
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -59,41 +57,7 @@ function Index() {
                 flexWrap: "wrap",
                 flexDirection: "column"
             }}>
-            {semester !== undefined ?
-                <TableContainer sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    backgroundColor: "secondary.main",
-                    border: 1,
-                    marginBottom: 2,
-                    borderRadius: "5px",
-                    overflowX: "auto",
-                    overflowY: "auto",
-                    maxHeight: "500px",
-                }}>
-                    <Table sx={{
-                        minWidth: 800
-                    }} size="small" aria-label="simple table">
-                        <TableHead sx={{backgroundColor: "primary.main", position:"sticky", top: 0 }}>
-                            <TableRow>
-                                <TableCell>Ressource</TableCell>
-                                <TableCell>Leçons</TableCell>
-                                <TableCell>Tags</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                                <IndexRowTable data={semester}/>
-                        </TableBody>
-                    </Table>
-                </TableContainer> :
-                        <Container sx={{
-                            backgroundColor : "primary.main",
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "15%",
-                            borderRadius: "4px",
-                        }}>Aucun semestre sélectionné</Container>
-            }
+                <IndexTable semester={semester}/>
             </Container>
 
         </Box>
