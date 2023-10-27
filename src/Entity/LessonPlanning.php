@@ -32,6 +32,7 @@ class LessonPlanning
     private ?LessonInformation $information = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonPlannings')]
+    #[Groups(['get_Choice'])]
     private ?Week $week = null;
 
     public function __construct(

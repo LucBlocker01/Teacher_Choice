@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {fetchMyChoice} from "../services/api/api";
+import {fetchMyChoice} from "../../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
 
@@ -28,7 +28,7 @@ function ChoicesList() {
             borderRadius: "5px",
             overflowX: "auto",
             overflowY: "auto",
-            maxHeight: "500px",
+            maxHeight: "400px",
             borderColor: "primary.main"
         }} component={Paper}>
             <Table sx={{
