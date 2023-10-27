@@ -14,7 +14,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Header toggleTheme={toggleTheme}></Header>
+            <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
             <Router>
                 <Route path="/react" component={Home}/>
                 <Route path="/" component={Index}></Route>

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {AppBar, Box, Button, Container, Link} from "@mui/material";
+import {AppBar, Box, Button, Container, Link, Typography} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
 
 
-function Header({toggleTheme}) {
+function Header({toggleTheme, isNormal}) {
     const [user, setUserData] = useState({});
 
     useEffect(() => {
@@ -51,7 +51,11 @@ function Header({toggleTheme}) {
                         mr: "3px",
                     }}
                             onClick={toggleTheme}
-                    >Swap Theme</Button>
+                    >{isNormal ? (
+                        <Typography>Clair</Typography>
+                    ) : (
+                        <Typography>Sombre</Typography>
+                    )}</Button>
                     { user !== null ?
                         <Link sx={{
                             textDecoration: "none",
