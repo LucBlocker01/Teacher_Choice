@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchSemesters } from "../../services/api/choice";
 import SemesterItem from "./SemesterItem";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Tabs, Tab, Box, Typography, Container } from '@mui/material';
 import SubjectList from "./SubjectList";
 
 // permet de gérer les onglets et de les générers
@@ -13,7 +10,7 @@ function TabPanel({ children, value, index, ...other }) {
     <div role="tabpanel" hidden={value !== index} {...other}>
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'} >{children}</Typography>
         </Box>
       )}
     </div>
@@ -45,13 +42,14 @@ function AddChoices() {
   }
 
   return (
-    <div>
+      <Container>
       <Tabs
         value={currentTab}
         onChange={handleChange}
+        sx={{ display:"flex", justifyContent:"wrap"}}
       >
         {semesters.map((semester) => (
-          <Tab key={semester.id} label={semester.name} />
+          <Tab key={semester.id} label={semester.name} sx={{ minWidth: 50 }} />
         ))}
       </Tabs>
 
@@ -60,7 +58,7 @@ function AddChoices() {
           <SubjectList data={semester.id} />
         </TabPanel>
       ))}
-    </div>
+      </Container>
   )
 }
 
