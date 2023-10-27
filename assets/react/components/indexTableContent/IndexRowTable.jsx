@@ -32,7 +32,7 @@ function IndexRowTable({data}) {
             )))
             })
 
-        },[])
+        },[data])
     return (
         <>
             {cell}

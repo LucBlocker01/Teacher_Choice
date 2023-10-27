@@ -1,12 +1,16 @@
 import {Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import IndexRowTable from "./IndexRowTable";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 
 function IndexTable({semester}) {
+    const [newSemester, setNewSemester] = useState();
+    useEffect(() => {
+        setNewSemester(semester)
+    }, [semester])
     return (
         <>
-        {semester !== undefined ?
+        {newSemester !== undefined ?
             <TableContainer sx={{
                 display: "flex",
                 justifyContent: "flex-start",
@@ -29,7 +33,7 @@ function IndexTable({semester}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <IndexRowTable data={semester}/>
+                        <IndexRowTable data={newSemester}/>
                     </TableBody>
                 </Table>
             </TableContainer> :
