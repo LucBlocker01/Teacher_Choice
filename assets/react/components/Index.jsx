@@ -46,7 +46,7 @@ function Index() {
         }}>
             <Typography variant="h1" sx={{
                 textAlign: "center",
-                color: "#191221",
+                color: "text.main",
                 fontSize: "50px",
                 fontWeight: "bold",
             }}>Set<a className="title_color_2">URCA</a>lendar</Typography>
