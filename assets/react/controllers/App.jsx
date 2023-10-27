@@ -9,21 +9,25 @@ import Choices from "../components/Choice/Choices";
 import CssBaseline from '@mui/material/CssBaseline';
 import AddChoices from "../components/addChoices/AddChoices";
 import AdminPanel from "../components/Admin/AdminPanel";
+import {Provider} from "react-redux";
+import store from "../store/index";
 
 function App() {
     const {isNormal, theme, toggleTheme} = useTheme();
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
-            <Router>
-                <Route path="/react" component={Home}/>
-                <Route path="/" component={Index}></Route>
-                <Route path="/react/choices" component={Choices}/>
-                <Route path="/react/choices/add" component={AddChoices}/>
-                <Route path="/react/admin" component={AdminPanel}/>
-            </Router>
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
+                <Router>
+                    <Route path="/react" component={Home}/>
+                    <Route path="/" component={Index}></Route>
+                    <Route path="/react/choices" component={Choices}/>
+                    <Route path="/react/choices/add" component={AddChoices}/>
+                    <Route path="/react/admin" component={AdminPanel}/>
+                </Router>
+            </ThemeProvider>
+        </Provider>
     );
 }
 
