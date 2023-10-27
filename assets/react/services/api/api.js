@@ -25,7 +25,7 @@ export function PatchTeacherChoiceById(id, nbGroupAttributed){
             },
             method: 'PATCH',
             body: JSON.stringify({
-                nbGroupAttributed: nbGroupAttributed
+                nbGroupAttributed: parseInt(nbGroupAttributed)
             })})
         .then((response) => response.json());
 }
