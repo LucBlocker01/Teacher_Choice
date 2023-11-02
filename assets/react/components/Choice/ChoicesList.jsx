@@ -28,7 +28,7 @@ function ChoicesList() {
             borderRadius: "5px",
             overflowX: "auto",
             overflowY: "auto",
-            maxHeight: "400px",
+            maxHeight: "300px",
             borderColor: "primary.main"
         }} component={Paper}>
             <Table sx={{
@@ -43,10 +43,10 @@ function ChoicesList() {
                         <TableCell>Matière</TableCell>
                         <TableCell align="right">Semestre</TableCell>
                         <TableCell align="right">Ressource</TableCell>
+                        <TableCell align="right">Type de cours</TableCell>
                         <TableCell align="right">Nombres de groupes choisi</TableCell>
                         <TableCell align="right">Nombres de groupes à encadrer</TableCell>
                         <TableCell align="right">Nombres de groupes attribués</TableCell>
-                        <TableCell align="right">Type de cours</TableCell>
                         <TableCell align="right" />
                     </TableRow>
                 </TableHead>

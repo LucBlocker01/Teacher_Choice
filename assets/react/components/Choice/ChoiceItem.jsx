@@ -7,11 +7,14 @@ import {
 } from "@mui/material";
 import {deleteChoiceById, modifyChoiceById} from "../../services/api/api";
 import CancelIcon from '@mui/icons-material/Cancel';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 function ChoiceItem({ data }) {
     // data -> id, nbGroupSelected, year, lessonInformation
 
     const [openDelete, setOpenDelete] = React.useState(false);
+    const [selectNb, setSelectNb] = React.useState(data.nbGroupSelected);
 
     const handleClickOpenDelete = () => {
         setOpenDelete(true);
@@ -27,19 +30,17 @@ function ChoiceItem({ data }) {
         location.reload();
     };
 
-    const handleEdit = () => {
-        var nbGroups = document.getElementById(data.id).value;
-        const nbGroupsMax = data.lessonInformation.nbGroups;
-        if (nbGroups <= nbGroupsMax && nbGroups >= 0) {
-            modifyChoiceById(data.id, nbGroups).then();
-            location.reload();
-        } else {
-           document.getElementById("alertEdit").innerHTML = "La saisie doit être entre 0 et "+nbGroupsMax+" pour être valide !!";
-           setTimeout(()=>{
-               document.getElementById("alertEdit").innerHTML = "";
-           }, 3000);
-        }
-    };
+    const handlePlus = () => {
+        setSelectNb(selectNb+1);
+    }
+
+    const handleMinus = () => {
+        setSelectNb(selectNb-1);
+    }
+
+    useEffect(() => {
+        modifyChoiceById(data.id, selectNb).then();
+    }, [selectNb])
 
     return (
         <>
@@ -64,15 +65,13 @@ function ChoiceItem({ data }) {
                 <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
                 <TableCell align="right">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
                 <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
-                <TableCell align="right">
-                    <input
-                        id={data.id}
-                        onChange={handleEdit}
-                        type="number"
-                        min="0"
-                        max={data.lessonInformation.nbGroups}
-                        placeholder={data.nbGroupSelected}
-                    />
+                <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
+                <TableCell align="right" sx={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+                    <Box>{selectNb}</Box>
+                    <Box sx={{ display: "flex" }}>
+                        <RemoveCircleOutlineIcon onClick={handleMinus}/>
+                        <AddCircleOutlineIcon onClick={handlePlus}/>
+                    </Box>
                 </TableCell>
                 <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
                 <TableCell align="right">
@@ -86,7 +85,6 @@ function ChoiceItem({ data }) {
                         {data.nbGroupAttributed ? data.nbGroupAttributed : 'non attribué'}
                     </Box>
                 </TableCell>
-                <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
                 <TableCell>
                     <CancelIcon onClick={() => {
                         handleClickOpenDelete();
