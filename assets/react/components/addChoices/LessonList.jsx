@@ -27,12 +27,12 @@ function LessonList({data, MR, user}) {
   return (
       <Accordion
           expanded={accordionRedux.active === data.id}
-          sx={{margin: "10px", backgroundColor: "secondary.main"}}
+          sx={{margin: "10px", backgroundColor: "secondary.main", display: "flex", flexDirection: "column", alignItems: "center"}}
           onChange={handleChangeAccordion(data.id)}>
-          <AccordionSummary expandIcon={<ExpandMore />} onClick={LessonClick}>
+          <AccordionSummary expandIcon={<ExpandMore />} onClick={LessonClick} sx={{width: "auto"}}>
               {MR}&nbsp;{data.name}
           </AccordionSummary>
-          <AccordionDetails sx={{backgroundColor: "secondary.main", justifyContent:"center"}}>
+          <AccordionDetails sx={{backgroundColor: "secondary.main", justifyContent:"center", alignItems: "center", display: "flex"}}>
                 {lessonsInfo}
           </AccordionDetails>
       </Accordion>
