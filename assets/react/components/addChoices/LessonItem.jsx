@@ -9,7 +9,7 @@ function LessonItem({data, user}) {
     const [message, setMessage] = useState("Votre choix a bien été pris en compte");
     //useState lié a l'accordéon
 
-    const inputNbGroup = "Nombre de groupe | "+data.nbGroups;
+    const inputNbGroup = "Nombre de groupe : "+data.nbGroups;
     const submitChoice = (event) => {
         event.preventDefault();
         console.log(event.target);
@@ -45,7 +45,7 @@ function LessonItem({data, user}) {
     };
 
   return (
-    <Container sx={{backgroundColor:"white" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px", justifyContent: "center"}}>
+    <Container sx={{backgroundColor:"white" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px"}}>
       <form onSubmit={submitChoice} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
           <p style={{margin: "1%"}}>{data.lessonType.name}</p>
           <TextField
