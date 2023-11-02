@@ -3,7 +3,7 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
 import IndexTable from "./indexTableContent/IndexTable";
 import {fetchDefaultSemester} from "../services/api/api";
-
+import SearchTags from "./Search/SearchTags";
 
 function Index() {
     const [semestersList, setSemesterList] = useState();
@@ -50,6 +50,7 @@ function Index() {
             }}>
                 {semestersList}
             </Box>
+            <SearchTags/>
             <Container sx={{
                 display: "flex",
                 alignItems: "center",
