@@ -63,3 +63,7 @@
     padding: 1rem;
     */
 }
+
+.MuiAccordion-root .MuiCollapse-wrapperInner {
+    width: auto !important;
+}
