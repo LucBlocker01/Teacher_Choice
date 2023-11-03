@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import {postChoice} from "../../services/api/choice";
-import {Alert, Button, Container, Snackbar, TextField} from "@mui/material";
+import {Alert, Button, Container, Snackbar, TextField, useMediaQuery, useTheme} from "@mui/material";
 
 function LessonItem({data, user}) {
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     //useState lié au snackbar
     const [open, setOpen] = useState(false);
     const [snackBarType, setSnackBarType] = useState("success");
@@ -45,7 +48,7 @@ function LessonItem({data, user}) {
     };
 
   return (
-    <Container sx={{backgroundColor:"white" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px"}}>
+    <Container sx={{backgroundColor:"white" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px", ...(isSmallScreen ? { marginTop: "5%" } : {})}}>
       <form onSubmit={submitChoice} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
           <p style={{margin: "1%"}}>{data.lessonType.name}</p>
           <TextField
