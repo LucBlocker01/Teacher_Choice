@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import LessonItem from './LessonItem';
-import {Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, useMediaQuery, useTheme} from "@mui/material";
 import {ExpandMore} from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { setActive} from "../../store/slices/accordion";
 
 function LessonList({data, MR, user}) {
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [lessonsInfo, setLessonsInfo] = useState(null);
     const accordionRedux = useSelector((state) => state.accordion);
     const dispatch = useDispatch();
@@ -32,7 +34,12 @@ function LessonList({data, MR, user}) {
           <AccordionSummary expandIcon={<ExpandMore />} onClick={LessonClick} sx={{width: "auto"}}>
               {MR}&nbsp;{data.name}
           </AccordionSummary>
-          <AccordionDetails sx={{backgroundColor: "secondary.main", justifyContent:"center", alignItems: "center", display: "flex"}}>
+          <AccordionDetails sx={{backgroundColor: "secondary.main", justifyContent:"center", alignItems: "center", display: "flex",
+              ...(isSmallScreen
+                  ? { flexDirection: "column" }
+                  : { flexDirection: "row" })
+            }}
+          >
                 {lessonsInfo}
           </AccordionDetails>
       </Accordion>
