@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {
     Box,
-    Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+    Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     TableCell,
-    TableRow, TextField
+    TableRow,
+    Tooltip
 } from "@mui/material";
 import {deleteChoiceById, modifyChoiceById} from "../../services/api/api";
 import CancelIcon from '@mui/icons-material/Cancel';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+
 
 function ChoiceItem({ data }) {
     // data -> id, nbGroupSelected, year, lessonInformation
@@ -31,11 +33,15 @@ function ChoiceItem({ data }) {
     };
 
     const handlePlus = () => {
-        setSelectNb(selectNb+1);
+        if (selectNb+1 <= data.lessonInformation.nbGroups){
+            setSelectNb(selectNb+1);
+        }
     }
 
     const handleMinus = () => {
-        setSelectNb(selectNb-1);
+        if (selectNb-1 >= 0){
+            setSelectNb(selectNb-1);
+        }
     }
 
     useEffect(() => {
@@ -54,7 +60,7 @@ function ChoiceItem({ data }) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseDelete}>Ne pas supprimer</Button>
+                    <Button onClick={handleCloseDelete} >Ne pas supprimer</Button>
                     <Button onClick={handleAcceptDelete} autoFocus>
                         Supprimer
                     </Button>
@@ -63,18 +69,20 @@ function ChoiceItem({ data }) {
 
             <TableRow>
                 <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
-                <TableCell align="right">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
-                <TableCell align="right">{data.lessonInformation.lesson.subject.name}</TableCell>
-                <TableCell align="right">{data.lessonInformation.lessonType.name}</TableCell>
-                <TableCell align="right" sx={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
-                    <Box>{selectNb}</Box>
-                    <Box sx={{ display: "flex" }}>
-                        <RemoveCircleOutlineIcon onClick={handleMinus}/>
-                        <AddCircleOutlineIcon onClick={handlePlus}/>
+                <TableCell align="center">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
+                <TableCell align="center">{data.lessonInformation.lesson.subject.name}</TableCell>
+                <TableCell align="center">{data.lessonInformation.lessonType.name}</TableCell>
+                <TableCell align="center">
+                    <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
+                        <Chip label={selectNb} variant="outlined" color="primary"/>
+                        <Box sx={{ display: "flex" }}>
+                            <Tooltip title="minimum: 0"><RemoveCircleIcon onClick={handleMinus} color="primary" sx={{ cursor: "pointer" }}/></Tooltip>
+                            <Tooltip title={"maximum: ".data.lessonInformation.nbGroups}><AddCircleIcon onClick={handlePlus} color="primary" sx={{ cursor: "pointer" }}/></Tooltip>
+                        </Box>
                     </Box>
                 </TableCell>
-                <TableCell align="right">{data.lessonInformation.nbGroups}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{data.lessonInformation.nbGroups}</TableCell>
+                <TableCell align="center">
                     <Box sx={{
                         margin: "1%",
                         backgroundColor: "accent.main",

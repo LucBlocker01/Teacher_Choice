@@ -41,13 +41,13 @@ function ChoicesList() {
                 }}>
                     <TableRow>
                         <TableCell>Matière</TableCell>
-                        <TableCell align="right">Semestre</TableCell>
-                        <TableCell align="right">Ressource</TableCell>
-                        <TableCell align="right">Type de cours</TableCell>
-                        <TableCell align="right">Nombres de groupes choisi</TableCell>
-                        <TableCell align="right">Nombres de groupes à encadrer</TableCell>
-                        <TableCell align="right">Nombres de groupes attribués</TableCell>
-                        <TableCell align="right" />
+                        <TableCell align="center">Semestre</TableCell>
+                        <TableCell align="center">Ressource</TableCell>
+                        <TableCell align="center">Type de cours</TableCell>
+                        <TableCell align="center">Nombres de groupes choisi</TableCell>
+                        <TableCell align="center">Nombres de groupes à encadrer</TableCell>
+                        <TableCell align="center">Nombres de groupes attribués</TableCell>
+                        <TableCell align="center" />
                     </TableRow>
                 </TableHead>
                 <TableBody>
