@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {fetchAllWeeks, fetchMyChoice} from "../../services/api/api";
 import { BarChart } from '@mui/x-charts/BarChart';
-import choices from "./Choices";
 
 function WeeklyTask(){
     const [ weeks, setWeeks ] = useState([]);
