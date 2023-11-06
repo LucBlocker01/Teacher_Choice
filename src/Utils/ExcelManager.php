@@ -166,12 +166,14 @@ class ExcelManager
         foreach ($subjects as $subjectKey => $subject) {
             // On écrit le nom de la MR
             $worksheet->setCellValue('A'.$idx, $subject->getName());
+            $worksheet->getStyle('A'.$idx)->getAlignment()->setHorizontal('center');
 
             $lessons = $subject->getLessons();
 
             foreach ($lessons as $lessonKey => $lesson) {
                 // On écrit le nom de la Lesson
                 $worksheet->setCellValue('B'.$idx, $lesson->getName());
+                $worksheet->getStyle('B'.$idx)->getAlignment()->setHorizontal('center');
 
                 $lessonInformations = $lesson->getLessonInformation();
 
@@ -195,6 +197,10 @@ class ExcelManager
             }
         }
 
+        $worksheet->getColumnDimension('A')->setAutoSize(true);
+        $worksheet->getColumnDimension('B')->setAutoSize(true);
+        $worksheet->getColumnDimension('C')->setAutoSize(true);
+        $worksheet->getColumnDimension('D')->setAutoSize(true);
         $worksheet->setCellValue('A'.$idx, '///');
 
         $idxMerge = 0;
