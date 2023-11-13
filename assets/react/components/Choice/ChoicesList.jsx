@@ -15,7 +15,7 @@ import {fetchMyChoice} from "../../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
 import {fetchSemesters} from "../../services/api/choice";
-import {string} from "prop-types";
+import {element} from "prop-types";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -30,40 +30,34 @@ function TabPanel({ children, value, index, ...other }) {
 }
 
 function ChoicesList() {
-    const [ ChoiceList, setChoiceList ] = useState() ;
+    const [ ChoiceList , setChoiceList ] = useState() ;
+    const [ ChoiceListImmuable , setChoiceListImmuable ] = useState() ;
 
     useEffect(() => {
         fetchMyChoice().then((data) => {
-            var choicesList = {};
-
-            if (currentSemester == null){
-                setChoiceList(
-                    data["hydra:member"].map((choice) => (
-                        <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
-                    ))
-                );
-            }
-
-            else {
-                data["hydra:member"].map((choice) => {
-                    if (choice.lessonInformation.lesson.subject.semester.name === currentSemester){
-                        choicesList.push(<ChoiceItem key={choice.id} data={choice}></ChoiceItem>);
-                    }
-                });
-                setChoiceList(choicesList);
-                choicesList = {};
-            }
+            setChoiceList(
+                data["hydra:member"].map((choice) => (
+                    <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
+                )))
+            setChoiceListImmuable(
+                data["hydra:member"].map((choice) => (
+                    <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
+                )))
         });
     }, []);
 
 
     const [currentTab, setCurrentTab] = React.useState(0);
-    const [currentSemester, setCurrentSemester] = React.useState(null);
 
     const handleChange = (event, newTab) => {
         setCurrentTab(newTab);
-        if (newTab > 0){
-            setCurrentSemester("S"+newTab);
+
+        if (newTab === 0){
+            setChoiceList(ChoiceListImmuable);
+        } else {
+            setChoiceList(ChoiceListImmuable.filter((ele) =>
+                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
+            ))
         }
     };
 
