@@ -23,12 +23,14 @@ function Choices() {
                     justifyContent: "space-around",
                     width: "100%"
                 }}>
-                    <Button sx={{
-                        border: 1,
-                        backgroundColor: "secondary.main",
-                    }} >
-                        Ajouter voeux
-                    </Button>
+                    <Link href="/react/choices/add">
+                        <Button sx={{
+                            border: 1,
+                            backgroundColor: "secondary.main",
+                        }} >
+                            Ajouter voeux
+                        </Button>
+                    </Link>
                     <Link href="/react/">
                         <Button sx={{
                             border: 1,
