@@ -18,16 +18,14 @@ function useTheme() {
             createTheme(
                 isNormal ?
                     {
-                    ...Normal
-                } : {
                     ...Dark
+                } : {
+                    ...Normal
                 }
             )
         )
     }
-    useEffect(() => {
-        toggleTheme();
-    }, []);
+
     return {prefersDarkMode, isNormal, theme, toggleTheme}
 }
 
