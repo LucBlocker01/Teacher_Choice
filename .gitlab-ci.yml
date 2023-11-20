@@ -6,10 +6,8 @@ test:
     - npm
     - node.js
   script:
-    - composer update
-    - composer install
+    - composer install --no-interaction
     - npm install
-    - npm clean-install
     - npm run build
     - composer test:codeception
 
