@@ -9,6 +9,7 @@ use App\Entity\LessonType;
 use App\Entity\Semester;
 use App\Entity\Status;
 use App\Entity\Subject;
+use App\Entity\Tag;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -61,7 +62,7 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Heures des cours', 'fas fa-clock', LessonPlanning::class);
         yield MenuItem::linkToCrud('Type de cours', 'fas fa-list', LessonType::class);
         yield MenuItem::linkToCrud('Semestres', 'fas fa-calendar', Semester::class);
-
+        yield MenuItem::linkToCrud('Tag', 'fas fa-tag', Tag::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
