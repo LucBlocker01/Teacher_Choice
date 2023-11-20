@@ -11,7 +11,7 @@ import AddChoices from "../components/addChoices/AddChoices";
 import AdminPanel from "../components/Admin/AdminPanel";
 import {Provider} from "react-redux";
 import store from "../store/index";
-import History from "../components/history/History";
+import History from "../components/History/History";
 
 
 function App() {
