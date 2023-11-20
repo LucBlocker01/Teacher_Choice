@@ -82,7 +82,7 @@ class Choice
     #[Groups(['get_Choice', 'post_Choice'])]
     private ?int $nbGroupSelected = null;
 
-    #[ORM\Column(length: 4)]
+    #[ORM\Column(length: 9)]
     #[Groups(['get_Choice', 'post_Choice'])]
     private ?string $year = null;
 
