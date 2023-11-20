@@ -3,19 +3,34 @@
 {% block title %}Hello ExcelController!{% endblock %}
 
 {% block body %}
-<h1>Excel.</h1>
-    <div>
-        <div>
-            <h2>Import :</h2>
-            <form method="post" enctype="multipart/form-data" action=" {{ path('app_excel_import') }}">
-                <input id="excel" name="excel" type="file">
-                <input type="submit">
-            </form>
+<div class="excel-title">Excel.</div>
+    <div class="excel-content">
+        <div class="excel-part">
+            <div class="excel-import">
+                <div class="excel-title">Import</div>
+                <form method="post" enctype="multipart/form-data" action=" {{ path('app_excel_import') }}">
+                    <input id="excel" name="excel" type="file">
+                    <input type="submit">
+                </form>
+            </div>
 
-            <h2>Export modèle :</h2>
-            <a href="{{ path('app_excel_export_modele') }}" target="_blank">Télécharger la MaquetteVoeux.xlsx</a>
+            <div class="excel-export">
+                <div class="excel-title">Export modèle</div>
+                <a href="{{ path('app_excel_export_modele') }}" target="_blank">Télécharger la MaquetteVoeux.xlsx</a>
 
-            <a href="{{ path('app_excel_export') }}" target="_blank">Export Semestre S1</a>
+                <a href="{{ path('app_excel_export') }}" target="_blank">Export Semestre S1</a>
+            </div>
+        </div>
+        <div class="excel-instruction">
+            <div class="excel-title">Instruction</div>
+            <ul>
+               <li>
+                   Dans la dernière colonne et ligne, veuillez inscrire '///' afin de délimiter la zone.
+               </li>
+                <li>
+                    Pour indiquer le type de semaine (Stage, Alternance, Vacances), veuillez colorer le numéro de semaine avec la bonne couleur.
+                </li>
+            </ul>
         </div>
     </div>
 {% endblock %}
