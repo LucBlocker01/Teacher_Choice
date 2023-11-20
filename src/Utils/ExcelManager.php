@@ -85,23 +85,13 @@ class ExcelManager
                 // Si la première colonne (le nom MR) n'est pas nulle.
                 if (null != $excelPage->getCell('A'.$idxRow)->getCalculatedValue()) {
                     $tempSubject = $excelPage->getCell('A'.$idxRow)->getCalculatedValue();
+                    $subject = new Subject($tempSubject, $semester);
+                    $this->entityManager->persist($subject);
                 }
 
                 // Si la première colonne (le nom de la Lesson) n'est pas nulle.
                 if (null != $excelPage->getCell('B'.$idxRow)->getCalculatedValue()) {
                     $tempLesson = $excelPage->getCell('B'.$idxRow)->getCalculatedValue();
-                }
-
-                // Si le MR n'existe pas dans la BD, on le crée.
-                $subject = $this->doctrine->getRepository(Subject::class)->findOneBy(['name' => $tempSubject]);
-                if (null == $subject) {
-                    $subject = new Subject($tempSubject, $semester);
-                    $this->entityManager->persist($subject);
-                }
-
-                // Si la Lesson n'existe pas dans la BD, on le crée.
-                $lesson = $this->doctrine->getRepository(Lesson::class)->findOneBy(['name' => $tempLesson]);
-                if (null == $lesson) {
                     $lesson = new Lesson($tempLesson, $subject);
                     $this->entityManager->persist($lesson);
                 }
@@ -174,20 +164,26 @@ class ExcelManager
         $idx = 1;
 
         foreach ($subjects as $subjectKey => $subject) {
+            // On écrit le nom de la MR
+            $worksheet->setCellValue('A'.$idx, $subject->getName());
+            $worksheet->getStyle('A'.$idx)->getAlignment()->setHorizontal('center');
+
             $lessons = $subject->getLessons();
 
             foreach ($lessons as $lessonKey => $lesson) {
-                $tags =
+                // On écrit le nom de la Lesson
+                $worksheet->setCellValue('B'.$idx, $lesson->getName());
+                $worksheet->getStyle('B'.$idx)->getAlignment()->setHorizontal('center');
+
                 $lessonInformations = $lesson->getLessonInformation();
 
                 foreach ($lessonInformations as $lessonInformation) {
-                    $lessonPlannings = $lessonInformation->getLessonPlannings();
-
-                    $worksheet->setCellValue('A'.$idx, $subject->getName());
-                    $worksheet->setCellValue('B'.$idx, $lesson->getName());
+                    // On écrit le infos de la Lesson.
                     $worksheet->setCellValue('C'.$idx, $lessonInformation->getNbGroups());
                     $worksheet->setCellValue('D'.$idx, $lessonInformation->getLessonType()->getName());
                     $worksheet->setCellValue('F'.$idx, $lessonInformation->getSaeSupport());
+
+                    $lessonPlannings = $lessonInformation->getLessonPlannings();
 
                     $actualColumn = 'H';
                     foreach ($lessonPlannings as $lessonPlanning) {
@@ -199,6 +195,42 @@ class ExcelManager
                     ++$idx;
                 }
             }
+        }
+
+        $worksheet->getColumnDimension('A')->setAutoSize(true);
+        $worksheet->getColumnDimension('B')->setAutoSize(true);
+        $worksheet->getColumnDimension('C')->setAutoSize(true);
+        $worksheet->getColumnDimension('D')->setAutoSize(true);
+        $worksheet->setCellValue('A'.$idx, '///');
+
+        $idxMerge = 0;
+        $idxSubjectToMergeStart = 1;
+        $idxSubjectToMergeEnd = 1;
+        $idxLessonToMergeStart = 1;
+        $idxLessonToMergeEnd = 1;
+
+        while ('///' != $worksheet->getCell('A'.$idxMerge)->getCalculatedValue()) {
+            ++$idxMerge;
+
+            if (null == $worksheet->getCell('A'.$idxMerge)->getCalculatedValue()) {
+                $idxSubjectToMergeEnd = $idxMerge;
+            } else {
+                if ($idxSubjectToMergeStart != $idxSubjectToMergeEnd) {
+                    $worksheet->mergeCells('A'.$idxSubjectToMergeStart.':A'.$idxSubjectToMergeEnd);
+                }
+
+                $idxSubjectToMergeStart = $idxMerge;
+                $idxSubjectToMergeEnd = $idxMerge;
+            }
+
+            if (null != $worksheet->getCell('B'.$idxMerge)->getCalculatedValue()) {
+                if ($idxLessonToMergeStart != $idxLessonToMergeEnd) {
+                    $worksheet->mergeCells('B'.$idxLessonToMergeStart.':B'.$idxLessonToMergeEnd);
+                }
+
+                $idxLessonToMergeStart = $idxMerge;
+            }
+            $idxLessonToMergeEnd = $idxMerge;
         }
 
         $writer = new Xlsx($spreadsheet);
