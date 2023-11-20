@@ -45,6 +45,19 @@ function Header({toggleTheme, isNormal}) {
                         color: "white",
                         }}
                         >Excel</Button></Link>: null }
+                    {user !== null && user.status === "/api/statuses/1" ? <Link sx={{
+                        textDecoration: "none",
+                        mr: "3px",
+                        "&:hover" : {
+                            backgroundColor: "secondary.main",
+                            borderRadius: "4px",
+                        }
+                    }} href="/admin">
+                        <Button sx={{
+                            backgroundColor: "accent.main",
+                            color: "white",
+                        }}
+                        >Admin</Button></Link>: null }
                     <Button sx={{
                         backgroundColor: "accent.main",
                         color: "white",
