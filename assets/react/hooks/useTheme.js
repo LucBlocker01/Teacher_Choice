@@ -5,11 +5,24 @@ import {Dark} from "../themes/Dark";
 
 function useTheme() {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-    const [isNormal, setIsNormal] = useState(!prefersDarkMode);
-    let [theme, setTheme] = useState(
-        createTheme({
-            ...Normal
-        })
+    const [isNormal, setIsNormal] = useState(() => {
+        if (window.localStorage.getItem("theme") === "dark") {
+            return false
+        } else {
+            return true
+        }
+    });
+    let [theme, setTheme] = useState(() => {
+        if (window.localStorage.getItem("theme") === "dark") {
+            return createTheme({
+                ...Dark
+            })
+        } else {
+            return createTheme({
+                ...Normal
+            })
+        }
+        }
     );
 
     function toggleTheme() {
@@ -24,6 +37,12 @@ function useTheme() {
                 }
             )
         )
+        if (isNormal) {
+            window.localStorage.setItem("theme", "dark")
+        } else {
+            window.localStorage.setItem("theme", "light")
+        }
+
     }
 
     return {prefersDarkMode, isNormal, theme, toggleTheme}
