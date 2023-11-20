@@ -6,6 +6,7 @@ test:
     - npm
     - node.js
   script:
+    - composer update
     - composer install
     - npm clean-install
     - npm run build
