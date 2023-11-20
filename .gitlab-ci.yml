@@ -8,6 +8,7 @@ test:
   script:
     - composer update
     - composer install
+    - npm install
     - npm clean-install
     - npm run build
     - composer test:codeception
