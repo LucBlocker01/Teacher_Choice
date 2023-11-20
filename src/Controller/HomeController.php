@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     #[Route('/react', name: 'app_react')]
     #[Route('/react/choices', 'app_react_choices')]
     #[Route('/react/choices/add', 'app_react_choices_add')]
-    #[Route('/react/choices/history', 'app_react_choices_history')]
+    #[Route('/react/choices/History', 'app_react_choices_history')]
     #[Route('/react/admin', 'app_react_admin')]
     #[IsGranted('ROLE_USER')]
     public function react(): Response
