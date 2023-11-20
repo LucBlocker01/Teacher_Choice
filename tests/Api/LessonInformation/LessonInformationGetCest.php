@@ -15,7 +15,6 @@ use App\Factory\StatusFactory;
 use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Factory\WeekFactory;
-use App\Factory\WeekStatusFactory;
 use App\Tests\Support\ApiTester;
 
 class LessonInformationGetCest
@@ -33,7 +32,7 @@ class LessonInformationGetCest
         ];
     }
 
-    public function getLessonInformation(ApiTester $I): void
+    public function _before(): void
     {
         // 1. 'Arrange'
         StatusFactory::createMany(3);
@@ -43,39 +42,31 @@ class LessonInformationGetCest
         WeekFactory::createMany(3);
         LessonFactory::createMany(3);
         LessonTypeFactory::createMany(3);
-        WeekStatusFactory::createMany(3);
+        LessonInformationFactory::createMany(3);
+        LessonPlanningFactory::createMany(3);
+        ChoiceFactory::createMany(3);
+    }
 
+    public function getLessonInformation(ApiTester $I): void
+    {
         $data = [
             'nbGroups' => 4,
             'saeSupport' => '',
         ];
         LessonInformationFactory::createOne($data);
-        LessonPlanningFactory::createMany(3);
-        ChoiceFactory::createMany(3);
+
         // 2. 'Act'
-        $I->sendGet('/api/lesson_informations/1');
+        $I->sendGet('/api/lesson_informations/4');
 
         // 3. 'Assert'
         $I->seeResponseCodeIsSuccessful();
         $I->seeResponseIsJson();
-        $I->seeResponseIsAnEntity(LessonInformation::class, '/api/lesson_informations/1');
+        $I->seeResponseIsAnEntity(LessonInformation::class, '/api/lesson_informations/4');
         $I->seeResponseIsAnItem(self::expectedProperties(), $data);
     }
 
     public function getLessonInformations(ApiTester $I): void
     {
-        // 1. 'Arrange'
-        StatusFactory::createMany(3);
-        UserFactory::createOne();
-        SemesterFactory::createMany(3);
-        SubjectFactory::createMany(3);
-        WeekFactory::createMany(3);
-        LessonFactory::createMany(3);
-        LessonTypeFactory::createMany(3);
-        WeekStatusFactory::createMany(3);
-        LessonInformationFactory::createMany(3);
-        LessonPlanningFactory::createMany(3);
-        ChoiceFactory::createMany(3);
         // 2. 'Act'
         $I->sendGet('/api/lesson_informations');
 
