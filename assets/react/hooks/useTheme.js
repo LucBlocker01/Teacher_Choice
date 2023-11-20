@@ -4,7 +4,6 @@ import {Normal} from "../themes/Normal";
 import {Dark} from "../themes/Dark";
 
 function useTheme() {
-    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
     const [isNormal, setIsNormal] = useState(() => {
         return window.localStorage.getItem("theme") !== "dark";
     });
@@ -41,7 +40,7 @@ function useTheme() {
 
     }
 
-    return {prefersDarkMode, isNormal, theme, toggleTheme}
+    return {isNormal, theme, toggleTheme}
 }
 
 export default useTheme;
