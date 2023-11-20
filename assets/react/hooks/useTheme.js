@@ -6,11 +6,7 @@ import {Dark} from "../themes/Dark";
 function useTheme() {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
     const [isNormal, setIsNormal] = useState(() => {
-        if (window.localStorage.getItem("theme") === "dark") {
-            return false
-        } else {
-            return true
-        }
+        return window.localStorage.getItem("theme") !== "dark";
     });
     let [theme, setTheme] = useState(() => {
         if (window.localStorage.getItem("theme") === "dark") {
