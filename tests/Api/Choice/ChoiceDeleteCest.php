@@ -12,13 +12,12 @@ use App\Factory\StatusFactory;
 use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Factory\WeekFactory;
-use App\Factory\WeekStatusFactory;
 use App\Tests\Support\ApiTester;
 use Codeception\Util\HttpCode;
 
 class ChoiceDeleteCest
 {
-    public static function deleteChoiceAnonymousUser(ApiTester $i): void
+    public function _before(ApiTester $I)
     {
         // Generate data
         // Generate User
@@ -28,7 +27,6 @@ class ChoiceDeleteCest
         // Generate lesson
         SemesterFactory::createOne();
         WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
         SubjectFactory::createOne();
         LessonFactory::createOne([
             'name' => 'Maths',
@@ -37,56 +35,26 @@ class ChoiceDeleteCest
         LessonInformationFactory::createMany(5);
         LessonPlanningFactory::createMany(5);
         ChoiceFactory::createOne();
+    }
 
+    public static function deleteChoiceAnonymousUser(ApiTester $i): void
+    {
         $i->sendDelete('/api/choices/1');
         $i->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
     public static function deleteOurChoice(ApiTester $i): void
     {
-        // Generate data
-        // Generate User
-        StatusFactory::createMany(4);
-        $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']])->object();
-        $i->amLoggedInAs($user);
+        $user = UserFactory::createOne(['roles' => ['ROLE_TEACHER']]);
+        ChoiceFactory::createOne(['teacher' => $user]);
+        $i->amLoggedInAs($user->object());
 
-        // Generate lesson
-        SemesterFactory::createOne();
-        WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
-        SubjectFactory::createOne();
-        LessonFactory::createOne([
-            'name' => 'Maths',
-        ]);
-        LessonTypeFactory::createMany(5);
-        LessonInformationFactory::createMany(5);
-        LessonPlanningFactory::createMany(5);
-        ChoiceFactory::createOne();
-
-        $i->sendDelete('/api/choices/1');
+        $i->sendDelete('/api/choices/2');
         $i->seeResponseCodeIs(HttpCode::NO_CONTENT);
     }
 
     public static function deleteOtherChoice(ApiTester $i): void
     {
-        // Generate data
-        // Generate User
-        StatusFactory::createMany(4);
-        UserFactory::createOne();
-
-        // Generate lesson
-        SemesterFactory::createOne();
-        WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
-        SubjectFactory::createOne();
-        LessonFactory::createOne([
-            'name' => 'Maths',
-        ]);
-        LessonTypeFactory::createMany(5);
-        LessonInformationFactory::createMany(5);
-        LessonPlanningFactory::createMany(5);
-        ChoiceFactory::createOne();
-
         $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']])->object();
         $i->amLoggedInAs($user);
 

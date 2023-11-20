@@ -12,13 +12,12 @@ use App\Factory\StatusFactory;
 use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Factory\WeekFactory;
-use App\Factory\WeekStatusFactory;
 use App\Tests\Support\ApiTester;
 use Codeception\Util\HttpCode;
 
 class ChoicePatchCest
 {
-    public function patchChoiceAnonymousUser(ApiTester $i): void
+    public function _before(ApiTester $i): void
     {
         // Generate data
         // Generate User
@@ -28,7 +27,6 @@ class ChoicePatchCest
         // Generate lesson
         SemesterFactory::createOne();
         WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
         SubjectFactory::createOne();
         LessonFactory::createOne([
             'name' => 'Maths',
@@ -37,7 +35,10 @@ class ChoicePatchCest
         LessonInformationFactory::createMany(5);
         LessonPlanningFactory::createMany(5);
         ChoiceFactory::createOne();
+    }
 
+    public function patchChoiceAnonymousUser(ApiTester $i): void
+    {
         $i->sendPatch('/api/choices/1', [
             'nbGroupSelected' => 3,
         ]);
@@ -48,24 +49,11 @@ class ChoicePatchCest
     {
         // Generate data
         // Generate User
-        StatusFactory::createMany(4);
-        $user = UserFactory::createOne(['roles' => ['ROLE_USER']])->object();
-        $i->amLoggedInAs($user);
+        $user = UserFactory::createOne(['roles' => ['ROLE_USER']]);
+        ChoiceFactory::createOne(['teacher' => $user]);
+        $i->amLoggedInAs($user->object());
 
-        // Generate lesson
-        SemesterFactory::createOne();
-        WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
-        SubjectFactory::createOne();
-        LessonFactory::createOne([
-            'name' => 'Maths',
-        ]);
-        LessonTypeFactory::createMany(5);
-        LessonInformationFactory::createMany(5);
-        LessonPlanningFactory::createMany(5);
-        ChoiceFactory::createOne();
-
-        $i->sendPatch('/api/choices/1', [
+        $i->sendPatch('/api/choices/2', [
             'nbGroupSelected' => 3,
         ]);
         $i->seeResponseCodeIs(HttpCode::OK);
@@ -73,25 +61,8 @@ class ChoicePatchCest
 
     public function PatchOtherUserChoice(ApiTester $i): void
     {
-        // Generate data
-        // Generate User
-        StatusFactory::createMany(4);
-        UserFactory::createOne(['roles' => ['ROLE_USER']]);
-
-        // Generate lesson
-        SemesterFactory::createOne();
-        WeekFactory::createMany(5);
-        WeekStatusFactory::createMany(5);
-        SubjectFactory::createOne();
-        LessonFactory::createOne([
-            'name' => 'Maths',
-        ]);
-        LessonTypeFactory::createMany(5);
-        LessonInformationFactory::createMany(5);
-        LessonPlanningFactory::createMany(5);
-        ChoiceFactory::createOne();
-
         $user = UserFactory::createOne(['roles' => ['ROLE_USER']])->object();
+        ChoiceFactory::createOne(['teacher' => $user]);
         $i->amLoggedInAs($user);
 
         $i->sendPatch('/api/choices/1', [

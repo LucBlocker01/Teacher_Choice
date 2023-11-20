@@ -46,12 +46,14 @@ final class ChoiceFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $year = self::faker()->numberBetween(2021, 2023);
+
         return [
             'nbGroupSelected' => self::faker()->numberBetween(1, 4),
             'nbGroupAttributed' => null,
             'LessonInformation' => LessonInformationFactory::random(),
             'teacher' => UserFactory::random(),
-            'year' => self::faker()->numberBetween(2021, 2023),
+            'year' => $year.'/'.$year + 1,
         ];
     }
 

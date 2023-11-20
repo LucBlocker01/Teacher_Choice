@@ -14,7 +14,6 @@ use App\Factory\StatusFactory;
 use App\Factory\SubjectFactory;
 use App\Factory\UserFactory;
 use App\Factory\WeekFactory;
-use App\Factory\WeekStatusFactory;
 use App\Tests\Support\ApiTester;
 
 class LessonPlanningGetCest
@@ -25,21 +24,25 @@ class LessonPlanningGetCest
             'id' => 'integer',
             'nbHours' => 'integer',
             'information' => 'string:path',
-            'weekStatus' => 'string:path',
+            'week' => 'string:path',
         ];
     }
 
-    public function anonymousUserGetLessonPlanning(ApiTester $I): void
+    public function _before(): void
     {
+        StatusFactory::createOne();
         SemesterFactory::createOne();
         SubjectFactory::createMany(3);
         WeekFactory::createOne();
-        WeekStatusFactory::createMany(3);
         LessonTypeFactory::createMany(3);
         LessonFactory::createOne([
             'name' => 'test_lesson',
         ]);
         LessonInformationFactory::createMany(5);
+    }
+
+    public function anonymousUserGetLessonPlanning(ApiTester $I): void
+    {
         $data = [
             'nbHours' => 999,
         ];
@@ -55,21 +58,12 @@ class LessonPlanningGetCest
 
     public function authenticatedUserGetLessonPlanning(ApiTester $I): void
     {
-        StatusFactory::createOne();
-        SemesterFactory::createOne();
-        SubjectFactory::createMany(3);
-        WeekFactory::createOne();
-        WeekStatusFactory::createMany(3);
-        LessonTypeFactory::createMany(3);
-        LessonFactory::createOne([
-            'name' => 'test_lesson',
-        ]);
-        $user = UserFactory::createOne()->object();
-        LessonInformationFactory::createMany(5);
         $data = [
             'nbHours' => 999,
         ];
         LessonPlanningFactory::createOne($data);
+
+        $user = UserFactory::createOne()->object();
         $I->amLoggedInAs($user);
 
         $I->sendGet('api/lesson_plannings/1');
