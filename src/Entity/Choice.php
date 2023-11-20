@@ -79,11 +79,11 @@ class Choice
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?int $nbGroupSelected = null;
 
-    #[ORM\Column(length: 9)]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[ORM\Column(length: 4)]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?string $year = null;
 
     #[ORM\ManyToOne(inversedBy: 'choice')]
@@ -92,12 +92,12 @@ class Choice
     private ?User $teacher = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_OldChoice'])]
     private ?int $nbGroupAttributed = null;
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?LessonInformation $lessonInformation = null;
 
     public function getId(): ?int
