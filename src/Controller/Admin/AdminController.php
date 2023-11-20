@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Lesson;
 use App\Entity\LessonPlanning;
+use App\Entity\LessonType;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -50,7 +51,8 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-circle-user', User::class);
         yield MenuItem::linkToCrud('Cours', 'fas fa-book', Lesson::class);
-        yield MenuItem::linkToCrud('Planning des Cours', 'fas fa-book', LessonPlanning::class);
+        yield MenuItem::linkToCrud('Heures des cours', 'fas fa-clock', LessonPlanning::class);
+        yield MenuItem::linkToCrud('Type de cours', 'fas fa-list', LessonType::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
