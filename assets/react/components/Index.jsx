@@ -51,7 +51,13 @@ function Index() {
             }}>
                 {semestersList}
             </Box>
-            <SearchTags setInput={setInput}/>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                mb: "5px"
+            }}>
+                <SearchTags setInput={setInput}/>
+            </Box>
             <Container sx={{
                 display: "flex",
                 alignItems: "center",
