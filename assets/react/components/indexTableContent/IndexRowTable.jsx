@@ -7,7 +7,7 @@ function IndexRowTable({data, searchInput}) {
     const [cell, setCell] = useState(null);
     useEffect(() => {
         fetchSubjectBySemester(data.id).then((data) => {
-            let content = data["hydra:member"].filter((subject) => subject.lessons.some((lesson) => lesson.tags.some((tag) => tag.name.includes(searchInput))))
+            let content = data["hydra:member"].filter((subject) => subject.lessons.some((lesson) => lesson.tags.some((tag) => tag.name.toLowerCase().includes(searchInput.toLowerCase()))))
             setCell(content.map((subject) => (
                 <>
                 { subject.lessons.length > 0 ?
