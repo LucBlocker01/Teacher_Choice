@@ -5,7 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use App\Controller\GetLessonInformationByYearController;
 use App\Repository\LessonInformationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,18 +16,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(),
         new GetCollection(),
-        new GetCollection(
-            uriTemplate: '/lesson_informations/year/{year}',
-            controller: GetLessonInformationByYearController::class,
-            openapiContext: [
-                'summary' => 'get lessons information from a given year',
-                'description' => 'Will return all lessons information of the subject year',
-            ],
-            normalizationContext: [
-                'groups' => ['get_Information'],
-            ],
-            security: "is_granted('ROLE_USER')",
-        ),
     ],
 )]
 class LessonInformation

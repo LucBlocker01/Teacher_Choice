@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Controller\GetChoiceByTeacherController;
+use App\Controller\GetChoicesByCurrentYearController;
 use App\Controller\GetMyChoiceController;
 use App\Controller\GetOldChoicesController;
 use App\Repository\ChoiceRepository;
@@ -21,7 +22,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object.getTeacher() == user",
         ),
-
         new GetCollection(
             uriTemplate: '/choice/me',
             controller: GetMyChoiceController::class,
@@ -35,6 +35,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ],
             normalizationContext: ['groups' => ['get_Choice']],
+            security: "is_granted('ROLE_USER')",
+        ),
+        new GetCollection(
+            uriTemplate: '/choices/currentYear',
+            controller: GetChoicesByCurrentYearController::class,
+
+            normalizationContext: ['groups' => ['get_Information']],
             security: "is_granted('ROLE_USER')",
         ),
         new GetCollection(
