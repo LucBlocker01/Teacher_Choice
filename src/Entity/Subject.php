@@ -43,12 +43,12 @@ class Subject
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice', 'get_SubjectBySemester',  'get_Subject'])]
+    #[Groups(['get_Choice', 'get_SubjectBySemester',  'get_Subject', 'get_OldChoice'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'subjects')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'get_Subject'])]
+    #[Groups(['get_Choice', 'get_Subject', 'get_OldChoice'])]
     private ?Semester $semester = null;
 
     #[ORM\Column(length: 1, nullable: true)]
