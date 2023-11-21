@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\LessonRepository;
+use App\Repository\LessonInformationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChoiceAttributionController extends AbstractController
 {
     #[Route('/attribution', name: 'app_choice_attribution')]
-    public function index(LessonRepository $repository): Response
+    public function index(LessonInformationRepository $repository): Response
     {
         $lessons = $repository->findAll();
 

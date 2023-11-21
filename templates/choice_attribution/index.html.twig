@@ -12,7 +12,7 @@
     <h1>Attribution des groupes</h1>
 
     {% for lesson in lessons %}
-        <p class="">Nom de la leçon : {{ lesson.name }}</p>
+        <p class="">Nom de la leçon : {{ lesson.lesson.name }} {{ lesson.lessonType.name }}</p>
     {% endfor %}
 
 
