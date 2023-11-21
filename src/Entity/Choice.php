@@ -58,7 +58,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(uriTemplate: '/old_choices',
             controller: GetOldChoicesController::class,
             openapiContext: [
-                'summary' => 'Retrive old choices of connected user',
+                'summary' => 'Retrieve old choices of connected user',
                 'description' => 'Old choices list response',
                 'responses' => [
                     '200' => [
