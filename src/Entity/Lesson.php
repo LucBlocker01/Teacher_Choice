@@ -38,11 +38,11 @@ class Lesson
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_SubjectBySemester', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_SubjectBySemester', 'get_Information', 'get_OldChoice'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class, cascade: ['remove'])]
-    #[Groups(['get_Lesson', 'get_Subject'])]
+    #[Groups(['get_Lesson', 'get_Subject', 'get_Information'])]
     private Collection $lessonInformation;
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]

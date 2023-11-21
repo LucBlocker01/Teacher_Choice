@@ -15,7 +15,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            normalizationContext: [
+                'groups' => ['get_Information'],
+            ],
+        ),
     ],
 )]
 class LessonInformation
@@ -23,31 +27,33 @@ class LessonInformation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_Information', 'get_OldChoice'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_Information', 'get_OldChoice'])]
     private ?int $nbGroups = null;
 
     #[ORM\Column(length: 4, nullable: true)]
+    #[Groups(['get_Information'])]
     private ?string $saeSupport = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_Information', 'get_OldChoice'])]
     private ?Lesson $lesson = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_Information', 'get_OldChoice'])]
     private ?LessonType $lessonType = null;
 
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class, cascade: ['remove'])]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice','get_Information'])]
     private Collection $lessonPlannings;
 
     #[ORM\OneToMany(mappedBy: 'lessonInformation', targetEntity: Choice::class)]
+    #[Groups(['get_Information'])]
     private Collection $choices;
 
     public function __construct(
