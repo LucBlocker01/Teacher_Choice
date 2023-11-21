@@ -117,6 +117,7 @@ function History() {
                                     <TableCell>Type de cours</TableCell>
                                     <TableCell>Nombres de groupes attribués</TableCell>
                                     <TableCell>Nombres de groupes encadrés</TableCell>
+                                    <TableCell>Year</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
