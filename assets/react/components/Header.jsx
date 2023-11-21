@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import {AppBar, Box, Button, Container, Link, Typography} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
-
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import PersonIcon from '@mui/icons-material/Person';
+import LoginIcon from '@mui/icons-material/Login';
 
 function Header({toggleTheme, isNormal}) {
     const [user, setUserData] = useState({});
@@ -24,9 +28,11 @@ function Header({toggleTheme, isNormal}) {
                 backgroundColor: "primary.main",
             }}>
                 <Container sx={{
-                    m: '0'
+                    m: '0',
+                    display: "flex",
+                    alignItems: "center"
                 }}>
-                    <p>SetURCAlendar</p>
+                    <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
                 </Container>
                 <Container sx={{
                     display: "flex",
@@ -57,7 +63,9 @@ function Header({toggleTheme, isNormal}) {
                             backgroundColor: "accent.main",
                             color: "white",
                         }}
-                        >Admin</Button></Link>: null }
+                        >
+                            <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
+                        </Button></Link>: null }
                     <Button sx={{
                         backgroundColor: "accent.main",
                         color: "white",
@@ -68,11 +76,11 @@ function Header({toggleTheme, isNormal}) {
                         }
                     }}
                             onClick={toggleTheme}
-                    >{isNormal ? (
-                        <Typography>Clair</Typography>
-                    ) : (
-                        <Typography>Sombre</Typography>
-                    )}</Button>
+                    >{isNormal ?
+                            <WbSunnyIcon></WbSunnyIcon>
+                     :
+                        <NightlightRoundIcon></NightlightRoundIcon>
+                    }</Button>
                     { user !== null ?
                         <Link sx={{
                             textDecoration: "none",
@@ -85,7 +93,9 @@ function Header({toggleTheme, isNormal}) {
                                 backgroundColor: "accent.main",
                                 color: "white",
                             }}
-                            >Profil</Button></Link> :
+                            >
+                                <PersonIcon></PersonIcon>
+                            </Button></Link> :
                         <Link sx={{
                             textDecoration: "none",
                             "&:hover" : {
@@ -97,7 +107,9 @@ function Header({toggleTheme, isNormal}) {
                                 backgroundColor: "accent.main",
                                 color: "white",
                             }}
-                            >Se connecter</Button></Link>}
+                            >
+                                <LoginIcon></LoginIcon>
+                            </Button></Link>}
 
                 </Container>
 

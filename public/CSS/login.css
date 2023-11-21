@@ -14,10 +14,17 @@ body{
 .title_color_2{
     color: #97537A;
 }
+
 .logo{
     display: block;
     width: 20%;
     margin: 50px auto auto;
+}
+
+.logo_header{
+    display: block;
+    width: 75px;
+    margin-top: 20px;
 }
 
 .formu{
