@@ -10,6 +10,9 @@ export const Normal = {
         },
         accent: {
             main: '#97537A'
+        },
+        text: {
+            main: '#000000'
         }
     },
     typography: {

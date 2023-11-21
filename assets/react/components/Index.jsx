@@ -3,9 +3,10 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
 import IndexTable from "./indexTableContent/IndexTable";
 import {fetchDefaultSemester} from "../services/api/api";
-
+import SearchTags from "./Search/SearchTags";
 
 function Index() {
+    const [searchInput, setInput] = useState("")
     const [semestersList, setSemesterList] = useState();
     const [semester, setSemester] = useState();
     useEffect(() => {
@@ -21,7 +22,7 @@ function Index() {
                         mr: "3px",
                         fontSize: "2em",
                         backgroundColor: "accent.main",
-                        color: "white"
+                        color: "text.main"
                     }}
                         key={semester.id}
                         onClick={() => {
@@ -50,6 +51,13 @@ function Index() {
             }}>
                 {semestersList}
             </Box>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "center",
+                mb: "5px"
+            }}>
+                <SearchTags setInput={setInput}/>
+            </Box>
             <Container sx={{
                 display: "flex",
                 alignItems: "center",
@@ -57,7 +65,7 @@ function Index() {
                 flexWrap: "wrap",
                 flexDirection: "column"
             }}>
-                <IndexTable semester={semester}/>
+                <IndexTable semester={semester} searchInput={searchInput}/>
             </Container>
 
         </Box>
