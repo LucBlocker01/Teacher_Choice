@@ -8,11 +8,16 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
+<div class="">
     <h1>Attribution des groupes</h1>
 
     {% for lesson in lessons %}
         <p class="">Nom de la leçon : {{ lesson.lesson.name }} {{ lesson.lessonType.name }}</p>
+        <p>Choix :</p>
+        {% for choice in lesson.choices %}
+            <p class="">Nombre de groupe voulu : {{ choice.nbGroupSelected }} </p>
+            <p class="">Professeur : {{ choice.teacher.lastname }} {{ choice.teacher.firstname }} </p>
+        {% endfor %}
     {% endfor %}
 
 
