@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {fetchSubjectBySemester} from "../../services/api/choice";
-import {Badge, TableCell, TableRow, Typography} from "@mui/material";
+import {TableCell, TableRow, Typography} from "@mui/material";
 
 
 function IndexRowTable({data, searchInput}) {
@@ -23,7 +23,7 @@ function IndexRowTable({data, searchInput}) {
                             </TableCell>
                             <TableCell>
                                 {subject.lessons.map((lesson) => (
-                                    <Typography sx={{display: "flex", gap: 1}}>{lesson.tags.map((tag) => <Badge>{tag.name}</Badge>)}</Typography>
+                                    <Typography sx={{display: "flex", gap: 1}}>{lesson.tags.map((tag) => <Typography>{tag.name}</Typography>)}</Typography>
                                 )
                                 )}
                             </TableCell>
