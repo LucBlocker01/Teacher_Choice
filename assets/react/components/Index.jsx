@@ -22,7 +22,7 @@ function Index() {
                         mr: "3px",
                         fontSize: "2em",
                         backgroundColor: "accent.main",
-                        color: "white"
+                        color: "text.main"
                     }}
                         key={semester.id}
                         onClick={() => {
