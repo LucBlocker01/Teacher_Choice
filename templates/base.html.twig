@@ -21,10 +21,15 @@
             function load() {
                 if (window.localStorage.getItem("theme") === "dark") {
                     document.body.setAttribute("class", "dark")
-                    document.body.getElementsByClassName("form")[0].setAttribute("class", "form_dark")
+                    if ( document.body.getElementsByClassName("form")[0] !== undefined) {
+                        document.body.getElementsByClassName("form")[0].setAttribute("class", "form_dark")
+                    }
+
                 } else {
                     document.body.setAttribute("class", "normal")
-                    document.body.getElementsByClassName("form_dark")[0].setAttribute("class", "form")
+                    if ( document.body.getElementsByClassName("form_dark")[0] !== undefined) {
+                        ddocument.body.getElementsByClassName("form_dark")[0].setAttribute("class", "form")
+                    }
                 }
             }
             setInterval(load, 2);
