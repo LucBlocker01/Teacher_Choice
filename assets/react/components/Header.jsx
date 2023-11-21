@@ -28,9 +28,11 @@ function Header({toggleTheme, isNormal}) {
                 backgroundColor: "primary.main",
             }}>
                 <Container sx={{
-                    m: '0'
+                    m: '0',
+                    display: "flex",
+                    alignItems: "center"
                 }}>
-                    <p>SetURCAlendar</p>
+                    <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
                 </Container>
                 <Container sx={{
                     display: "flex",
