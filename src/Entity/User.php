@@ -54,7 +54,7 @@ use Symfony\Component\Validator\Constraints\Regex;
             denormalizationContext: ['groups' => ['set_User']],
             security: "is_granted('ROLE_USER') and object == user",
         ),
-        new GetCollection(uriTemplate: '/User/OldChoices',
+        new GetCollection(uriTemplate: '/user/old_choices',
             controller: GetOldChoicesController::class,
             openapiContext: [
                 'summary' => 'Retrive old choices of connected user',
