@@ -12,9 +12,16 @@
     opacity: 1;
 }
 
-.title{
+.title {
     text-align: center;
-    color: #6e6e6e;
+    color: #000000;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.title_dark {
+    text-align: center;
+    color: #ffffff;
     font-size: 50px;
     font-weight: bold;
 }
