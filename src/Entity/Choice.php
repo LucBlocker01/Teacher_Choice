@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Controller\GetChoiceByTeacherController;
 use App\Controller\GetMyChoiceController;
+use App\Controller\GetOldChoicesController;
 use App\Repository\ChoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -53,6 +54,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
             normalizationContext: ['groups' => ['get_Choice']],
             security: "is_granted('ROLE_ADMIN')",
+        ),
+        new GetCollection(uriTemplate: '/old_choices',
+            controller: GetOldChoicesController::class,
+            openapiContext: [
+                'summary' => 'Retrive old choices of connected user',
+                'description' => 'Old choices list response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'Old choices list to be returned',
+                    ],
+                ],
+            ],
+            normalizationContext: ['groups' => ['get_User', 'get_OldChoice']],
+            security: "is_granted('ROLE_USER')",
         ),
         new GetCollection(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",

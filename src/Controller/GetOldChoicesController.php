@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
+use App\Repository\ChoiceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GetOldChoicesController extends AbstractController
 {
-    private UserRepository $repository;
+    private ChoiceRepository $repository;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(ChoiceRepository $repository)
     {
         $this->repository = $repository;
     }

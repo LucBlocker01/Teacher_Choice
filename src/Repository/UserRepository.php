@@ -52,26 +52,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    public function getOldChoices($user): array
-    {
-        $year = date('Y').'/'.((int) date('Y') + 1);
-
-        if (null !== $user) {
-            $userID = $user->getId();
-
-            return $this->createQueryBuilder('u')
-                ->join('u.choice', 'c')
-                ->andWhere('u.id = :userID')
-                ->andWhere('c.year != :year')
-                ->setParameter('userID', $userID)
-                ->setParameter('year', $year)
-                ->getQuery()
-                ->getResult();
-        } else {
-            throw $this->createNotFoundException('Aucun utilisateur trouvé');
-        }
-    }
-
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

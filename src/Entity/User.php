@@ -8,7 +8,6 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use App\Controller\GetMeController;
-use App\Controller\GetOldChoicesController;
 use App\Controller\GetTeacherController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -53,20 +52,6 @@ use Symfony\Component\Validator\Constraints\Regex;
             normalizationContext: ['groups' => ['get_User']],
             denormalizationContext: ['groups' => ['set_User']],
             security: "is_granted('ROLE_USER') and object == user",
-        ),
-        new GetCollection(uriTemplate: '/user/old_choices',
-            controller: GetOldChoicesController::class,
-            openapiContext: [
-                'summary' => 'Retrive old choices of connected user',
-                'description' => 'Old choices list response',
-                'responses' => [
-                    '200' => [
-                        'description' => 'Old choices list to be returned',
-                    ],
-                ],
-            ],
-            normalizationContext: ['groups' => ['get_User', 'get_OldChoice']],
-            security: "is_granted('ROLE_USER')",
         ),
         new GetCollection(
             uriTemplate: '/teachers',
