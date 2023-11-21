@@ -15,7 +15,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            normalizationContext: ['groups' => ['get_Information']],
+        ),
     ],
 )]
 class LessonInformation

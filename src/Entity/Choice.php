@@ -38,13 +38,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: "is_granted('ROLE_USER')",
         ),
         new GetCollection(
-            uriTemplate: '/choices/currentYear',
-            controller: GetChoicesByCurrentYearController::class,
-
-            normalizationContext: ['groups' => ['get_Information']],
-            security: "is_granted('ROLE_USER')",
-        ),
-        new GetCollection(
             uriTemplate: '/user/choice/{id}',
             controller: GetChoiceByTeacherController::class,
             openapiContext: [

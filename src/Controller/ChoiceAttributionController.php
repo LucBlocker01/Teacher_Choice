@@ -12,7 +12,7 @@ class ChoiceAttributionController extends AbstractController
     #[Route('/attribution', name: 'app_choice_attribution')]
     public function index(LessonInformationRepository $repository): Response
     {
-        $lessons = $repository->findAll();
+        $lessons = $repository->getLessonByCurrentYear();
 
         return $this->render('choice_attribution/index.html.twig', [
             'lessons' => $lessons,

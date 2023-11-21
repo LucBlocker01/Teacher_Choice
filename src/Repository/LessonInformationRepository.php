@@ -21,6 +21,18 @@ class LessonInformationRepository extends ServiceEntityRepository
         parent::__construct($registry, LessonInformation::class);
     }
 
+    public function getLessonByCurrentYear(): array
+    {
+        $year = date('Y').'/'.((int) date('Y') + 1);
+
+        return $this->createQueryBuilder('li')
+            ->leftJoin('li.choices', 'c')
+            ->andWhere('c.year LIKE :year')
+            ->setParameter('year', $year)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return LessonInformation[] Returns an array of LessonInformation objects
     //     */
