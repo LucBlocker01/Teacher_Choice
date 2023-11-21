@@ -8,7 +8,7 @@ function SearchTags({setInput}) {
     }
     return (
         <>
-        <TextField onChange={handleChange}/>
+        <TextField onChange={handleChange} placeholder="Rechercher tags..."/>
         </>
     )
 }
