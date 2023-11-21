@@ -3,7 +3,7 @@ import {fetchSubjectBySemester} from "../../services/api/choice";
 import {Badge, TableCell, TableRow, Typography} from "@mui/material";
 
 
-function IndexRowTable({data}) {
+function IndexRowTable({data, searchInput}) {
     const [cell, setCell] = useState(null);
     useEffect(() => {
         fetchSubjectBySemester(data.id).then((data) => {

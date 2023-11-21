@@ -3,7 +3,7 @@ import IndexRowTable from "./IndexRowTable";
 import React, {useEffect, useState} from "react";
 
 
-function IndexTable({semester}) {
+function IndexTable({semester, searchInput}) {
     const [newSemester, setNewSemester] = useState();
     useEffect(() => {
         setNewSemester(semester)
@@ -33,7 +33,7 @@ function IndexTable({semester}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <IndexRowTable data={newSemester}/>
+                        <IndexRowTable data={newSemester} searchInput={searchInput}/>
                     </TableBody>
                 </Table>
             </TableContainer> :

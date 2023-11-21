@@ -6,6 +6,7 @@ import {fetchDefaultSemester} from "../services/api/api";
 import SearchTags from "./Search/SearchTags";
 
 function Index() {
+    const [searchInput, setInput] = useState("")
     const [semestersList, setSemesterList] = useState();
     const [semester, setSemester] = useState();
     useEffect(() => {
@@ -58,7 +59,7 @@ function Index() {
                 flexWrap: "wrap",
                 flexDirection: "column"
             }}>
-                <IndexTable semester={semester}/>
+                <IndexTable semester={semester} searchInput={searchInput}/>
             </Container>
 
         </Box>
