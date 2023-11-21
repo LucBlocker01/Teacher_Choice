@@ -21,8 +21,21 @@
             function load() {
                 if (window.localStorage.getItem("theme") === "dark") {
                     document.body.setAttribute("class", "dark")
+                    if ( document.body.getElementsByClassName("form")[0] !== undefined) {
+                        document.body.getElementsByClassName("form")[0].setAttribute("class", "form_dark")
+                    }
+                    if ( document.body.getElementsByClassName("title")[0] !== undefined) {
+                        document.body.getElementsByClassName("title")[0].setAttribute("class", "title_dark")
+                    }
+
                 } else {
                     document.body.setAttribute("class", "normal")
+                    if ( document.body.getElementsByClassName("form_dark")[0] !== undefined) {
+                        document.body.getElementsByClassName("form_dark")[0].setAttribute("class", "form")
+                    }
+                    if ( document.body.getElementsByClassName("title_dark")[0] !== undefined) {
+                        document.body.getElementsByClassName("title_dark")[0].setAttribute("class", "title")
+                    }
                 }
             }
             setInterval(load, 2);
