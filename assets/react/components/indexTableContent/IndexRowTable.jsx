@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {fetchSubjectBySemester} from "../../services/api/choice";
-import {Badge, TableCell, TableRow, Typography} from "@mui/material";
+import {TableCell, TableRow, Typography} from "@mui/material";
 
 
 function IndexRowTable({data, searchInput}) {
     const [cell, setCell] = useState(null);
     useEffect(() => {
         fetchSubjectBySemester(data.id).then((data) => {
-            let content = data["hydra:member"].filter((subject) => subject.lessons.some((lesson) => lesson.tags.some((tag) => tag.name.includes(searchInput))))
+            let content = data["hydra:member"].filter((subject) => subject.lessons.some((lesson) => lesson.tags.some((tag) => tag.name.toLowerCase().includes(searchInput.toLowerCase()))))
             setCell(content.map((subject) => (
                 <>
                 { subject.lessons.length > 0 ?
@@ -23,7 +23,7 @@ function IndexRowTable({data, searchInput}) {
                             </TableCell>
                             <TableCell>
                                 {subject.lessons.map((lesson) => (
-                                    <Typography sx={{display: "flex", gap: 1}}>{lesson.tags.map((tag) => <Badge>{tag.name}</Badge>)}</Typography>
+                                    <Typography sx={{display: "flex", gap: 1}}>{lesson.tags.map((tag) => <Typography>{tag.name}</Typography>)}</Typography>
                                 )
                                 )}
                             </TableCell>
