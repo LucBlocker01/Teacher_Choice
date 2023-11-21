@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{ asset('CSS/general.css') }}">
         <link rel="stylesheet" href="{{ asset('CSS/login.css') }}">
         <link rel="stylesheet" href="{{ asset('CSS/profil.css') }}">
         <link rel="stylesheet" href="{{ asset('CSS/app.css') }}">
@@ -19,7 +20,7 @@
         <script>
             function load() {
                 if (window.localStorage.getItem("theme") === "dark") {
-                    document.body.setAttribute("style", "background-color: #000000")
+                    document.body.setAttribute("class", "dark")
                 } else {
                     document.body.setAttribute("class", "normal")
                 }
