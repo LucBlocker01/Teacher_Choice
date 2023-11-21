@@ -8,7 +8,13 @@ function SearchTags({setInput}) {
     }
     return (
         <>
-        <TextField onChange={handleChange} placeholder="Rechercher tags..."/>
+        <TextField sx={{
+            backgroundColor: "secondary.main",
+            borderRadius: "4px",
+            color: "text.main"
+        }}
+                   onChange={handleChange}
+                   placeholder="Rechercher tags..."/>
         </>
     )
 }
