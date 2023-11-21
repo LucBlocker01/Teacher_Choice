@@ -12,8 +12,8 @@ import {
     Tabs,
     Typography
 } from "@mui/material";
-import ChoiceItem from './ChoiceItem';
 import Paper from "@mui/material/Paper";
+import ChoiceItemHistory from "./ChoiceItemHistory";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -29,33 +29,50 @@ function TabPanel({ children, value, index, ...other }) {
 
 function History() {
 
-    const [history, setHistory] = useState([])
     const [oldChoices, setOldChoices] = useState([])
     const [oldChoicesImmuable, setOldChoicesImmuable] = useState([])
     const [currentTab, setCurrentTab] = useState(0);
-    const [years, setYears] = useState([ [1, '2021/2022'], [2, '2022/2023'] ])
+    const [years, setYears] = useState([])
+
+
 
     useEffect(() => {
         fetchOldChoices().then((data) => {
             setOldChoices(
                 data["hydra:member"].map((choice) => (
-                        <ChoiceItem data={choice}/>
-                    )
-                ))
-            setOldChoicesImmuable(
-                data["hydra:member"].map((choice) => (
-                        <ChoiceItem choice={choice}/>
+                        <ChoiceItemHistory key={choice.id} data={choice}/>
                     )
                 )
             )
+
+            setOldChoicesImmuable(
+                data["hydra:member"].map((choice) => (
+                        <ChoiceItemHistory key={choice.id} data={choice}/>
+                    )
+                )
+            )
+
+            setYears(() => {
+                let tab = [];
+
+                data["hydra:member"].map((choice) => {
+                    if (!tab.includes(choice.year)) {
+                        tab.push(choice.year)
+                    }
+                })
+
+                return tab.sort(function(a, b){return b-a});
+            })
         })
     }, []);
+
+    console.log(years)
 
     const handleChange = (event, newTab) => {
         setCurrentTab(newTab);
     }
 
-    console.log(oldChoices);
+    // console.log(oldChoicesImmuable);
 
   return (
     <>
@@ -67,12 +84,12 @@ function History() {
                 sx={{ display:"flex", justifyContent:"wrap"}}
             >
                 {years.map((year) => (
-                    <Tab key={year[0]} label={year[1]} sx={{ minWidth: 50 }} />
+                    <Tab key={years.indexOf(year)} label={year} sx={{ minWidth: 50 }} />
                 ))}
             </Tabs>
 
             {years.map((year, index) => (
-                <TabPanel key={year.id} value={currentTab} index={index+1}>
+                <TabPanel key={years.indexOf(year)} value={currentTab} index={index}>
                     <TableContainer sx={{
                         display: "flex",
                         justifyContent: "flex-start",
@@ -95,13 +112,11 @@ function History() {
                             }}>
                                 <TableRow>
                                     <TableCell>Matière</TableCell>
-                                    <TableCell align="center">Semestre</TableCell>
-                                    <TableCell align="center">Ressource</TableCell>
-                                    <TableCell align="center">Type de cours</TableCell>
-                                    <TableCell align="center">Nombres de groupes choisi</TableCell>
-                                    <TableCell align="center">Nombres de groupes à encadrer</TableCell>
-                                    <TableCell align="center">Nombres de groupes attribués</TableCell>
-                                    <TableCell align="center" />
+                                    <TableCell>Semestre</TableCell>
+                                    <TableCell>Ressource</TableCell>
+                                    <TableCell>Type de cours</TableCell>
+                                    <TableCell>Nombres de groupes attribués</TableCell>
+                                    <TableCell>Nombres de groupes encadrés</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
