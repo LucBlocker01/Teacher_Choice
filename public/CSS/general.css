@@ -6,7 +6,7 @@
 }
 
 .dark {
-    background: radial-gradient(circle, #f0f0f0 10%, transparent 11%),radial-gradient(circle at bottom left, #f0f0f0 5%, transparent 6%),radial-gradient(circle at bottom right, #f0f0f0 5%, transparent 6%),radial-gradient(circle at top left, #f0f0f0 5%, transparent 6%),radial-gradient(circle at top right, #f0f0f0 5%, transparent 6%);
+    background: radial-gradient(circle, #383838 10%, transparent 11%),radial-gradient(circle at bottom left, #383838 5%, transparent 6%),radial-gradient(circle at bottom right, #383838 5%, transparent 6%),radial-gradient(circle at top left, #383838 5%, transparent 6%),radial-gradient(circle at top right, #383838 5%, transparent 6%);
     background-size: 2em 2em;
     background-color: #000000;
     opacity: 1;
