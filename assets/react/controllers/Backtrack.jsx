@@ -4,17 +4,14 @@ import useTheme from "../hooks/useTheme"
 import CssBaseline from "@mui/material/CssBaseline";
 
 function Backtrack() {
-    const {isNormal, theme, toggleTheme} = useTheme();
+    const {theme} = useTheme();
     function handleClick() {
         window.history.back()
     }
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
             <Button onClick={handleClick}>
                 Retour
             </Button>
-        </ThemeProvider>
 
     )
 }
