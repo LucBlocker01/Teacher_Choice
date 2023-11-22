@@ -34,6 +34,11 @@ Build front assets with webpack encore :
 npm run build
 ```
 
+Build front assets with webpack encore automatically:
+```sh
+npm run watch
+```
+
 To start the server : 
 ```sh 
 composer start
