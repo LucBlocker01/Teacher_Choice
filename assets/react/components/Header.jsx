@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {AppBar, Box, Button, Container, Link, Typography} from "@mui/material";
+import {AppBar, Box, Button, Container, Link} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
@@ -64,7 +64,7 @@ function Header({toggleTheme, isNormal}) {
                             backgroundColor: "accent.main",
                             color: "white",
                         }}
-                        >
+                        title="Admin">
                             <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
                         </Button></Link>: null }
                     <Button sx={{
@@ -77,6 +77,7 @@ function Header({toggleTheme, isNormal}) {
                         }
                     }}
                             onClick={toggleTheme}
+                            title={"Changer thème"}
                     >{isNormal ?
                             <WbSunnyIcon></WbSunnyIcon>
                      :
@@ -95,7 +96,7 @@ function Header({toggleTheme, isNormal}) {
                                 backgroundColor: "accent.main",
                                 color: "white",
                             }}
-                            >
+                            title="Profil">
                                 <PersonIcon></PersonIcon>
                             </Button></Link> :
                         <Link sx={{
@@ -124,7 +125,7 @@ function Header({toggleTheme, isNormal}) {
                                 backgroundColor: "accent.main",
                                 color: "white",
                             }}
-                            >
+                            title="Logout">
                                 <LogoutIcon></LogoutIcon>
                             </Button></Link> : null }
 
