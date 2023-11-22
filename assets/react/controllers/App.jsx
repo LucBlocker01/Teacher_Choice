@@ -21,7 +21,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
-                <Backtrack ></Backtrack>
+                <Backtrack></Backtrack>
                 <Router>
                     <Route path="/react" component={Home}/>
                     <Route path="/" component={Index}></Route>
