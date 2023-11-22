@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {fetchOldChoices} from "../../services/api/api";
 import {
-    Box,
+    Box, Button,
     Container,
     Tab,
     Table, TableBody,
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ChoiceItemHistory from "./ChoiceItemHistory";
+import {Link} from "wouter";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -127,6 +128,14 @@ function History() {
                     </TableContainer>
                 </TabPanel>
             ))}
+            <Link href="/react/choices/">
+                <Button sx={{
+                    border: 1,
+                    backgroundColor: "secondary.main",
+                }}>
+                    Retour aux choix
+                </Button>
+            </Link>
         </Container>
     </>
   )
