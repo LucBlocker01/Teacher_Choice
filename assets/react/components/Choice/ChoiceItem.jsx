@@ -35,18 +35,20 @@ function ChoiceItem({ data }) {
     const handlePlus = () => {
         if (selectNb+1 <= data.lessonInformation.nbGroups){
             setSelectNb(selectNb+1);
+            changeValue();
         }
     }
 
     const handleMinus = () => {
         if (selectNb-1 >= 0){
             setSelectNb(selectNb-1);
+            changeValue();
         }
     }
 
-    useEffect(() => {
+    const changeValue = () => {
         modifyChoiceById(data.id, selectNb).then();
-    }, [selectNb])
+    }
 
     return (
         <>
