@@ -6,7 +6,6 @@ import Backtrack from "../controllers/Backtrack";
 function Home() {
     return (
         <>
-            <Backtrack></Backtrack>
             <Container sx={{
                 display: "flex",
                 alignItems: "center",
