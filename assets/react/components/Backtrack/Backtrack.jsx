@@ -8,3 +8,5 @@ function Backtrack() {
         </Button>
     )
 }
+
+export default Backtrack

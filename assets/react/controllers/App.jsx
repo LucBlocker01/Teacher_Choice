@@ -11,6 +11,8 @@ import AddChoices from "../components/addChoices/AddChoices";
 import AdminPanel from "../components/Admin/AdminPanel";
 import {Provider} from "react-redux";
 import store from "../store/index";
+import Backtrack from "../components/Backtrack/Backtrack";
+
 
 function App() {
     const {isNormal, theme, toggleTheme} = useTheme();
@@ -19,6 +21,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
+                <Backtrack ></Backtrack>
                 <Router>
                     <Route path="/react" component={Home}/>
                     <Route path="/" component={Index}></Route>
