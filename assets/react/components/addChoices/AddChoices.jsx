@@ -3,6 +3,7 @@ import { fetchSemesters } from "../../services/api/choice";
 import SemesterItem from "./SemesterItem";
 import { Tabs, Tab, Box, Typography, Container } from '@mui/material';
 import SubjectList from "./SubjectList";
+import Backtrack from "../../controllers/Backtrack";
 
 // permet de gérer les onglets et de les générers
 function TabPanel({ children, value, index, ...other }) {
@@ -42,6 +43,8 @@ function AddChoices() {
   }
 
   return (
+      <>
+          <Backtrack></Backtrack>
       <Container>
       <Tabs
         value={currentTab}
@@ -59,6 +62,7 @@ function AddChoices() {
         </TabPanel>
       ))}
       </Container>
+      </>
   )
 }
 

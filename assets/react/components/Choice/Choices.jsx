@@ -3,11 +3,13 @@ import {Box, Button, Container} from "@mui/material";
 import ChoicesList from "./ChoicesList";
 import {Link} from "wouter";
 import WeeklyTask from "./WeeklyTask";
+import Backtrack from "../../controllers/Backtrack";
 
 
 function Choices() {
     return (
         <>
+            <Backtrack></Backtrack>
             <Container sx={{
                 display: "flex",
                 alignItems: "center",
