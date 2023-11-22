@@ -6,6 +6,7 @@ import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Header({toggleTheme, isNormal}) {
     const [user, setUserData] = useState({});
@@ -84,6 +85,7 @@ function Header({toggleTheme, isNormal}) {
                     { user !== null ?
                         <Link sx={{
                             textDecoration: "none",
+                            mr: "3px",
                             "&:hover" : {
                                 backgroundColor: "secondary.main",
                                 borderRadius: "4px",
@@ -110,6 +112,21 @@ function Header({toggleTheme, isNormal}) {
                             >
                                 <LoginIcon></LoginIcon>
                             </Button></Link>}
+                    { user !== null ?
+                        <Link sx={{
+                            textDecoration: "none",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
+                        }} href={`/logout`}>
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                            }}
+                            >
+                                <LogoutIcon></LogoutIcon>
+                            </Button></Link> : null }
 
                 </Container>
 

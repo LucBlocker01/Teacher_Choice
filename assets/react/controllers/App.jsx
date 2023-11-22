@@ -12,6 +12,7 @@ import AdminPanel from "../components/Admin/AdminPanel";
 import {Provider} from "react-redux";
 import store from "../store/index";
 
+
 function App() {
     const {isNormal, theme, toggleTheme} = useTheme();
     return (
@@ -21,7 +22,7 @@ function App() {
                 <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
                 <Router>
                     <Route path="/react" component={Home}/>
-                    <Route path="/" component={Index}></Route>
+                    <Route path="/" component={Index}/>
                     <Route path="/react/choices" component={Choices}/>
                     <Route path="/react/choices/add" component={AddChoices}/>
                     <Route path="/react/admin" component={AdminPanel}/>
