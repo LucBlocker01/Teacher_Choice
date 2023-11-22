@@ -15,6 +15,7 @@ import {
 import Paper from "@mui/material/Paper";
 import ChoiceItemHistory from "./ChoiceItemHistory";
 import {Link} from "wouter";
+import {fetchSemesters} from "../../services/api/choice";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -33,12 +34,23 @@ function History() {
     const [oldChoices, setOldChoices] = useState([])
     const [oldChoicesImmuable, setOldChoicesImmuable] = useState([])
     const [currentTab, setCurrentTab] = useState(0);
+    const [currentTabSemester, setCurrentTabSemester] = useState(0);
     const [years, setYears] = useState([])
-
-
+    const [semesters, setSemesters] = useState(null);
 
     useEffect(() => {
         fetchOldChoices().then((data) => {
+            setYears(() => {
+                let tab = [];
+
+                data["hydra:member"].map((choice) => {
+                    if (!tab.includes(choice.year)) {
+                        tab.push(choice.year)
+                    }
+                })
+
+                return tab.sort(function(a, b){return b-a});
+            })
             setOldChoices(
                 data["hydra:member"].map((choice) => (
                         <ChoiceItemHistory key={choice.id} data={choice}/>
@@ -52,28 +64,62 @@ function History() {
                     )
                 )
             )
-
-            setYears(() => {
-                let tab = [];
-
-                data["hydra:member"].map((choice) => {
-                    if (!tab.includes(choice.year)) {
-                        tab.push(choice.year)
-                    }
-                })
-
-                return tab.sort(function(a, b){return b-a});
-            })
-        })
+        });
     }, []);
 
-    console.log(years)
+    useEffect(() => {
+        fetchSemesters().then((data) => {
+                setSemesters(data["hydra:member"]);
+            }
+        );
+    }, []);
+
+    // permet de filtrer par défaut
+    useEffect(() => {
+        setOldChoices(oldChoices.filter((ele) => ele.props.data.year === years[0]));
+    }, [years]);
+
 
     const handleChange = (event, newTab) => {
         setCurrentTab(newTab);
+        applyFilter();
+       /* setOldChoices(
+            oldChoicesImmuable.filter((ele) =>
+                ele.props.data.year === years[newTab]
+            )
+        )*/
     }
 
-    // console.log(oldChoicesImmuable);
+    const applyFilter = () => {
+        setOldChoices(
+            oldChoicesImmuable.filter((ele) =>
+                ele.props.data.year === years[currentTab]
+            )
+        )
+        if (currentTabSemester !== 0) {
+            // filtre uniquement annee
+            setOldChoices(
+                oldChoices.filter((ele) => ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+currentTabSemester)
+            )
+        }
+    }
+    const handleChangeSemester = (event, newTab) => {
+        setCurrentTabSemester(newTab);
+        applyFilter();
+        /*if (newTab === 0){
+            setOldChoices(oldChoicesImmuable.filter((ele) =>
+                ele.props.data.year === years[newTab]
+            ));
+        } else {
+            setOldChoices(oldChoices.filter((ele) =>
+                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
+            ))
+        }*/
+    }
+
+    if (semesters === null) {
+        return <div>Loading...</div>;
+    }
 
   return (
     <>
@@ -86,6 +132,17 @@ function History() {
             >
                 {years.map((year) => (
                     <Tab key={years.indexOf(year)} label={year} sx={{ minWidth: 50 }} />
+                ))}
+            </Tabs>
+
+            <Tabs
+                value={currentTabSemester}
+                onChange={handleChangeSemester}
+                sx={{ display:"flex", justifyContent:"wrap"}}
+            >
+                <Tab key="all" label="Tous les semestres" sx={{ minWidth: 50 }} ></Tab>
+                {semesters.map((semester) => (
+                    <Tab key={semester.id} label={semester.name} sx={{ minWidth: 50 }} />
                 ))}
             </Tabs>
 
@@ -112,17 +169,17 @@ function History() {
                                 top: 0,
                             }}>
                                 <TableRow>
-                                    <TableCell>Matière</TableCell>
-                                    <TableCell>Semestre</TableCell>
-                                    <TableCell>Ressource</TableCell>
-                                    <TableCell>Type de cours</TableCell>
-                                    <TableCell>Nombres de groupes attribués</TableCell>
-                                    <TableCell>Nombres de groupes encadrés</TableCell>
-                                    <TableCell>Year</TableCell>
+                                    <TableCell component="th" scope="row" onClick={() => {console.log(years.indexOf(year))}}>Matière</TableCell>
+                                    <TableCell align="center">Semestre</TableCell>
+                                    <TableCell align="center">Ressource</TableCell>
+                                    <TableCell align="center">Type de cours</TableCell>
+                                    <TableCell align="center">Nombres de groupes attribués</TableCell>
+                                    <TableCell align="center">Nombres de groupes encadrés</TableCell>
+                                    <TableCell align="center">Année</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                { oldChoicesImmuable }
+                                { oldChoices }
                             </TableBody>
                         </Table>
                     </TableContainer>
