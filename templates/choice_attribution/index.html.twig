@@ -5,12 +5,13 @@
 {% block body %}
     <div {{ react_component('AppBar') }}></div>
 
-<div class="">
-    <h1>Attribution des groupes</h1>
-
+<div class="attribution">
+    <h1 class="title_admin">Attribution des groupes</h1>
+    <div class="professor">
+        <p>Professeur | Nombre de groupe souhaité | Nombre de groupe attribué</p>
+    </div>
     {% for lesson in lessons %}
-        <div class="cards">
-        <p class="tittle_admin">{{ lesson.lesson.name }} {{ lesson.lessonType.name }} | {{ lesson.nbGroups }} groupes</p>
+        <p class="title_lesson">{{ lesson.lesson.name }} {{ lesson.lessonType.name }} | {{ lesson.nbGroups }} groupes</p>
         <div class="groups">
         {% for choice in lesson.choices %}
             <div class="professor">
@@ -18,9 +19,6 @@
             </div>
         {% endfor %}
         </div>
-        </div>
     {% endfor %}
-
-
 </div>
 {% endblock %}
