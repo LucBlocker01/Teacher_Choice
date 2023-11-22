@@ -53,7 +53,7 @@ class ExcelManager
         foreach ($excelDoc as $excelPage) {
             // On regarde si le semestre existe, sinon on le crée
             $semesterName = $excelPage->getTitle();
-            $semester = $this->doctrine->getRepository(Semester::class)->findOneBy(['name' => $semesterName]);
+            $semester = $this->doctrine->getRepository(Semester::class)->findOneBy(['name' => $semesterName, 'year' => $year]);
             if (null == $semester) {
                 $semester = new Semester($semesterName, $year);
                 $this->entityManager->persist($semester);

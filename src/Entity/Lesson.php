@@ -38,7 +38,7 @@ class Lesson
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_SubjectBySemester'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_SubjectBySemester', 'get_OldChoice'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
@@ -47,7 +47,7 @@ class Lesson
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_OldChoice'])]
     private ?Subject $subject = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'lessons')]

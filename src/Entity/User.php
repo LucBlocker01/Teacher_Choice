@@ -107,6 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Status $status = null;
 
     #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: Choice::class)]
+    #[Groups(['get_OldChoice'])]
     private Collection $choice;
 
     #[ORM\Column(length: 40)]

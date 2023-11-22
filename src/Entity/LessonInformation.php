@@ -23,11 +23,11 @@ class LessonInformation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_OldChoice'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_OldChoice'])]
     private ?int $nbGroups = null;
 
     #[ORM\Column(length: 4, nullable: true)]
@@ -35,12 +35,12 @@ class LessonInformation
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_OldChoice'])]
     private ?Lesson $lesson = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_OldChoice'])]
     private ?LessonType $lessonType = null;
 
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class)]

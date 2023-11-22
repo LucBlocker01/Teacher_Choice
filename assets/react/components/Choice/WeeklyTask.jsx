@@ -84,9 +84,6 @@ function WeeklyTask(){
         })
     },[weeks]);
 
-    console.log(weeks);
-    console.log(S1Data, S2Data, S3Data, S4Data, S5Data, S6Data);
-
     return (<>
         <BarChart
             width={900}

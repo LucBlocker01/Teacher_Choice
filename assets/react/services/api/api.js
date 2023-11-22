@@ -50,3 +50,7 @@ export function fetchAllWeeks(){
 export function fetchDefaultSemester() {
     return fetch('/api/semesters/1').then(response => response.json());
 }
+
+export function fetchOldChoices(){
+    return fetch('/api/old_choices').then(response => response.json())
+}

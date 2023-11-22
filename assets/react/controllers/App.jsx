@@ -11,6 +11,7 @@ import AddChoices from "../components/addChoices/AddChoices";
 import AdminPanel from "../components/Admin/AdminPanel";
 import {Provider} from "react-redux";
 import store from "../store/index";
+import History from "../components/History/History";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/" component={Index}/>
                     <Route path="/react/choices" component={Choices}/>
                     <Route path="/react/choices/add" component={AddChoices}/>
+                    <Route path="/react/choices/history" component={History}/>
                     <Route path="/react/admin" component={AdminPanel}/>
                 </Router>
             </ThemeProvider>

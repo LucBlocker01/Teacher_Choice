@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Controller\GetChoiceByTeacherController;
 use App\Controller\GetMyChoiceController;
+use App\Controller\GetOldChoicesController;
 use App\Repository\ChoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -54,6 +55,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
             normalizationContext: ['groups' => ['get_Choice']],
             security: "is_granted('ROLE_ADMIN')",
         ),
+        new GetCollection(uriTemplate: '/old_choices',
+            controller: GetOldChoicesController::class,
+            openapiContext: [
+                'summary' => 'Retrieve old choices of connected user',
+                'description' => 'Old choices list response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'Old choices list to be returned',
+                    ],
+                ],
+            ],
+            normalizationContext: ['groups' => ['get_User', 'get_OldChoice']],
+            security: "is_granted('ROLE_USER')",
+        ),
         new GetCollection(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object == user",
         ),
@@ -79,11 +94,11 @@ class Choice
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?int $nbGroupSelected = null;
 
-    #[ORM\Column(length: 9)]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[ORM\Column(length: 4)]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?string $year = null;
 
     #[ORM\ManyToOne(inversedBy: 'choice')]
@@ -92,12 +107,12 @@ class Choice
     private ?User $teacher = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_OldChoice'])]
     private ?int $nbGroupAttributed = null;
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?LessonInformation $lessonInformation = null;
 
     public function getId(): ?int

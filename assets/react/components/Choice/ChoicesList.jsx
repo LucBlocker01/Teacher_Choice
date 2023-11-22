@@ -15,7 +15,6 @@ import {fetchMyChoice} from "../../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
 import {fetchSemesters} from "../../services/api/choice";
-import {element} from "prop-types";
 
 function TabPanel({ children, value, index, ...other }) {
     return (

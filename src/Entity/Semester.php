@@ -46,7 +46,7 @@ class Semester
     private ?int $id = null;
 
     #[ORM\Column(length: 2)]
-    #[Groups(['get_Choice'])]
+    #[Groups(['get_Choice', 'get_OldChoice'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
