@@ -42,10 +42,16 @@ class ChoiceRepository extends ServiceEntityRepository
             $userID = $user->getId();
 
             $qb = $this->createQueryBuilder('c');
-            $test = $qb->andWhere('c.teacher = :userID')
+            $test = $qb
+                ->leftJoin('c.lessonInformation', 'lI')
+                ->leftJoin('lI.lesson', 'le')
+                ->leftJoin('le.subject', 'sub')
+                ->leftJoin('sub.semester', 'sem')
+                ->andWhere('c.teacher = :userID')
                 ->andWhere('c.year NOT LIKE :year')
                 ->setParameter('year', $year)
                 ->setParameter('userID', $userID)
+                ->orderBy('sem.name', 'ASC')
                 ->getQuery();
 
             return $test->getResult();

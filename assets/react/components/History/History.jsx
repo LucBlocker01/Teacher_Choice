@@ -82,39 +82,31 @@ function History() {
 
     const handleChange = (event, newTab) => {
         setCurrentTab(newTab);
-        applyFilter();
-       /* setOldChoices(
-            oldChoicesImmuable.filter((ele) =>
-                ele.props.data.year === years[newTab]
+        if (currentTabSemester === 0) {
+            setOldChoices(
+                oldChoicesImmuable.filter((ele) =>
+                    ele.props.data.year === years[newTab]
+                )
             )
-        )*/
+        } else {
+            setOldChoices(oldChoicesImmuable.filter((ele) =>
+                ele.props.data.year === years[newTab] && ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+currentTabSemester
+            ))
+        }
+
     }
 
-    const applyFilter = () => {
-        setOldChoices(
-            oldChoicesImmuable.filter((ele) =>
-                ele.props.data.year === years[currentTab]
-            )
-        )
-        if (currentTabSemester !== 0) {
-            // filtre uniquement annee
-            setOldChoices(
-                oldChoices.filter((ele) => ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+currentTabSemester)
-            )
-        }
-    }
     const handleChangeSemester = (event, newTab) => {
         setCurrentTabSemester(newTab);
-        applyFilter();
-        /*if (newTab === 0){
+        if (newTab === 0){
             setOldChoices(oldChoicesImmuable.filter((ele) =>
-                ele.props.data.year === years[newTab]
+                ele.props.data.year === years[currentTab]
             ));
         } else {
-            setOldChoices(oldChoices.filter((ele) =>
-                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
+            setOldChoices(oldChoicesImmuable.filter((ele) =>
+                ele.props.data.year === years[currentTab] && ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
             ))
-        }*/
+        }
     }
 
     if (semesters === null) {
@@ -157,7 +149,7 @@ function History() {
                         borderRadius: "5px",
                         overflowX: "auto",
                         overflowY: "auto",
-                        maxHeight: "300px",
+                        maxHeight: "500px",
                         borderColor: "primary.main"
                     }} component={Paper}>
                         <Table sx={{
