@@ -9,7 +9,11 @@ function Backtrack() {
         window.history.back()
     }
     return (
-            <Button onClick={handleClick}>
+            <Button sx={{
+                backgroundColor : "primary.main",
+                color : "text.main",
+                ml : "1%"
+            }} onClick={handleClick}>
                 Retour
             </Button>
 
