@@ -11,7 +11,7 @@ class ChoiceFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        ChoiceFactory::createMany(50);
+        ChoiceFactory::createMany(150);
     }
 
     public function getDependencies(): array

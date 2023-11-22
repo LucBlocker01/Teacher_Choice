@@ -26,7 +26,11 @@ class LessonInformationRepository extends ServiceEntityRepository
         $year = date('Y').'/'.((int) date('Y') + 1);
 
         return $this->createQueryBuilder('li')
+            ->leftJoin('li.lesson', 'le')
+            ->leftJoin('li.lessonType', 'lt')
+            ->leftJoin('li.lessonPlannings', 'lp')
             ->leftJoin('li.choices', 'c')
+            ->leftJoin('c.teacher', 't')
             ->andWhere('c.year LIKE :year')
             ->setParameter('year', $year)
             ->getQuery()

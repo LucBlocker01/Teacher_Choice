@@ -9,12 +9,16 @@
     <h1>Attribution des groupes</h1>
 
     {% for lesson in lessons %}
-        <p class="tittle_admin">Nom de la leçon : {{ lesson.lesson.name }} {{ lesson.lessonType.name }}</p>
-        <p>Choix :</p>
+        <div class="cards">
+        <p class="tittle_admin">{{ lesson.lesson.name }} {{ lesson.lessonType.name }} | {{ lesson.nbGroups }} groupes</p>
+        <div class="groups">
         {% for choice in lesson.choices %}
-            <p class="">Nombre de groupe voulu : {{ choice.nbGroupSelected }} </p>
-            <p class="">Professeur : {{ choice.teacher.lastname }} {{ choice.teacher.firstname }} </p>
+            <div class="professor">
+                <p class="">{{ choice.teacher.lastname }} {{ choice.teacher.firstname }} souhaite {{ choice.nbGroupSelected }} groupes</p>
+            </div>
         {% endfor %}
+        </div>
+        </div>
     {% endfor %}
 
 
