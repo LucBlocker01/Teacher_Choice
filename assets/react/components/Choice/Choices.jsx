@@ -33,14 +33,6 @@ function Choices() {
                             Ajouter voeux
                         </Button>
                     </Link>
-                    <Link href="/react/">
-                        <Button sx={{
-                            border: 1,
-                            backgroundColor: "secondary.main",
-                        }}>
-                            Valider voeux
-                        </Button>
-                    </Link>
                     <Link href="/react/choices/history">
                         <Button sx={{
                             border: 1,
