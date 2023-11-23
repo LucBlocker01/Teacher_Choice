@@ -22,7 +22,7 @@ function App() {
                 <CssBaseline />
                 <Header toggleTheme={toggleTheme} isNormal={isNormal}></Header>
                 <Router>
-                    <Route path="/react" component={Home}/>
+                    <Route path="/react" component={Choices}/>
                     <Route path="/" component={Index}/>
                     <Route path="/react/choices" component={Choices}/>
                     <Route path="/react/choices/add" component={AddChoices}/>
