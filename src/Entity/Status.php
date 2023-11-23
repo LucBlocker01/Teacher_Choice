@@ -9,6 +9,7 @@ use App\Repository\StatusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StatusRepository::class)]
 #[ApiResource(
@@ -24,12 +25,15 @@ class Status
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['get_Me', 'get_User'])]
     #[ORM\Column(length: 40)]
     private ?string $name = null;
 
+    #[Groups(['get_Me', 'get_User'])]
     #[ORM\Column(nullable: true)]
     private ?float $minHours = null;
 
+    #[Groups(['get_Me', 'get_User'])]
     #[ORM\Column(nullable: true)]
     private ?float $maxHours = null;
 
