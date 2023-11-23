@@ -7,6 +7,7 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ChecklistIcon from '@mui/icons-material/Checklist';
 
 function Header({toggleTheme, isNormal}) {
     const [user, setUserData] = useState({});
@@ -33,7 +34,7 @@ function Header({toggleTheme, isNormal}) {
                     display: "flex",
                     alignItems: "center"
                 }}>
-                    <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
+                    <Link href="/"><img className="logo_header" src="/img/urca.png" alt="urca-logo" /></Link>
                 </Container>
                 <Container sx={{
                     display: "flex",
@@ -113,6 +114,15 @@ function Header({toggleTheme, isNormal}) {
                             >
                                 <LoginIcon></LoginIcon>
                             </Button></Link>}
+                    { user !== null && user.status !== "/api/statuses/1" ? <Link href="/react/choices">
+                        <Button sx={{
+                            backgroundColor: "accent.main",
+                            color: "white",
+                        }}
+                        >
+                            <ChecklistIcon />
+                        </Button>
+                    </Link> : ""}
                     { user !== null ?
                         <Link sx={{
                             textDecoration: "none",
