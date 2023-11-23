@@ -51,7 +51,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse('/attribution');
         }
 
-        return new RedirectResponse('/react');
+        return new RedirectResponse('/react/choices');
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
