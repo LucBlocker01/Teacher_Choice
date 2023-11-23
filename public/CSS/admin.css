@@ -20,13 +20,27 @@
     font-size: 20px;
     border-radius: 10px;
     width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .professor{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.example{
+    border: 2px solid black;
+    padding-top: 0.6%;
+    padding-left: 0.6%;
+    background-color: #E6D1DD;
+    font-size: 20px;
+    border-radius: 10px;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
 }

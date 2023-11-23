@@ -7,15 +7,21 @@
 
 <div class="attribution">
     <h1 class="title_admin">Attribution des groupes</h1>
-    <div class="professor">
-        <p>Professeur | Nombre de groupe souhaité | Nombre de groupe attribué</p>
+    <div class="example">
+        <p>Professeur</p>
+        <p>|</p>
+        <p>Nombre de groupe souhaité</p>
+        <p>|</p>
+        <p>Nombre de groupe attribué</p>
     </div>
     {% for lesson in lessons %}
         <p class="title_lesson">{{ lesson.lesson.name }} {{ lesson.lessonType.name }} | {{ lesson.nbGroups }} groupes</p>
         <div class="groups">
         {% for choice in lesson.choices %}
             <div class="professor">
-                <p class="">{{ choice.teacher.lastname }} {{ choice.teacher.firstname }} souhaite {{ choice.nbGroupSelected }} groupes</p>
+                <p>{{ choice.teacher.lastname }} {{ choice.teacher.firstname }}</p>
+                <p>{{ choice.nbGroupSelected }}</p>
+                <p>{{ choice.nbGroupAttributed }}</p>
             </div>
         {% endfor %}
         </div>
