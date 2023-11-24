@@ -35,6 +35,7 @@ function AddChoices() {
       setSemesters(data["hydra:member"]);
     }
     );
+      document.title = "SetURCAlendar - Ajouter Choix"
   }, []);
     
 

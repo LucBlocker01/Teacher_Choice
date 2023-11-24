@@ -72,6 +72,7 @@ function History() {
                 setSemesters(data["hydra:member"]);
             }
         );
+        document.title = "SetURCAlendar - Historique"
     }, []);
 
     // permet de filtrer par défaut

@@ -8,8 +8,8 @@ function Backtrack() {
     }
     return (
             <Button sx={{
-                backgroundColor : "primary.main",
-                color : "text.main",
+                backgroundColor : "secondary.main",
+                border: 1,
                 ml : "1%"
             }} onClick={handleClick}>
                 Retour
