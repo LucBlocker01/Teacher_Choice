@@ -8,29 +8,27 @@ function IndexRowTable({data, searchInput}) {
     useEffect(() => {
         fetchSubjectBySemester(data.id).then((data) => {
             let content = data["hydra:member"].filter((subject) => subject.lessons.some((lesson) => lesson.tags.some((tag) => tag.name.toLowerCase().includes(searchInput.toLowerCase()))))
-            setCell(content.map((subject) => (
-                <>
-                { subject.lessons.length > 0 ?
-                    <>
+            setCell(content.map((subject) => subject.lessons.length < 1 ? null : (
                         <TableRow key={subject.id}>
                             <TableCell>
                                 <Typography>{subject.name}</Typography>
                             </TableCell>
                             <TableCell>
                                 {subject.lessons.map((lesson) => (
-                                    <Typography>{lesson.name}</Typography>
+                                    <Typography key={lesson.id}>{lesson.name}</Typography>
                                 ))}
                             </TableCell>
                             <TableCell>
                                 {subject.lessons.map((lesson) => (
-                                    <Box sx={{display: "flex", gap: 1, pl: "0"}}>{lesson.tags.map((tag) => <Typography>{tag.name}</Typography>)}</Box>
+                                    <Box sx={{display: "flex", gap: 1, pl: "0"}}  key={lesson.id}>
+                                        {lesson.tags.map((tag) => <Typography key={tag.id}>{tag.name}</Typography>)}
+                                    </Box>
                                 )
                                 )}
                             </TableCell>
                         </TableRow>
-                    </> : null }
-                </>
-            )))
+                )
+            ))
             })
 
         },[data, searchInput])
