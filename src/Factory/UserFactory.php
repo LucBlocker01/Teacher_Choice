@@ -49,7 +49,7 @@ final class UserFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $firstname = self::faker()->unique()->firstName();
+        $firstname = self::faker()->firstName();
         $lastname = self::faker()->lastName();
         $login = substr($lastname, 0, 6);
         $mail = transliterator_transliterate('Any-Latin; Latin-ASCII', strtolower($firstname.'.'.$lastname).'@univ-reims.fr');
@@ -57,7 +57,7 @@ final class UserFactory extends ModelFactory
         return [
             'firstname' => $firstname,
             'lastname' => strtoupper($lastname),
-            'login' => $login.'01',
+            'login' => $login.self::faker()->numberBetween(0, 99),
             'mail' => $mail,
             'phone' => self::faker()->phoneNumber(),
             'password' => 'test',
