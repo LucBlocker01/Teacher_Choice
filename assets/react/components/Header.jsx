@@ -19,8 +19,6 @@ function Header({toggleTheme, isNormal}) {
         })
     }, [])
 
-    console.log(user?.status?.name)
-
     return (
         <Box sx={{
             mb: "100px",
