@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Box, Button, Container} from "@mui/material";
 import ChoicesList from "./ChoicesList";
 import {Link} from "wouter";
@@ -7,6 +7,9 @@ import Backtrack from "../../controllers/Backtrack";
 
 
 function Choices() {
+    useEffect(() => {
+        document.title = "SetURCAlendar - Choix"
+    }, [])
     return (
         <>
             <Backtrack></Backtrack>

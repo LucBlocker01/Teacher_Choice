@@ -33,6 +33,7 @@ function Index() {
                 ))
             )
         })
+        document.title = "SetURCAlendar - Accueil"
     }, []);
     return(
         <Box sx={{
