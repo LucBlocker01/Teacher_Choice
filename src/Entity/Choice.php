@@ -90,7 +90,7 @@ class Choice
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?int $id = null;
 
     #[ORM\Column]
