@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
-    Box, Container,
+    Box,
+    Container,
     Tab,
     Table,
     TableBody,
@@ -15,6 +16,7 @@ import {fetchMyChoice} from "../../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
 import {fetchSemesters} from "../../services/api/choice";
+import * as PropTypes from "prop-types";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -27,6 +29,12 @@ function TabPanel({ children, value, index, ...other }) {
         </div>
     );
 }
+
+function Typograghy(props) {
+    return null;
+}
+
+Typograghy.propTypes = {children: PropTypes.node};
 
 function ChoicesList() {
     const [ ChoiceList , setChoiceList ] = useState() ;
@@ -83,9 +91,15 @@ function ChoicesList() {
                 onChange={handleChange}
                 sx={{ display:"flex", justifyContent:"wrap"}}
             >
-                <Tab key="all" label="Tous les semestres" sx={{ minWidth: 50 }} ></Tab>
+                <Tab key="all" label={
+                    <Box component="span" sx={{ color: "text.main" }}>
+                        Tous les semestres
+                    </Box>} sx={{ minWidth: 50 }} ></Tab>
                 {semesters.map((semester) => (
-                    <Tab key={semester.id} label={semester.name} sx={{ minWidth: 50 }} />
+                    <Tab key={semester.id} label={
+                        <Box component="span" sx={{ color: "text.main" }}>
+                            {semester.name}
+                        </Box>} sx={{ minWidth: 50 }} />
                 ))}
             </Tabs>
 

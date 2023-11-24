@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { fetchSemesters } from "../../services/api/choice";
-import SemesterItem from "./SemesterItem";
 import { Tabs, Tab, Box, Typography, Container } from '@mui/material';
 import SubjectList from "./SubjectList";
 import Backtrack from "../../controllers/Backtrack";
@@ -53,7 +52,10 @@ function AddChoices() {
         sx={{ display:"flex", justifyContent:"wrap"}}
       >
         {semesters.map((semester) => (
-          <Tab key={semester.id} label={semester.name} sx={{ minWidth: 50 }} />
+          <Tab key={semester.id} label={
+              <Box component="span" sx={{ color: "text.main" }}>
+                  {semester.name}
+              </Box>} sx={{ minWidth: 50 }} />
         ))}
       </Tabs>
 
