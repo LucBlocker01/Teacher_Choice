@@ -18,6 +18,8 @@ function Header({toggleTheme, isNormal}) {
         })
     }, [])
 
+    console.log(user?.status?.name)
+
     return (
         <Box sx={{
             mb: "100px",
@@ -40,7 +42,7 @@ function Header({toggleTheme, isNormal}) {
                     display: "flex",
                     justifyContent: "flex-end",
                 }}>
-                    {user !== null && user.status === "/api/statuses/1" ? <Link sx={{
+                    {user !== null && user?.status?.name === "Admin" ? <Link sx={{
                         textDecoration: "none",
                         mr: "3px",
                         "&:hover" : {
@@ -53,7 +55,7 @@ function Header({toggleTheme, isNormal}) {
                         color: "white",
                         }}
                         >Excel</Button></Link>: null }
-                    {user !== null && user.status === "/api/statuses/1" ? <Link sx={{
+                    {user !== null && user?.status?.name === "Admin" ? <Link sx={{
                         textDecoration: "none",
                         mr: "3px",
                         "&:hover" : {
@@ -114,10 +116,16 @@ function Header({toggleTheme, isNormal}) {
                             >
                                 <LoginIcon></LoginIcon>
                             </Button></Link>}
-                    { user !== null && user.status !== "/api/statuses/1" ? <Link href="/react/choices">
+                    { user !== null && user?.status?.name !== "Admin" ? <Link href="/react/choices">
                         <Button sx={{
                             backgroundColor: "accent.main",
                             color: "white",
+                            textDecoration: "none",
+                            mr: "3px",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
                         }}
                         >
                             <ChecklistIcon />
