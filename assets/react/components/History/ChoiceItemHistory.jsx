@@ -3,7 +3,7 @@ import {TableCell, TableRow} from "@mui/material";
 
 function ChoiceItemHistory({data}) {
     return (
-        <TableRow>
+        <TableRow key={data.id}>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
             <TableCell align="center">{data.lessonInformation.lesson.subject.semester.name}</TableCell>
             <TableCell align="center">{data.lessonInformation.lesson.subject.name}</TableCell>
