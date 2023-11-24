@@ -14,7 +14,10 @@ export const Dark = {
         },
         text: {
             main: '#ffffff'
-        }
+        },
+        background: {
+            main: '#000000'
+        },
     },
     typography: {
         fontFamily: 'Lato'

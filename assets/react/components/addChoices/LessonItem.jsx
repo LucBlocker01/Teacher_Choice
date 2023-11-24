@@ -48,7 +48,7 @@ function LessonItem({data, user}) {
     };
 
   return (
-    <Container sx={{backgroundColor:"white" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px", ...(isSmallScreen ? { marginTop: "5%" } : {})}}>
+    <Container sx={{backgroundColor:"background.main" ,margin: "5px", padding: "5px", border: "2px solid", borderColor: "primary.main", borderRadius: "5px", ...(isSmallScreen ? { marginTop: "5%" } : {})}}>
       <form onSubmit={submitChoice} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
           <p style={{margin: "1%"}}>{data.lessonType.name}</p>
           <TextField
