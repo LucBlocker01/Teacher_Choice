@@ -124,7 +124,11 @@ function History() {
                 sx={{ display:"flex", justifyContent:"wrap"}}
             >
                 {years.map((year) => (
-                    <Tab key={years.indexOf(year)} label={year} sx={{ minWidth: 50 }} />
+                    <Tab key={years.indexOf(year)} label={
+                        <Box component="span" sx={{ color: "text.main" }}>
+                            {year}
+                        </Box>}
+                         sx={{ minWidth: 50 }} />
                 ))}
             </Tabs>
 
@@ -133,9 +137,19 @@ function History() {
                 onChange={handleChangeSemester}
                 sx={{ display:"flex", justifyContent:"wrap"}}
             >
-                <Tab key="all" label="Tous les semestres" sx={{ minWidth: 50 }} ></Tab>
+                <Tab key="all" label={
+                    <Box component="span" sx={{ color: "text.main" }}>
+                        Tous les semestres
+
+                    </Box>}
+                     sx={{ minWidth: 50 }} ></Tab>
                 {semesters.map((semester) => (
-                    <Tab key={semester.id} label={semester.name} sx={{ minWidth: 50 }} />
+                    <Tab key={semester.id} label={
+                        <Box component="span" sx={{ color: "text.main" }}>
+                            {semester.name}
+
+                        </Box>}
+                     sx={{ minWidth: 50 }} />
                 ))}
             </Tabs>
 
