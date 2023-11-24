@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {
     Box,
     Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
@@ -76,7 +76,7 @@ function ChoiceItem({ data }) {
                 <TableCell align="center">{data.lessonInformation.lessonType.name}</TableCell>
                 <TableCell align="center">
                     <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                        <Chip label={selectNb} variant="outlined" color="primary"/>
+                        <Chip label={selectNb} variant="outlined" sx={{ color: "text.main", borderColor: "primary.main"}} />
                         <Box sx={{ display: "flex" }}>
                             <Tooltip title="minimum: 0"><RemoveCircleIcon onClick={handleMinus} color="primary" sx={{ cursor: "pointer" }}/></Tooltip>
                             <Tooltip title={"maximum: "+data.lessonInformation.nbGroups}><AddCircleIcon onClick={handlePlus} color="primary" sx={{ cursor: "pointer" }}/></Tooltip>
