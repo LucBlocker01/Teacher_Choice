@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 
 function Header({toggleTheme, isNormal}) {
     const [user, setUserData] = useState({});
@@ -36,7 +37,10 @@ function Header({toggleTheme, isNormal}) {
                     display: "flex",
                     alignItems: "center"
                 }}>
-                    <Link href="/"><img className="logo_header" src="/img/urca.png" alt="urca-logo" /></Link>
+                    <Link href="/">
+                        <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
+                    </Link>
+                    ACCEUIL
                 </Container>
                 <Container sx={{
                     display: "flex",
@@ -44,7 +48,7 @@ function Header({toggleTheme, isNormal}) {
                 }}>
                     {user !== null && user?.status?.name === "Admin" ? <Link sx={{
                         textDecoration: "none",
-                        mr: "3px",
+                        mr: "5px",
                         "&:hover" : {
                             backgroundColor: "secondary.main",
                             borderRadius: "4px",
@@ -54,10 +58,17 @@ function Header({toggleTheme, isNormal}) {
                         backgroundColor: "accent.main",
                         color: "white",
                         }}
-                        >Excel</Button></Link>: null }
-                    {user !== null && user?.status?.name === "Admin" ? <Link sx={{
+                        >
+                            <ImportExportIcon></ImportExportIcon>
+                            Import/Export Excel
+                        </Button>
+                    </Link>
+                        : null
+                    }
+                    {user !== null && user?.status?.name === "Admin" ?
+                        <Link sx={{
                         textDecoration: "none",
-                        mr: "3px",
+                        mr: "5px",
                         "&:hover" : {
                             backgroundColor: "secondary.main",
                             borderRadius: "4px",
@@ -69,11 +80,14 @@ function Header({toggleTheme, isNormal}) {
                         }}
                         title="Admin">
                             <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
-                        </Button></Link>: null }
+                            Admin
+                        </Button>
+                        </Link>
+                        : null }
                     <Button sx={{
                         backgroundColor: "accent.main",
                         color: "white",
-                        mr: "3px",
+                        mr: "5px",
                         "&:hover" : {
                             backgroundColor: "secondary.main",
                             borderRadius: "4px",
@@ -82,14 +96,20 @@ function Header({toggleTheme, isNormal}) {
                             onClick={toggleTheme}
                             title={"Changer thème"}
                     >{isNormal ?
+                        <>
                             <WbSunnyIcon></WbSunnyIcon>
+                            <Box>Mode Clair</Box>
+                        </>
                      :
-                        <NightlightRoundIcon></NightlightRoundIcon>
-                    }</Button>
+                        <>
+                            <NightlightRoundIcon></NightlightRoundIcon>
+                            Mode Sombre
+                        </>
+                    } </Button>
                     { user !== null ?
                         <Link sx={{
                             textDecoration: "none",
-                            mr: "3px",
+                            mr: "5px",
                             "&:hover" : {
                                 backgroundColor: "secondary.main",
                                 borderRadius: "4px",
@@ -101,6 +121,7 @@ function Header({toggleTheme, isNormal}) {
                             }}
                             title="Profil">
                                 <PersonIcon></PersonIcon>
+                                Profil
                             </Button></Link> :
                         <Link sx={{
                             textDecoration: "none",
@@ -115,20 +136,23 @@ function Header({toggleTheme, isNormal}) {
                             }}
                             >
                                 <LoginIcon></LoginIcon>
+                                connexion
                             </Button></Link>}
-                    { user !== null && user?.status?.name !== "Admin" ? <Link href="/react/choices">
-                        <Button sx={{
-                            backgroundColor: "accent.main",
-                            color: "white",
-                            textDecoration: "none",
-                            mr: "3px",
-                            "&:hover" : {
-                                backgroundColor: "secondary.main",
-                                borderRadius: "4px",
-                            }
-                        }}
+                    { user !== null && user?.status?.name !== "Admin" ?
+                        <Link href="/react/choices">
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                                textDecoration: "none",
+                                mr: "5px",
+                                "&:hover" : {
+                                    backgroundColor: "secondary.main",
+                                    borderRadius: "4px",
+                                }
+                        }} title="Voeux"
                         >
                             <ChecklistIcon />
+                            VOEUX
                         </Button>
                     </Link> : ""}
                     { user !== null ?
@@ -145,10 +169,11 @@ function Header({toggleTheme, isNormal}) {
                             }}
                             title="Logout">
                                 <LogoutIcon></LogoutIcon>
-                            </Button></Link> : null }
-
+                                Deconnexion
+                            </Button>
+                        </Link>
+                            : null }
                 </Container>
-
             </AppBar>
         </Box>
     )
