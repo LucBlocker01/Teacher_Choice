@@ -21,19 +21,23 @@ class LessonInformationRepository extends ServiceEntityRepository
         parent::__construct($registry, LessonInformation::class);
     }
 
-    public function getLessonByCurrentYear(): array
+    public function getLessonBySemester(string $semester): array
     {
         $year = date('Y').'/'.((int) date('Y') + 1);
 
         return $this->createQueryBuilder('li')
-            ->select('li', 'le', 'lt', 'lp', 'c', 't')
+            ->select('li', 'le', 'lt', 'lp', 'c', 't', 'su', 'se')
             ->leftJoin('li.lesson', 'le')
             ->leftJoin('li.lessonType', 'lt')
             ->leftJoin('li.lessonPlannings', 'lp')
             ->leftJoin('li.choices', 'c')
             ->leftJoin('c.teacher', 't')
+            ->leftJoin('le.subject', 'su')
+            ->leftJoin('su.semester', 'se')
             ->andWhere('c.year LIKE :year')
             ->setParameter('year', $year)
+            ->andWhere('se.name LIKE :semester')
+            ->setParameter('semester', $semester)
             ->getQuery()
             ->getResult();
     }
