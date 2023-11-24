@@ -52,7 +52,10 @@ function ChoiceItem({ data }) {
 
     return (
         <>
-            <Dialog open={openDelete} onClose={handleCloseDelete} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            <Dialog open={openDelete} onClose={handleCloseDelete} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description" PaperProps={{
+               sx : {
+                    backgroundColor : "secondary.main"
+            }}}>
                 <DialogTitle id="alert-dialog-title">
                     {"Suppression"}
                 </DialogTitle>
