@@ -1,12 +1,10 @@
 import React from 'react'
-import {Button, ThemeProvider} from "@mui/material";
-import useTheme from "../hooks/useTheme"
-import CssBaseline from "@mui/material/CssBaseline";
+import {Button} from "@mui/material";
 
 function Backtrack() {
-    const {theme} = useTheme();
     function handleClick() {
         window.history.back()
+        window.localStorage.setItem("refresh", "true")
     }
     return (
             <Button sx={{

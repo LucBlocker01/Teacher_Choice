@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -38,7 +38,16 @@
                     }
                 }
             }
+            function reload() {
+                console.info(window.localStorage.getItem("refresh"))
+                if (window.localStorage.getItem("refresh") === "true")
+                {
+                    window.location.reload();
+                    window.localStorage.setItem("refresh", "false")
+                }
+            }
             setInterval(load, 2);
+            setInterval(reload, 150)
 
         </script>
     </body>
