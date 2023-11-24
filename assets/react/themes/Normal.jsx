@@ -13,7 +13,10 @@ export const Normal = {
         },
         text: {
             main: '#000000'
-        }
+        },
+        background: {
+            main: '#ffffff'
+        },
     },
     typography: {
         fontFamily: 'Lato'
