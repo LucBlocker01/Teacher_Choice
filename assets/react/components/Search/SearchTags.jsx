@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextField} from "@mui/material";
+import {Button, Input, TextField} from "@mui/material";
 
 function SearchTags({setInput}) {
 
@@ -8,10 +8,11 @@ function SearchTags({setInput}) {
     }
     return (
         <>
-        <TextField sx={{
+        <Input sx={{
             backgroundColor: "secondary.main",
             borderRadius: "4px",
-            color: "text.main"
+            color: "text.main",
+            padding: "0.5%"
         }}
                    onChange={handleChange}
                    placeholder="Rechercher tags..."/>

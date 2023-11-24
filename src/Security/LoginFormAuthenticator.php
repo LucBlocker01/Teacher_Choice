@@ -46,7 +46,12 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return new RedirectResponse('/react');
+        $user = $token->getUser();
+        if ('ROLE_ADMIN' === $user->getRoles()[0]) {
+            return new RedirectResponse('/attribution');
+        }
+
+        return new RedirectResponse('/react/choices');
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));

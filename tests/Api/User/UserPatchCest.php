@@ -20,7 +20,7 @@ class UserPatchCest
             'roles' => 'array',
             'firstname' => 'string',
             'lastname' => 'string',
-            'status' => 'string',
+            'status' => 'array',
         ];
     }
 

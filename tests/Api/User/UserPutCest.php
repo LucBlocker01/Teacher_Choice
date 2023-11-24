@@ -18,7 +18,7 @@ class UserPutCest
             'roles' => 'array',
             'firstname' => 'string',
             'lastname' => 'string',
-            'status' => 'string',
+            'status' => 'array',
         ];
     }
 
