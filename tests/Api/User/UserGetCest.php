@@ -17,7 +17,7 @@ class UserGetCest
             'roles' => 'array',
             'lastname' => 'string',
             'firstname' => 'string',
-            'status' => 'string',
+            'status' => 'array',
         ];
     }
 

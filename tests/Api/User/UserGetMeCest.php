@@ -23,7 +23,7 @@ class UserGetMeCest
             'postcode' => 'string',
             'city' => 'string',
             'address' => 'string',
-            'status' => 'string',
+            'status' => 'array',
         ];
     }
 
