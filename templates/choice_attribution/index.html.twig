@@ -8,7 +8,7 @@
 <div class="attribution">
     <h1 class="title_admin">Attribution des groupes</h1>
     <div class="example">
-        <p>Professeur</p>
+        <p class="nameTeacher">Professeur</p>
         <p>|</p>
         <p>Nombre de groupe souhaité</p>
         <p>|</p>
@@ -19,9 +19,15 @@
         <div class="groups">
         {% for choice in lesson.choices %}
             <div class="professor">
-                <p>{{ choice.teacher.lastname }} {{ choice.teacher.firstname }}</p>
+                <p class="nameTeacher">{{ choice.teacher.lastname }} {{ choice.teacher.firstname }}</p>
+                <p>|</p>
                 <p>{{ choice.nbGroupSelected }}</p>
-                <p>{{ choice.nbGroupAttributed }}</p>
+                <p>|</p>
+                <form action="{{ url('app_attribution_change', { id: choice.id }) }}" method="post">
+                    <label for="groupAttributed"></label>
+                    <input type="number" id="groupAttributed" name="groupAttributed" min="0" max="5" placeholder="{{ choice.nbGroupAttributed }}">
+                    <input type="submit" value="Submit">
+                </form>
             </div>
         {% endfor %}
         </div>
