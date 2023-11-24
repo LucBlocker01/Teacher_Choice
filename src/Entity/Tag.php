@@ -16,6 +16,7 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('get_SubjectBySemester')]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
