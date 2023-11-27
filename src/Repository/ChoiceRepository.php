@@ -48,7 +48,7 @@ class ChoiceRepository extends ServiceEntityRepository
                 ->leftJoin('le.subject', 'sub')
                 ->leftJoin('sub.semester', 'sem')
                 ->andWhere('c.teacher = :userID')
-                ->andWhere('c.year NOT LIKE :year')
+                ->andWhere('sem.year NOT LIKE :year')
                 ->setParameter('year', $year)
                 ->setParameter('userID', $userID)
                 ->orderBy('sem.name', 'ASC')
