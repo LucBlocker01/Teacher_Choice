@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Controller\GetSemesterByYearController;
 use App\Repository\SemesterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -36,6 +37,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ],
             ],
         ),
+        new GetCollection(
+            uriTemplate: '/semestersByYears/{id}',
+            requirements: [
+                'id' => '.+',
+            ],
+            controller: GetSemesterByYearController::class,
+            openapiContext: [
+                'summary' => 'Retrieve Semester list informations based on year parameter',
+                'description' => 'Semester list informations response',
+                'responses' => [
+                    '200' => [
+                        'description' => 'informations list for semester to be returned',
+                    ],
+                ],
+            ],
+            normalizationContext: ['groups' => ['get_SemestersByYear']],
+            read: false,
+        ),
     ]
 )]
 class Semester
@@ -46,14 +65,14 @@ class Semester
     private ?int $id = null;
 
     #[ORM\Column(length: 2)]
-    #[Groups(['get_Choice', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_OldChoice', 'get_SemestersByYear'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class, cascade: ['remove'])]
     private Collection $subjects;
 
     #[ORM\Column(length: 9)]
-    #[Groups(['get_OldChoice'])]
+    #[Groups(['get_OldChoice', 'get_SemestersByYear'])]
     private ?string $year = null;
 
     public function __construct(
