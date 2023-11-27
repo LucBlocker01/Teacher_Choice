@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\SemesterRepository;
 use App\Utils\ExcelManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ExcelController extends AbstractController
 {
@@ -21,14 +23,19 @@ class ExcelController extends AbstractController
     }
 
     #[Route('/excel', name: 'app_excel')]
-    public function index(): Response
+    #[IsGranted('ROLE_ADMIN')]
+    public function index(SemesterRepository $semesterRepository): Response
     {
+        $year = date('Y').'/'.((int) date('Y') + 1);
+        $semesters = $semesterRepository->findBy(['year' => $year]);
+
         return $this->render('excel/index.html.twig', [
-            'controller_name' => 'ExcelController',
+            'semesters' => $semesters,
         ]);
     }
 
     #[Route('/excel/import', name: 'app_excel_import')]
+    #[IsGranted('ROLE_ADMIN')]
     public function import(Request $request, ManagerRegistry $doctrine): Response
     {
         $fileExcel = strval($request->files->get('excel'));
@@ -39,6 +46,7 @@ class ExcelController extends AbstractController
     }
 
     #[Route('/excel/export', name: 'app_excel_export')]
+    #[IsGranted('ROLE_ADMIN')]
     public function export()
     {
         $this->excelManager->writeExcel();
@@ -47,6 +55,7 @@ class ExcelController extends AbstractController
     }
 
     #[Route('/excel/export/modele', name: 'app_excel_export_modele')]
+    #[IsGranted('ROLE_ADMIN')]
     public function downloadExcelModele(): BinaryFileResponse
     {
         $excelPath = 'excel/MaquetteVoeux.xlsx';

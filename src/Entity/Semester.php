@@ -122,4 +122,19 @@ class Semester
 
         return $this;
     }
+
+    public function asChoice(): bool
+    {
+        foreach ($this->getSubjects() as $subject) {
+            foreach ($subject->getLessons() as $lesson) {
+                foreach ($lesson->getLessonInformation() as $information) {
+                    if (0 != sizeof($information->getChoices())) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
