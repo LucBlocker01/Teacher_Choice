@@ -55,7 +55,7 @@ class Subject
     #[Groups(['get_Subject'])]
     private ?string $speciality = null;
 
-    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Lesson::class)]
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Lesson::class, cascade: ['remove'])]
     #[Groups(['get_SubjectBySemester', 'get_Subject'])]
     private Collection $lessons;
 
