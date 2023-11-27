@@ -53,6 +53,7 @@ class Semester
     private Collection $subjects;
 
     #[ORM\Column(length: 9)]
+    #[Groups(['get_OldChoice'])]
     private ?string $year = null;
 
     public function __construct(
