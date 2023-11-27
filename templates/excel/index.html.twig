@@ -3,6 +3,8 @@
 {% block title %}Hello ExcelController!{% endblock %}
 
 {% block body %}
+    <div {{ react_component('AppBar') }}></div>
+
     <div class="d-flex flex-column">
         <h2 class="text-center mt-4 mb-4">Excel</h2>
         <div class="d-flex flex-row m-3">
@@ -11,10 +13,16 @@
                 <div class="excel-item">
                     <ul>
                         <li>
-                            Dans la dernière colonne et ligne, veuillez inscrire '///' afin de délimiter la zone.
+                            Etape 1 : télécharger l'Excel sur la partie "Export Modèle".
                         </li>
                         <li>
-                            Pour indiquer le type de semaine (Stage, Alternance, Vacances), veuillez colorer le numéro de semaine avec la bonne couleur.
+                            Etape 2 : ouvrer le ficher télécharger et le remplir avec les informations nécessaires.
+                        </li>
+                        <li>
+                            Etape 3 : après avoir rempli les informations, vérifier que des "///" se trouve sur la dernière ligne et colonne.
+                        </li>
+                        <li>
+                            Etape 4 : insérer l'Excel dans la partie "Import", cela va remplir la base de données suivant l'année courante.
                         </li>
                     </ul>
                 </div>
