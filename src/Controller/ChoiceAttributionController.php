@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ChoiceRepository;
 use App\Repository\LessonInformationRepository;
+use App\Repository\SemesterRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +16,13 @@ class ChoiceAttributionController extends AbstractController
     #[Route('/attribution', name: 'app_attribution')]
     public function home(): Response
     {
-        return $this->redirectToRoute('app_attribution_semester', ['semester' => 'S1']);
+        return $this->redirectToRoute('app_attribution_semester', ['id' => '1']);
     }
 
-    #[Route('/attribution/{semester}', name: 'app_attribution_semester')]
-    public function index(LessonInformationRepository $repository, Request $request): Response
+    #[Route('/attribution/{id}', name: 'app_attribution_semester')]
+    public function index(LessonInformationRepository $repository, Request $request, SemesterRepository $semesterRepository): Response
     {
-        $semester = strtoupper($request->get('semester'));
+        $semester = $semesterRepository->find($request->get('id'));
         $lessons = $repository->getLessonBySemester($semester);
 
         return $this->render('choice_attribution/index.html.twig', [

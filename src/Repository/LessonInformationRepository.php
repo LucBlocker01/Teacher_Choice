@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\LessonInformation;
+use App\Entity\Semester;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,7 +22,7 @@ class LessonInformationRepository extends ServiceEntityRepository
         parent::__construct($registry, LessonInformation::class);
     }
 
-    public function getLessonBySemester(string $semester): array
+    public function getLessonBySemester(Semester $semester): array
     {
         $year = date('Y').'/'.((int) date('Y') + 1);
 
@@ -35,8 +36,8 @@ class LessonInformationRepository extends ServiceEntityRepository
             ->leftJoin('su.semester', 'se')
             ->andWhere('se.year LIKE :year')
             ->setParameter('year', $year)
-            ->andWhere('se.name LIKE :semester')
-            ->setParameter('semester', $semester)
+            ->andWhere('se.id = :semester')
+            ->setParameter('semester', $semester->getId())
             ->getQuery()
             ->getResult();
     }
