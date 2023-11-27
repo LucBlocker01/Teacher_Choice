@@ -49,7 +49,7 @@ class Semester
     #[Groups(['get_Choice', 'get_OldChoice'])]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class)]
+    #[ORM\OneToMany(mappedBy: 'semester', targetEntity: Subject::class, cascade: ['remove'])]
     private Collection $subjects;
 
     #[ORM\Column(length: 9)]
