@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Repository\ChoiceRepository;
 use App\Repository\LessonInformationRepository;
+use App\Repository\LessonRepository;
 use App\Repository\SemesterRepository;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +43,15 @@ class ChoiceAttributionController extends AbstractController
             $manager->flush();
         }
 
-        return $this->redirectToRoute('app_attribution');
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    #[Route('attribution/add/{id}', name: 'app_attribution_add', requirements: ['id' => '\d+'])]
+    public function addTeacher(LessonRepository $lessonRepository, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
+    {
+        $teachers = $userRepository->getTeachers();
+        $lesson = $lessonRepository->find($request->get('id'));
+
+        return $this->render('choice_attribution/addTeacher.html.twig', ['lesson' => $lesson, 'teachers' => $teachers]);
     }
 }

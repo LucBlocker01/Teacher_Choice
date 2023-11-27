@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ChoiceAttributionController!{% endblock %}
+{% block title %}Attribution des groupes{% endblock %}
 
 {% block body %}
     <div {{ react_component('AppBar') }}></div>
-    {% include 'choice_attribution/_semester.html.twig' %}
+
 <div class="attribution">
+    {% include 'choice_attribution/_semester.html.twig' %}
+
     <h1 class="title_admin">Attribution des groupes</h1>
+    <h2>{{ semester.name }}</h2>
     <div class="example">
         <p class="nameTeacher">Professeur</p>
         <p>|</p>
@@ -30,6 +33,7 @@
                 </form>
             </div>
         {% endfor %}
+            <a href="/attribution/add/{{lesson.lesson.id}}">Ajouter un professeur</a>
         </div>
     {% endfor %}
 </div>
