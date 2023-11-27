@@ -48,14 +48,19 @@ class ExcelManager
             // On regarde si le semestre existe, sinon on le crée
             $semesterName = $excelPage->getTitle();
             $semester = $this->doctrine->getRepository(Semester::class)->findOneBy(['name' => $semesterName, 'year' => $year]);
-            if (null == $semester) {
-                $semester = new Semester($semesterName, $year);
-                $this->entityManager->persist($semester);
-                $this->entityManager->flush();
-            } else {
+
+            if (null != $semester) {
+                if ($semester->asChoice()) {
+                    dd('NON');
+                }
+
                 $this->entityManager->remove($semester);
                 $this->entityManager->flush();
             }
+
+            $semester = new Semester($semesterName, $year);
+            $this->entityManager->persist($semester);
+            $this->entityManager->flush();
 
             $startRow = 1;
             $startCol = 'A';
