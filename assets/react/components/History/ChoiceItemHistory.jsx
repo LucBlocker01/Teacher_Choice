@@ -2,7 +2,6 @@ import React from "react";
 import {TableCell, TableRow} from "@mui/material";
 
 function ChoiceItemHistory({data}) {
-    console.log("choices", data)
     return (
         <TableRow key={data.id}>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
