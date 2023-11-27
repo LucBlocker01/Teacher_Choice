@@ -41,7 +41,7 @@ class Lesson
     #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_SubjectBySemester', 'get_OldChoice'])]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class)]
+    #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class, cascade: ['remove'])]
     #[Groups(['get_Lesson', 'get_Subject'])]
     private Collection $lessonInformation;
 
