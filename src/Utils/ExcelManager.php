@@ -51,7 +51,7 @@ class ExcelManager
 
             if (null != $semester) {
                 if ($semester->asChoice()) {
-                    dd('NON');
+                    throw new \Error('Des choix existe déjà, veuillez les supprimer ou bien modifier les semestres autrement.');
                 }
 
                 $this->entityManager->remove($semester);
