@@ -2,6 +2,7 @@ import React from "react";
 import {TableCell, TableRow} from "@mui/material";
 
 function ChoiceItemHistory({data}) {
+    console.log("choices", data)
     return (
         <TableRow key={data.id}>
             <TableCell component="th" scope="row">{data.lessonInformation.lesson.name}</TableCell>
@@ -10,7 +11,7 @@ function ChoiceItemHistory({data}) {
             <TableCell calign="center">{data.lessonInformation.lessonType.name}</TableCell>
             <TableCell align="center">{data.nbGroupSelected}</TableCell>
             <TableCell align="center">{data.lessonInformation.nbGroups}</TableCell>
-            <TableCell align="center">{data.year}</TableCell>
+            <TableCell align="center">{data.lessonInformation.lesson.subject.semester.year}</TableCell>
         </TableRow>
     )
 }
