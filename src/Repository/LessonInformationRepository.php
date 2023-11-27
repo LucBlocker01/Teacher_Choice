@@ -38,6 +38,7 @@ class LessonInformationRepository extends ServiceEntityRepository
             ->setParameter('year', $year)
             ->andWhere('se.id = :semester')
             ->setParameter('semester', $semester->getId())
+            ->orderBy('le.name')
             ->getQuery()
             ->getResult();
     }
