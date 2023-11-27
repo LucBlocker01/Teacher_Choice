@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ExcelController!{% endblock %}
+{% block title %}Gestion des données{% endblock %}
 
 {% block body %}
     <div {{ react_component('AppBar') }}></div>
@@ -26,6 +26,23 @@
                         </li>
                     </ul>
                 </div>
+
+                {% if semesters != null %}
+                <div>
+                    <h2 class="excel-title">Attention !</h2>
+                    <div>
+                        Le
+                        "
+                        {% for semester in semesters %}
+                           {{ semester.name }},
+                        {% endfor %}
+                        " ont été déjà créée, si vous importez à nouveau un Excel, cela va surcharger les données pour les semestres cités.
+                    </div>
+                    <div>
+                        Attention, si des voeux ont dèjà été effectué sur les différentes matières, l'import ne fonctionnera pas.
+                    </div>
+                </div>
+                {% endif %}
             </div>
             <div class="d-flex flex-column flex-fill">
                 <div class="d-flex flex-column m-3">
