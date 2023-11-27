@@ -53,7 +53,8 @@ class ExcelManager
                 $this->entityManager->persist($semester);
                 $this->entityManager->flush();
             } else {
-                // Lancement d'une erreur.
+                $this->entityManager->remove($semester);
+                $this->entityManager->flush();
             }
 
             $startRow = 1;
