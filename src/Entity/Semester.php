@@ -72,7 +72,7 @@ class Semester
     private Collection $subjects;
 
     #[ORM\Column(length: 9)]
-    #[Groups(['get_OldChoice', 'get_SemestersByYear'])]
+    #[Groups(['get_Choice', 'get_OldChoice', 'get_SemestersByYear'])]
     private ?string $year = null;
 
     public function __construct(
