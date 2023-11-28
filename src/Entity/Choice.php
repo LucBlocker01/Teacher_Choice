@@ -97,10 +97,6 @@ class Choice
     #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
     private ?int $nbGroupSelected = null;
 
-    #[ORM\Column(length: 4)]
-    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
-    private ?string $year = null;
-
     #[ORM\ManyToOne(inversedBy: 'choice')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['get_Choice', 'post_Choice'])]
@@ -128,18 +124,6 @@ class Choice
     public function setNbGroupSelected(int $nbGroupSelected): static
     {
         $this->nbGroupSelected = $nbGroupSelected;
-
-        return $this;
-    }
-
-    public function getYear(): ?string
-    {
-        return $this->year;
-    }
-
-    public function setYear(string $year): static
-    {
-        $this->year = $year;
 
         return $this;
     }

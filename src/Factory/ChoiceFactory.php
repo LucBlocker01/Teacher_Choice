@@ -53,7 +53,6 @@ final class ChoiceFactory extends ModelFactory
             'nbGroupAttributed' => null,
             'LessonInformation' => LessonInformationFactory::random(),
             'teacher' => UserFactory::random(),
-            'year' => $year.'/'.$year + 1,
         ];
     }
 
