@@ -62,6 +62,7 @@ class Semester
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['get_SubjectBySemester', 'get_SemestersByYear'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 2)]
