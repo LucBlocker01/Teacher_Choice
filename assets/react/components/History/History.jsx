@@ -77,6 +77,10 @@ function History() {
     // permet de filtrer par défaut
     useEffect(() => {
         setOldChoices(oldChoices.filter((ele) => ele.props.data.lessonInformation.lesson.subject.semester.year === years[0]));
+        fetchSemesterByYear(years[currentTab]).then((data) => {
+                setSemesters(data["hydra:member"]);
+            }
+        );
     }, [years]);
 
 
@@ -101,11 +105,11 @@ function History() {
         setCurrentTabSemester(newTab);
         if (newTab === 0){
             setOldChoices(oldChoicesImmuable.filter((ele) =>
-                ele.props.data.year === years[currentTab]
+                ele.props.data.lessonInformation.lesson.subject.semester.year === years[currentTab]
             ));
         } else {
             setOldChoices(oldChoicesImmuable.filter((ele) =>
-                ele.props.data.year === years[currentTab] && ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
+                ele.props.data.lessonInformation.lesson.subject.semester.year === years[currentTab] && ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
             ))
         }
     }
@@ -113,6 +117,8 @@ function History() {
     if (semesters === null) {
         return <div>Loading...</div>;
     }
+
+    console.log(semesters);
 
   return (
     <>
