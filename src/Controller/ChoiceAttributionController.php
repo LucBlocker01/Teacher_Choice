@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Choice;
+use App\Entity\LessonInformation;
+use App\Entity\Semester;
+use App\Form\AddTeacherToAChoiceType;
 use App\Repository\ChoiceRepository;
 use App\Repository\LessonInformationRepository;
-use App\Repository\LessonRepository;
-use App\Repository\SemesterRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class ChoiceAttributionController extends AbstractController
 {
@@ -22,9 +26,8 @@ class ChoiceAttributionController extends AbstractController
     }
 
     #[Route('/attribution/{id}', name: 'app_attribution_semester')]
-    public function index(LessonInformationRepository $repository, Request $request, SemesterRepository $semesterRepository): Response
+    public function index(LessonInformationRepository $repository, Request $request, #[MapEntity(expr: 'repository.find(id)')] Semester $semester): Response
     {
-        $semester = $semesterRepository->find($request->get('id'));
         $lessons = $repository->getLessonBySemester($semester);
 
         return $this->render('choice_attribution/index.html.twig', [
@@ -47,11 +50,13 @@ class ChoiceAttributionController extends AbstractController
     }
 
     #[Route('attribution/add/{id}', name: 'app_attribution_add', requirements: ['id' => '\d+'])]
-    public function addTeacher(LessonRepository $lessonRepository, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
+    public function addTeacher(#[MapEntity(expr: 'repository.find(id)')] LessonInformation $lessonInformation, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
-        $teachers = $userRepository->getTeachers();
-        $lesson = $lessonRepository->find($request->get('id'));
+        $choice = new Choice();
+        $form = $this->createForm(AddTeacherToAChoiceType::class, $choice);
 
-        return $this->render('choice_attribution/addTeacher.html.twig', ['lesson' => $lesson, 'teachers' => $teachers]);
+        $teachers = $userRepository->getTeachers();
+
+        return $this->render('choice_attribution/addTeacher.html.twig', ['form' => $form, 'lesson' => $lessonInformation, 'teachers' => $teachers, 'choice' => $choice]);
     }
 }

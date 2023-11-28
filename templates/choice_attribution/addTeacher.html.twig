@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Ajout d'un voeu pour le cours : {{ lesson.name }}</h1>
-
-    <form method="post">
-        <label id="teachers"> Séléctionner un professeur</label>
-            <select id="teachers" name="teachers">
-                {% for teacher in teachers %}
-                    <option value={{ teacher.id }}>{{teacher.lastname}} {{teacher.firstname}}</option>
-                {% endfor %}
-            </select>
-        <input type="submit" value="Submit">
-    </form>
+    <h1>Ajout d'un voeu pour le cours : {{ lesson.lesson.name }}</h1>
+    <p>Type du cours : {{ lesson.lessonType.name }}</p>
+    <p>Nombre de groupes à encadrer : {{ lesson.nbGroups }}</p>
+    {{ form_start(form) }}
+    <label>
+        Choisissez un professeur :
+        <select name="{{ field_name(form.teacher) }}" class="form-control">
+            <option value="">{{ field_label(form.teacher) }}</option>
+            {% for teacher in teachers %}
+                <option value={{ teacher.id }}>{{teacher.lastname}} {{teacher.firstname}}</option>
+            {% endfor %}
+        </select>
+    </label>
+    {{ form_row(form.nbGroupAttributed, {'label': 'Nombre de groupe attribué : '}) }}
+    <button type="submit" >Ajouter</button>
 {% endblock %}
