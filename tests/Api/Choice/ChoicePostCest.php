@@ -40,7 +40,6 @@ class ChoicePostCest
     {
         $i->sendPost('/api/choices', [
             'nbGroupSelected' => 4,
-            'year' => '2023',
             'teacher' => '/api/users/1',
             'nbGroupAttributed' => 0,
             'lessonInformation' => '/api/lesson_informations/1',

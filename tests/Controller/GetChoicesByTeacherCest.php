@@ -51,7 +51,7 @@ class GetChoicesByTeacherCest
         $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']])->object();
         $I->amLoggedInAs($user);
         $data = [
-            'year' => 2024,
+            'nbGroupSelected' => 4,
         ];
         ChoiceFactory::createOne($data);
         $I->sendGet('/api/user/choice/1');
