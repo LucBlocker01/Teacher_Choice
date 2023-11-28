@@ -16,7 +16,7 @@ import {fetchMyChoice, fetchSemesterByYear} from "../../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
 import * as PropTypes from "prop-types";
-import {string} from "prop-types";
+import {getCurrentYear} from "../../partials/currentYear";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -42,19 +42,7 @@ function ChoicesList() {
 
     const [semesters, setSemesters] = useState([]);
 
-    //Get current month and years
-    const month = new Date().getMonth();
-    let year1 = new Date().getFullYear();
-    let year2 = new Date().getFullYear()+1;
-
-    //If the month number is less than 8 (therefore, current month is in between January and July (included), remove 1 to both years
-    if (month < 8) {
-        year1 -= 1
-        year2 -= 1
-    }
-
-    year1 = year1.toString()
-    year2 = year2.toString()
+    const currentYear =  getCurrentYear();
 
     useEffect(() => {
         fetchMyChoice().then((data) => {
@@ -62,7 +50,7 @@ function ChoicesList() {
                 data["hydra:member"].map((choice) => (
                     <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
                 )).filter((ele) =>
-                    ele.props.data.lessonInformation.lesson.subject.semester.year === year1+'/'+year2
+                    ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
                 ))
 
             setChoiceListImmuable(
@@ -80,18 +68,18 @@ function ChoicesList() {
 
         if (newTab === 0){
             setChoiceList(ChoiceListImmuable.filter((ele) =>
-                ele.props.data.lessonInformation.lesson.subject.semester.year === year1+'/'+year2
+                ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
             ))
         } else {
             setChoiceList(ChoiceListImmuable.filter((ele) =>
-                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab && ele.props.data.lessonInformation.lesson.subject.semester.year === year1+'/'+year2
+                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab && ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
             ))
         }
     };
 
     useEffect(() => {
         // fetch tout les semestres et les gardes en json
-        fetchSemesterByYear(year1+'/'+year2).then((data) => {
+        fetchSemesterByYear(currentYear).then((data) => {
                 setSemesters(data["hydra:member"]);
             }
         );

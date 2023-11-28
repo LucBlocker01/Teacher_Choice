@@ -4,6 +4,7 @@ import {fetchSemesters} from "../services/api/choice";
 import IndexTable from "./indexTableContent/IndexTable";
 import {fetchDefaultSemester, fetchSemesterByYear} from "../services/api/api";
 import SearchTags from "./Search/SearchTags";
+import {getCurrentYear} from "../partials/currentYear";
 
 function Index() {
     const [searchInput, setInput] = useState("")
@@ -11,24 +12,13 @@ function Index() {
     const [semester, setSemester] = useState();
 
     //Get current month and years
-    const month = new Date().getMonth();
-    let year1 = new Date().getFullYear();
-    let year2 = new Date().getFullYear()+1;
-
-    //If the month number is less than 8 (therefore, current month is in between January and July (included), remove 1 to both years
-    if (month < 8) {
-        year1 -= 1
-        year2 -= 1
-    }
-
-    year1 = year1.toString()
-    year2 = year2.toString()
+    const currentYear =  getCurrentYear();
 
     useEffect(() => {
         fetchDefaultSemester().then((data) => {
             setSemester(data);
         })
-        fetchSemesterByYear(year1+'/'+year2).then((data) => {
+        fetchSemesterByYear(currentYear).then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
                     <Button
