@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {fetchAllWeeks, fetchMyChoice} from "../../services/api/api";
 import { BarChart } from '@mui/x-charts/BarChart';
+import {getCurrentYear} from "../../partials/currentYear";
 
 function WeeklyTask(){
+
+    const currentYear =  getCurrentYear();
+
     const [ weeks, setWeeks ] = useState([]);
     const [ S1Data, setS1Data ] = useState([0]);
     const [ S2Data, setS2Data ] = useState([0]);
@@ -46,7 +50,9 @@ function WeeklyTask(){
 
     useEffect(()=>{
         fetchMyChoice().then((choices) => {
-            choices["hydra:member"].map((choice) => {
+            choices["hydra:member"].filter((choice) =>
+                choice.lessonInformation.lesson.subject.semester.year === currentYear
+            ).map((choice) => {
                 choice.lessonInformation.lessonPlannings.map((plann) => {
                     var nWeek = plann.week.weekNum;
                     var nbHours = plann.nbHours;
