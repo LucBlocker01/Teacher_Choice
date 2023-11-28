@@ -24,7 +24,6 @@ function Index() {
     year1 = year1.toString()
     year2 = year2.toString()
 
-    console.log(year1+'/'+year2)
     useEffect(() => {
         fetchDefaultSemester().then((data) => {
             setSemester(data);
