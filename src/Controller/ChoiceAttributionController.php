@@ -15,17 +15,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ChoiceAttributionController extends AbstractController
 {
     #[Route('/attribution', name: 'app_attribution')]
+    #[IsGranted('ROLE_ADMIN')]
     public function home(): Response
     {
         return $this->redirectToRoute('app_attribution_semester', ['id' => '1']);
     }
 
     #[Route('/attribution/{id}', name: 'app_attribution_semester')]
-    public function index(LessonInformationRepository $repository, Request $request, #[MapEntity(expr: 'repository.find(id)')] Semester $semester): Response
+    #[IsGranted('ROLE_ADMIN')]
+    public function index(LessonInformationRepository $repository, #[MapEntity(expr: 'repository.find(id)')] Semester $semester): Response
     {
         $lessons = $repository->getLessonBySemester($semester);
 
@@ -35,6 +38,7 @@ class ChoiceAttributionController extends AbstractController
     }
 
     #[Route('/attribution/change/{id}', name: 'app_attribution_change', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function attributed(ChoiceRepository $choiceRepository, Request $request, ManagerRegistry $doctrine): Response
     {
         $manager = $doctrine->getManager();
@@ -49,6 +53,7 @@ class ChoiceAttributionController extends AbstractController
     }
 
     #[Route('attribution/add/{id}', name: 'app_attribution_add', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function addTeacher(#[MapEntity(expr: 'repository.find(id)')] LessonInformation $lessonInformation, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
         $manager = $doctrine->getManager();
