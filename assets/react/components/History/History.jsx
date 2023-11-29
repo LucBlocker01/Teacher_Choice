@@ -64,12 +64,13 @@ function History() {
 
     useEffect(() => {
         fetchSemesterByYear(years[currentTab]).then((data) => {
-            console.log("test2", data["hydra:member"], years[currentTab])
                 setSemesters(data["hydra:member"]);
-            }
+            })
+        setOldChoices(oldChoicesImmuable.filter((ele) =>
+            ele.props.data.lessonInformation.lesson.subject.semester.year === years[currentTab])
         );
         document.title = "SetURCAlendar - Historique"
-    }, [currentTab, years]);
+    }, [years]);
 
 
     const handleChange = (event, newTab) => {
@@ -81,7 +82,6 @@ function History() {
                 )
             )
         } else {
-            setOldChoices(oldChoicesImmuable.filter((ele) => console.log(ele)))
             setOldChoices(oldChoicesImmuable.filter((ele) =>
                 ele.props.data.lessonInformation.lesson.subject.semester.year === years[newTab] && ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+currentTabSemester
             ))
@@ -105,8 +105,6 @@ function History() {
     if (semesters === null) {
         return <div>Loading...</div>;
     }
-
-    console.log(semesters);
 
   return (
     <>
