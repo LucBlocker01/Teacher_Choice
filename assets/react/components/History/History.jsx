@@ -59,29 +59,17 @@ function History() {
                     )
                 )
             )
-        });
-        fetchSemesterByYear(years[0]).then((data) => {
-                setSemesters(data["hydra:member"]);
-            }
-        );
+        })
     }, []);
 
     useEffect(() => {
         fetchSemesterByYear(years[currentTab]).then((data) => {
+            console.log("test2", data["hydra:member"], years[currentTab])
                 setSemesters(data["hydra:member"]);
             }
         );
         document.title = "SetURCAlendar - Historique"
-    }, [currentTab]);
-
-    // permet de filtrer par défaut
-    useEffect(() => {
-        setOldChoices(oldChoices.filter((ele) => ele.props.data.lessonInformation.lesson.subject.semester.year === years[0]));
-        fetchSemesterByYear(years[currentTab]).then((data) => {
-                setSemesters(data["hydra:member"]);
-            }
-        );
-    }, [years]);
+    }, [currentTab, years]);
 
 
     const handleChange = (event, newTab) => {
