@@ -35,17 +35,6 @@ class ChoiceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getChoicesByYear()
-    {
-        $year = date('Y').'/'.((int) date('Y') + 1);
-
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.year LIKE :year')
-            ->setParameter('year', $year)
-            ->getQuery()
-            ->getResult();
-    }
-
     public function getOldChoices($user): array
     {
         if (null !== $user) {
