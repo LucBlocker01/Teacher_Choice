@@ -53,7 +53,6 @@ class ChoiceAttributionController extends AbstractController
     {
         $manager = $doctrine->getManager();
         $choice = new Choice();
-        $choice->setYear(date('Y').'/'.((int) date('Y') + 1));
         $choice->setLessonInformation($lessonInformation);
         $form = $this->createForm(AddTeacherToAChoiceType::class, $choice);
         $form->handleRequest($request);
