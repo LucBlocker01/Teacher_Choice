@@ -12,11 +12,11 @@ import {
     Tabs,
     Typography
 } from "@mui/material";
-import {fetchMyChoice} from "../../services/api/api";
+import {fetchMyChoice, fetchSemesterByYear} from "../../services/api/api";
 import ChoiceItem from "./ChoiceItem";
 import Paper from "@mui/material/Paper";
-import {fetchSemesters} from "../../services/api/choice";
 import * as PropTypes from "prop-types";
+import {getCurrentYear} from "../../partials/currentYear";
 
 function TabPanel({ children, value, index, ...other }) {
     return (
@@ -40,12 +40,19 @@ function ChoicesList() {
     const [ ChoiceList , setChoiceList ] = useState() ;
     const [ ChoiceListImmuable , setChoiceListImmuable ] = useState() ;
 
+    const [semesters, setSemesters] = useState([]);
+
+    const currentYear =  getCurrentYear();
+
     useEffect(() => {
         fetchMyChoice().then((data) => {
             setChoiceList(
                 data["hydra:member"].map((choice) => (
                     <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
-                )))
+                )).filter((ele) =>
+                    ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
+                ))
+
             setChoiceListImmuable(
                 data["hydra:member"].map((choice) => (
                     <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
@@ -60,19 +67,19 @@ function ChoicesList() {
         setCurrentTab(newTab);
 
         if (newTab === 0){
-            setChoiceList(ChoiceListImmuable);
+            setChoiceList(ChoiceListImmuable.filter((ele) =>
+                ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
+            ))
         } else {
             setChoiceList(ChoiceListImmuable.filter((ele) =>
-                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab
+                ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+newTab && ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
             ))
         }
     };
 
-    const [semesters, setSemesters] = useState(null);
-
     useEffect(() => {
         // fetch tout les semestres et les gardes en json
-        fetchSemesters().then((data) => {
+        fetchSemesterByYear(currentYear).then((data) => {
                 setSemesters(data["hydra:member"]);
             }
         );

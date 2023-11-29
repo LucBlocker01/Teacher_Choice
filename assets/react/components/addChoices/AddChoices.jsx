@@ -3,6 +3,8 @@ import { fetchSemesters } from "../../services/api/choice";
 import { Tabs, Tab, Box, Typography, Container } from '@mui/material';
 import SubjectList from "./SubjectList";
 import Backtrack from "../../controllers/Backtrack";
+import {getCurrentYear} from "../../partials/currentYear";
+import {fetchSemesterByYear} from "../../services/api/api";
 
 // permet de gérer les onglets et de les générers
 function TabPanel({ children, value, index, ...other }) {
@@ -28,15 +30,16 @@ function AddChoices() {
   const [semestersList, setSemestersList] = useState(null);
   const [semesters, setSemesters] = useState(null);
 
+  const currentYear =  getCurrentYear();
+
   useEffect(() => {
     // fetch tout les semestres et les gardes en json
-    fetchSemesters().then((data) => {
-      setSemesters(data["hydra:member"]);
-    }
+      fetchSemesterByYear(currentYear).then((data) => {
+        setSemesters(data["hydra:member"]);
+      }
     );
       document.title = "SetURCAlendar - Ajouter Choix"
   }, []);
-    
 
   if (semesters === null) {
     return <div>Loading...</div>;

@@ -54,3 +54,7 @@ export function fetchDefaultSemester() {
 export function fetchOldChoices(){
     return fetch('/api/old_choices').then(response => response.json())
 }
+
+export function fetchSemesterByYear(year) {
+    return fetch(`/api/semestersByYears/${year}`).then(response => response.json())
+}

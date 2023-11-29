@@ -2,18 +2,23 @@ import React, {useEffect, useState} from "react";
 import {Box, Button, Container, Typography} from "@mui/material";
 import {fetchSemesters} from "../services/api/choice";
 import IndexTable from "./indexTableContent/IndexTable";
-import {fetchDefaultSemester} from "../services/api/api";
+import {fetchDefaultSemester, fetchSemesterByYear} from "../services/api/api";
 import SearchTags from "./Search/SearchTags";
+import {getCurrentYear} from "../partials/currentYear";
 
 function Index() {
     const [searchInput, setInput] = useState("")
     const [semestersList, setSemesterList] = useState();
     const [semester, setSemester] = useState();
+
+    //Get current month and years
+    const currentYear =  getCurrentYear();
+
     useEffect(() => {
         fetchDefaultSemester().then((data) => {
             setSemester(data);
         })
-        fetchSemesters().then((data) => {
+        fetchSemesterByYear(currentYear).then((data) => {
             setSemesterList(
                 data["hydra:member"].map((semester) => (
                     <Button
