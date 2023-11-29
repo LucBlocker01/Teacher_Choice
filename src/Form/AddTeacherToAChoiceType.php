@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Choice;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +16,11 @@ class AddTeacherToAChoiceType extends AbstractType
     {
         $builder
             ->add('nbGroupSelected', NumberType::class)
-            ->add('year', TextType::class)
             ->add('nbGroupAttributed', NumberType::class)
-            ->add('teacher', NumberType::class)
-            ->add('lessonInformation', NumberType::class)
+            ->add('teacher', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'firstname',
+            ])
         ;
     }
 
