@@ -63,8 +63,8 @@ function ChoicesList() {
     }, []);
 
     useEffect(() => {
-        setChoiceList(ChoiceList.filter((ele) => ele.props.data.id) === suppression)
-        setChoiceListImmuable(ChoiceListImmuable.filter((ele) => ele.props.data.id) === suppression)
+        setChoiceList(ChoiceList.filter((ele) => ele.props.data.id !== suppression))
+        setChoiceListImmuable(ChoiceListImmuable.filter((ele) => ele.props.data.id  !== suppression))
     }, [suppression]);
 
     const [currentTab, setCurrentTab] = React.useState(0);
