@@ -38,7 +38,7 @@ function Header({toggleTheme, isNormal}) {
                     <Link href="/">
                         <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
                     </Link>
-                    ACCEUIL
+                    ACCUEIL
                 </Container>
                 <Container sx={{
                     display: "flex",
