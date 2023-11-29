@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {AppBar, Box, Button, Container, Link} from "@mui/material";
+import {AppBar, Box, Button, Link} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
@@ -30,19 +30,21 @@ function Header({toggleTheme, isNormal}) {
                 alignItems: "center",
                 backgroundColor: "primary.main",
             }}>
-                <Container sx={{
+                <Box sx={{
                     m: '0',
                     display: "flex",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
                     <Link href="/">
                         <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
                     </Link>
                     ACCUEIL
-                </Container>
-                <Container sx={{
+                </Box>
+                <Box sx={{
                     display: "flex",
                     justifyContent: "flex-end",
+                    flex: 1,
+                    mr: "15px"
                 }}>
                     {user !== null && user?.status?.name === "Admin" ? <Link sx={{
                         textDecoration: "none",
@@ -179,7 +181,7 @@ function Header({toggleTheme, isNormal}) {
                             </Button>
                         </Link>
                             : null }
-                </Container>
+                </Box>
             </AppBar>
         </Box>
     )
