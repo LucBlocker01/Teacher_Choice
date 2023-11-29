@@ -1,0 +1,78 @@
+
+.title_lesson{
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.attribution{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.groups{
+    border: 2px solid black;
+    padding-top: 0.6%;
+    padding-left: 0.6%;
+    background-color: #E6D1DD;
+    font-size: 20px;
+    border-radius: 10px;
+    width: 50%;
+}
+
+.professor{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.example{
+    border: 2px solid black;
+    padding-top: 0.6%;
+    padding-left: 0.6%;
+    background-color: #E6D1DD;
+    font-size: 20px;
+    border-radius: 10px;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.nameTeacher{
+    width: 25%;
+}
+
+.tab {
+    width: 50%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+/* Style the buttons inside the tab */
+.tab a {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+
+}
+
+/* Change background color of buttons on hover */
+.tab a:hover {
+    background-color: #ddd;
+}

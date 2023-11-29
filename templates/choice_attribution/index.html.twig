@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Attribution des groupes{% endblock %}
+
+{% block body %}
+    <div {{ react_component('AppBar') }}></div>
+
+<div class="attribution">
+    {% include 'choice_attribution/_semester.html.twig' %}
+
+    <h1 class="title_admin">Attribution des groupes</h1>
+    <h2>{{ semester.name }}</h2>
+    <div class="example">
+        <p class="nameTeacher">Professeur</p>
+        <p>|</p>
+        <p>Nombre de groupe souhaité</p>
+        <p>|</p>
+        <p>Nombre de groupe attribué</p>
+    </div>
+    {% for lesson in lessons %}
+        <p class="title_lesson">{{ lesson.lesson.name }} {{ lesson.lessonType.name }} | {{ lesson.nbGroups }} groupes</p>
+        <div class="groups">
+        {% for choice in lesson.choices %}
+            <div class="professor">
+                <p class="nameTeacher">{{ choice.teacher.lastname }} {{ choice.teacher.firstname }}</p>
+                <p>|</p>
+                <p>{{ choice.nbGroupSelected }}</p>
+                <p>|</p>
+                <form action="{{ url('app_attribution_change', { id: choice.id }) }}" method="post">
+                    <label for="groupAttributed"></label>
+                    <input class="number" type="number" id="groupAttributed" name="groupAttributed" min="0" max="{{ lesson.nbGroups }}" placeholder="{{ choice.nbGroupAttributed }}">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        {% endfor %}
+            <a href="/attribution/add/{{lesson.id}}">Ajouter un professeur</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

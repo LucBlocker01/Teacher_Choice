@@ -82,7 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['get_User', 'set_User', 'get_Me'])]
+    #[Groups(['get_User', 'set_User', 'get_Me', 'get_Information'])]
     #[Regex(
         pattern: '/[<>&"]/',
         message: 'Your login cannot use this character : <>&"',
@@ -111,11 +111,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $choice;
 
     #[ORM\Column(length: 40)]
-    #[Groups(['get_User', 'set_User', 'get_Me'])]
+    #[Groups(['get_User', 'set_User', 'get_Me', 'get_Information'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 40)]
-    #[Groups(['get_User', 'set_User', 'get_Me'])]
+    #[Groups(['get_User', 'set_User', 'get_Me', 'get_Information'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 100)]

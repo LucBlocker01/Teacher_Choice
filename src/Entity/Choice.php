@@ -21,7 +21,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(
             security: "is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') and object.getTeacher() == user",
         ),
-
         new GetCollection(
             uriTemplate: '/choice/me',
             controller: GetMyChoiceController::class,
@@ -90,20 +89,20 @@ class Choice
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice', 'get_Information'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice', 'get_Information'])]
     private ?int $nbGroupSelected = null;
 
     #[ORM\ManyToOne(inversedBy: 'choice')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'post_Choice'])]
+    #[Groups(['get_Choice', 'post_Choice', 'get_Information'])]
     private ?User $teacher = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['get_Choice', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_OldChoice', 'get_Information'])]
     private ?int $nbGroupAttributed = null;
 
     #[ORM\ManyToOne(inversedBy: 'choices')]
