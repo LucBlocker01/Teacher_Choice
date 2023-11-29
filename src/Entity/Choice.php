@@ -96,10 +96,6 @@ class Choice
     #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice', 'get_Information'])]
     private ?int $nbGroupSelected = null;
 
-    #[ORM\Column(length: 4)]
-    #[Groups(['get_Choice', 'post_Choice', 'get_OldChoice', 'get_Information'])]
-    private ?string $year = null;
-
     #[ORM\ManyToOne(inversedBy: 'choice')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['get_Choice', 'post_Choice', 'get_Information'])]
