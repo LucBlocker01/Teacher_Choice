@@ -47,7 +47,7 @@ class LessonInformation
     private ?LessonType $lessonType = null;
 
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class, cascade: ['remove'])]
-    #[Groups(['get_Choice','get_Information'])]
+    #[Groups(['get_Choice', 'get_Information'])]
     private Collection $lessonPlannings;
 
     #[ORM\OneToMany(mappedBy: 'lessonInformation', targetEntity: Choice::class)]

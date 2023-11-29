@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Choice;
 
 class ChoiceAttributionController extends AbstractController
 {
@@ -52,9 +51,18 @@ class ChoiceAttributionController extends AbstractController
     #[Route('attribution/add/{id}', name: 'app_attribution_add', requirements: ['id' => '\d+'])]
     public function addTeacher(#[MapEntity(expr: 'repository.find(id)')] LessonInformation $lessonInformation, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
+        $manager = $doctrine->getManager();
         $choice = new Choice();
+        $choice->setYear(date('Y').'/'.((int) date('Y') + 1));
+        $choice->setLessonInformation($lessonInformation);
         $form = $this->createForm(AddTeacherToAChoiceType::class, $choice);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($form->getData());
+            $manager->flush();
 
+            return $this->redirectToRoute('app_attribution');
+        }
         $teachers = $userRepository->getTeachers();
 
         return $this->render('choice_attribution/addTeacher.html.twig', ['form' => $form, 'lesson' => $lessonInformation, 'teachers' => $teachers, 'choice' => $choice]);
