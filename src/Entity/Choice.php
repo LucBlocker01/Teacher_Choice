@@ -9,7 +9,6 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Controller\GetChoiceByTeacherController;
-use App\Controller\GetChoicesByCurrentYearController;
 use App\Controller\GetMyChoiceController;
 use App\Controller\GetOldChoicesController;
 use App\Repository\ChoiceRepository;
