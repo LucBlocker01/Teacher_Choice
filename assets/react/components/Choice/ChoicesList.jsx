@@ -37,8 +37,10 @@ function Typograghy(props) {
 Typograghy.propTypes = {children: PropTypes.node};
 
 function ChoicesList() {
-    const [ ChoiceList , setChoiceList ] = useState() ;
-    const [ ChoiceListImmuable , setChoiceListImmuable ] = useState() ;
+    const [ ChoiceList , setChoiceList ] = useState([]) ;
+    const [ ChoiceListImmuable , setChoiceListImmuable ] = useState([]) ;
+
+    const [suppression, setSuppression] = useState(0);
 
     const [semesters, setSemesters] = useState([]);
 
@@ -48,7 +50,7 @@ function ChoicesList() {
         fetchMyChoice().then((data) => {
             setChoiceList(
                 data["hydra:member"].map((choice) => (
-                    <ChoiceItem key={choice.id} data={choice}></ChoiceItem>
+                    <ChoiceItem key={choice.id} data={choice} setSuppression={setSuppression}></ChoiceItem>
                 )).filter((ele) =>
                     ele.props.data.lessonInformation.lesson.subject.semester.year === currentYear
                 ))
@@ -60,6 +62,10 @@ function ChoicesList() {
         });
     }, []);
 
+    useEffect(() => {
+        setChoiceList(ChoiceList.filter((ele) => ele.props.data.id) === suppression)
+        setChoiceListImmuable(ChoiceListImmuable.filter((ele) => ele.props.data.id) === suppression)
+    }, [suppression]);
 
     const [currentTab, setCurrentTab] = React.useState(0);
 

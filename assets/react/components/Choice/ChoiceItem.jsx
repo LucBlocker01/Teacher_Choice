@@ -12,7 +12,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 
-function ChoiceItem({ data }) {
+function ChoiceItem({ data, setSuppression }) {
     // data -> id, nbGroupSelected, year, lessonInformation
 
     const [openDelete, setOpenDelete] = React.useState(false);
@@ -29,7 +29,8 @@ function ChoiceItem({ data }) {
     const handleAcceptDelete = () => {
         setOpenDelete(false);
         deleteChoiceById(data.id).then();
-        location.reload();
+        setSuppression(data.id);
+        // location.reload();
     };
 
     const handlePlus = () => {
