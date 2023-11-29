@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import {postChoice} from "../../services/api/choice";
 import {Alert, Button, Container, Snackbar, TextField, useMediaQuery, useTheme} from "@mui/material";
+import {fetchMyChoice} from "../../services/api/api";
+import ChoiceItem from "../Choice/ChoiceItem";
+import {getCurrentYear} from "../../partials/currentYear";
 
 function LessonItem({data, user}) {
 
@@ -11,12 +14,34 @@ function LessonItem({data, user}) {
     const [snackBarType, setSnackBarType] = useState("success");
     const [message, setMessage] = useState("Votre choix a bien été pris en compte");
     //useState lié a l'accordéon
+    const [choices, setChoices] = useState([]);
+    const [postSend, setPostSend] = useState(0);
+
+    useEffect(() => {
+        fetchMyChoice().then((data) => {
+            setChoices(
+                data["hydra:member"].map((choice) => (
+                    choice
+                )))
+            })
+        }, []);
+
+    useEffect(() => {
+        fetchMyChoice().then((data) => {
+            setChoices(
+                data["hydra:member"].map((choice) => (
+                    choice
+                )))
+        })
+    }, [postSend]);
 
     const inputNbGroup = "Nombre de groupe : "+data.nbGroups;
+    console.log(choices)
     const submitChoice = (event) => {
+        console.log(choices)
         event.preventDefault();
         console.log(event.target);
-        const year = new Date().getFullYear().toString();
+        // const year = new Date().getFullYear().toString();
         const lessonInformation = data["@id"];
         const nbGroupSelectedTemp = event.target[0].value;
         const nbGroupSelected = parseInt(nbGroupSelectedTemp);
@@ -25,13 +50,21 @@ function LessonItem({data, user}) {
             teacher,
             lessonInformation,
             nbGroupSelected,
-            year
         }
         console.log("dataPost"+dataPost);
         if (nbGroupSelected <= data.nbGroups && nbGroupSelected > 0) {
-            postChoice(dataPost);
-            setSnackBarType("success");
-            setMessage("Votre choix a bien été pris en compte");
+            const lengthChoiceFilter = choices.filter((ele) => ele.lessonInformation.id === data.id)
+            console.log(lengthChoiceFilter)
+            console.log(lengthChoiceFilter.length)
+            if (lengthChoiceFilter.length === 0) {
+                setPostSend(postSend + 1)
+                postChoice(dataPost);
+                setSnackBarType("success");
+                setMessage("Votre choix a bien été pris en compte");
+            } else {
+                setSnackBarType("warning");
+                setMessage("Vous avez déjà effectué un voeux sur cette matière");
+            }
         } else {
             setSnackBarType("error");
             setMessage("Le nombre de groupe doit être compris entre 1 et "+data.nbGroups);

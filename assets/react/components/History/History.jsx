@@ -82,6 +82,7 @@ function History() {
                 )
             )
         } else {
+            setOldChoices(oldChoicesImmuable.filter((ele) => console.log(ele)))
             setOldChoices(oldChoicesImmuable.filter((ele) =>
                 ele.props.data.lessonInformation.lesson.subject.semester.year === years[newTab] && ele.props.data.lessonInformation.lesson.subject.semester.name === "S"+currentTabSemester
             ))
@@ -102,9 +103,27 @@ function History() {
         }
     }
 
+    // Loading
     if (semesters === null) {
         return <div>Loading...</div>;
     }
+
+    // Pas d'année précédente
+    if (years.length === 0) {
+        return <>
+            <h1>Vous n'avez pas de voeux d'année précédantes.</h1>
+            <Link href="/react/choices/">
+                <Button sx={{
+                    border: 1,
+                    backgroundColor: "secondary.main",
+                }}>
+                    Retour aux choix
+                </Button>
+            </Link>
+        </>
+    }
+
+    console.log(semesters);
 
   return (
     <>
