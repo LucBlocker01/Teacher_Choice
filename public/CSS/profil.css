@@ -7,14 +7,15 @@
 .information_text{
     border: 2px solid black;
     color: black;
-    padding-top: 0.6%;
-    padding-left: 0.6%;
+    padding-top: 5px;
+    padding-left: 5px;
     background-color: #E6D1DD;
     width: 600px;
     height: 40px;
     font-size: 20px;
     border-radius: 10px;
 }
+
 .form_text{
     width: 600px;
     height: 40px;
