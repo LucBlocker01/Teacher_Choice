@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {AppBar, Box, Button, Container, Link} from "@mui/material";
+import {AppBar, Box, Button, Link} from "@mui/material";
 import useGetMe from "../hooks/useGetMe";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
@@ -11,7 +11,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 
 function Header({toggleTheme, isNormal}) {
-    const [user, setUserData] = useState({});
+    const [user, setUserData] = useState(null);
 
     useEffect(() => {
         useGetMe().then((data) => {
@@ -30,19 +30,21 @@ function Header({toggleTheme, isNormal}) {
                 alignItems: "center",
                 backgroundColor: "primary.main",
             }}>
-                <Container sx={{
+                <Box sx={{
                     m: '0',
                     display: "flex",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
                     <Link href="/">
                         <img className="logo_header" src="/img/urca.png" alt="urca-logo" />
                     </Link>
                     ACCUEIL
-                </Container>
-                <Container sx={{
+                </Box>
+                <Box sx={{
                     display: "flex",
                     justifyContent: "flex-end",
+                    flex: 1,
+                    mr: "15px"
                 }}>
                     {user !== null && user?.status?.name === "Admin" ? <Link sx={{
                         textDecoration: "none",
@@ -53,12 +55,12 @@ function Header({toggleTheme, isNormal}) {
                         }
                     }} href="/excel">
                         <Button sx={{
-                        backgroundColor: "accent.main",
-                        color: "white",
+                            backgroundColor: "accent.main",
+                            color: "white",
                         }}
                         >
                             <ImportExportIcon></ImportExportIcon>
-                            Import/Export Excel
+                            <Box>Import/Export Excel</Box>
                         </Button>
                     </Link>
                         : null
@@ -78,7 +80,7 @@ function Header({toggleTheme, isNormal}) {
                         }}
                         title="Admin">
                             <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
-                            Admin
+                            <Box>Admin</Box>
                         </Button>
                         </Link>
                         : null }
@@ -96,12 +98,14 @@ function Header({toggleTheme, isNormal}) {
                     >{isNormal ?
                         <>
                             <WbSunnyIcon></WbSunnyIcon>
-                            <Box>Mode Clair</Box>
+                            <Box sx={{
+                                ml: "5px"
+                            }}>Mode Clair</Box>
                         </>
                      :
                         <>
                             <NightlightRoundIcon></NightlightRoundIcon>
-                            Mode Sombre
+                            <Box>Mode Sombre</Box>
                         </>
                     } </Button>
                     { user !== null ?
@@ -134,7 +138,9 @@ function Header({toggleTheme, isNormal}) {
                             }}
                             >
                                 <LoginIcon></LoginIcon>
-                                connexion
+                                <Box sx={{
+                                    ml: "5px"
+                                }}> Connexion</Box>
                             </Button></Link>}
                     { user !== null && user?.status?.name !== "Admin" ?
                         <Link href="/react/choices">
@@ -150,7 +156,9 @@ function Header({toggleTheme, isNormal}) {
                         }} title="Voeux"
                         >
                             <ChecklistIcon />
-                            VOEUX
+                                <Box sx={{
+                                    ml: "5px"
+                                }}>Voeux</Box>
                         </Button>
                     </Link> : ""}
                     { user !== null ?
@@ -167,11 +175,13 @@ function Header({toggleTheme, isNormal}) {
                             }}
                             title="Logout">
                                 <LogoutIcon></LogoutIcon>
-                                Deconnexion
+                                <Box sx={{
+                                    ml: "5px"
+                                }}>Deconnexion</Box>
                             </Button>
                         </Link>
                             : null }
-                </Container>
+                </Box>
             </AppBar>
         </Box>
     )
