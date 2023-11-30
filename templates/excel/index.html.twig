@@ -47,7 +47,7 @@
             <div class="d-flex flex-column flex-fill">
                 <div class="d-flex flex-column m-3">
                     <h2 class="text-center">Export modèle</h2>
-                    <a href="{{ path('app_excel_export_modele') }}" target="_blank" class="d-flex justify-content-center">
+                    <a href="{{ path('app_excel_export_modele') }}" target="_blank" class="d-flex justify-content-center" style="text-decoration: none">
                         <button class="button"> Télécharger la Maquette </button>
                     </a>
 
@@ -55,11 +55,14 @@
                 </div>
 
                 <div class="m-3">
-                    <h2 class="text-center">Import</h2>
+                    <h2 class="text-center">Import du modèle</h2>
                         <div class="d-flex justify-content-center">
                             <form method="post" enctype="multipart/form-data" action=" {{ path('app_excel_import') }}">
-                                <input id="excel" name="excel" type="file">
-                                <input type="submit" class="button">
+                                <div class="mb-3">
+                                    <label for="excel" class="form-label">Fichier excel</label>
+                                    <input class="form-control form-control-sm" id="excel" name="excel" type="file">
+                                </div>
+                                <input type="submit" class="button" value="Envoyer">
                             </form>
                         </div>
                 </div>
