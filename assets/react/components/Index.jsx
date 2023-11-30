@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, Container, Typography} from "@mui/material";
+import {Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import IndexTable from "./indexTableContent/IndexTable";
 import {fetchDefaultSemester, fetchSemesterByYear, fetchTags} from "../services/api/api";
 import SearchTags from "./Search/SearchTags";
@@ -40,9 +40,9 @@ function Index() {
         })
         fetchTags().then((data) => {
             setTags(data["hydra:member"].map((tag) => (
-                <Typography>
+                <MenuItem>
                     {tag.name}
-                </Typography>
+                </MenuItem>
             )))
         })
         document.title = "SetURCAlendar - Accueil"
@@ -80,8 +80,23 @@ function Index() {
             }}>
                 <IndexTable semester={semester} searchInput={searchInput}/>
             </Container>
-            <Container>
-                {tags}
+            <Container sx={{
+                display: "flex",
+                flexDirection: "column",
+            }}>
+                    <FormControl sx={{
+                        maxWidth: 200,
+                        backgroundColor: "secondary.main",
+                        color: "primary.main"
+                    }}>
+                        <InputLabel>
+                            Liste des tags :
+                        </InputLabel>
+                        <Select>
+                            {tags}
+                        </Select>
+                    </FormControl>
+
             </Container>
 
 
