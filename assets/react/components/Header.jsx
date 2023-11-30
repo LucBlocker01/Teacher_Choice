@@ -11,7 +11,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 
 function Header({toggleTheme, isNormal}) {
-    const [user, setUserData] = useState({});
+    const [user, setUserData] = useState(null);
 
     useEffect(() => {
         useGetMe().then((data) => {
