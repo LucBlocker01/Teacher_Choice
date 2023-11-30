@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, InputLabel, Select} from "@mui/material";
+import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 function SearchTags({setInput, input, tags}) {
 
@@ -20,6 +20,9 @@ function SearchTags({setInput, input, tags}) {
                 value={input}
                 label="Liste des tags :"
                 onChange={handleChange}>
+                <MenuItem value={'Tous les tags'}>
+                    Tous les tags
+                </MenuItem>
                 {tags}
             </Select>
         </FormControl>
