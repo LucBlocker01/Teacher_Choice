@@ -1,22 +1,25 @@
 import React from 'react';
-import {Button, Input, TextField} from "@mui/material";
+import {Button, FormControl, Input, InputLabel, Select, TextField} from "@mui/material";
 
-function SearchTags({setInput}) {
+function SearchTags({setInput, input, tags}) {
 
     function handleChange(event) {
         setInput(event.target.value)
     }
     return (
-        <>
-        <Input sx={{
+        <FormControl sx={{
+            width: '20%',
             backgroundColor: "secondary.main",
-            borderRadius: "4px",
-            color: "text.main",
-            padding: "0.5%"
-        }}
-                   onChange={handleChange}
-                   placeholder="Rechercher tags..."/>
-        </>
+            color: "primary.main"
+        }}>
+            <InputLabel>
+                Liste des tags :
+            </InputLabel>
+            <Select
+                value={input}>
+                {tags}
+            </Select>
+        </FormControl>
     )
 }
 

@@ -67,9 +67,10 @@ function Index() {
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",
-                mb: "5px"
+                mb: "5px",
+                minWidth: 500
             }}>
-                <SearchTags setInput={setInput}/>
+                <SearchTags setInput={setInput} input={searchInput} tags={tags}/>
             </Box>
             <Container sx={{
                 display: "flex",
@@ -84,18 +85,6 @@ function Index() {
                 display: "flex",
                 flexDirection: "column",
             }}>
-                    <FormControl sx={{
-                        maxWidth: 200,
-                        backgroundColor: "secondary.main",
-                        color: "primary.main"
-                    }}>
-                        <InputLabel>
-                            Liste des tags :
-                        </InputLabel>
-                        <Select>
-                            {tags}
-                        </Select>
-                    </FormControl>
 
             </Container>
 
