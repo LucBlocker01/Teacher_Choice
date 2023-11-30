@@ -9,7 +9,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
-
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 function Header({toggleTheme, isNormal}) {
     const [user, setUserData] = useState(null);
 
@@ -82,6 +82,25 @@ function Header({toggleTheme, isNormal}) {
                             <AdminPanelSettingsIcon></AdminPanelSettingsIcon>
                             <Box>Admin</Box>
                         </Button>
+                        </Link>
+                        : null }
+                    {user !== null && user?.status?.name === "Admin" ?
+                        <Link sx={{
+                            textDecoration: "none",
+                            mr: "5px",
+                            "&:hover" : {
+                                backgroundColor: "secondary.main",
+                                borderRadius: "4px",
+                            }
+                        }} href="/attribution">
+                            <Button sx={{
+                                backgroundColor: "accent.main",
+                                color: "white",
+                            }}
+                                    title="Attribution">
+                                <PlaylistAddCheckIcon></PlaylistAddCheckIcon>
+                                Attribution des groupes
+                            </Button>
                         </Link>
                         : null }
                     <Button sx={{
