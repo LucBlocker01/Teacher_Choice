@@ -27,6 +27,16 @@ function IndexRowTable({data, searchInput}) {
                             <TableCell>
                                 {subject.lessons.map((lesson) => (
                                     <Box sx={{display: "flex", gap: 1, pl: "0"}}  key={lesson.id}>
+                                        {lesson.lessonInformation.map((info) => (
+                                            <Typography key={lesson.id}>{info.lessonType.name}</Typography>
+                                        ))}
+                                    </Box>
+
+                                ))}
+                            </TableCell>
+                            <TableCell>
+                                {subject.lessons.map((lesson) => (
+                                    <Box sx={{display: "flex", gap: 1, pl: "0"}}  key={lesson.id}>
                                         {lesson.tags.map((tag) => <Typography key={tag.id}>{tag.name}</Typography>)}
                                     </Box>
                                 )
