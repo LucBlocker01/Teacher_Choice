@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Container, Typography} from "@mui/material";
-import {fetchSemesters} from "../services/api/choice";
 import IndexTable from "./indexTableContent/IndexTable";
-import {fetchDefaultSemester, fetchSemesterByYear} from "../services/api/api";
+import {fetchDefaultSemester, fetchSemesterByYear, fetchTags} from "../services/api/api";
 import SearchTags from "./Search/SearchTags";
 import {getCurrentYear} from "../partials/currentYear";
 
@@ -10,6 +9,7 @@ function Index() {
     const [searchInput, setInput] = useState("")
     const [semestersList, setSemesterList] = useState();
     const [semester, setSemester] = useState();
+    const [tags, setTags] = useState()
 
     //Get current month and years
     const currentYear =  getCurrentYear();
@@ -37,6 +37,13 @@ function Index() {
                     </Button>
                 ))
             )
+        })
+        fetchTags().then((data) => {
+            setTags(data["hydra:member"].map((tag) => (
+                <Typography>
+                    {tag.name}
+                </Typography>
+            )))
         })
         document.title = "SetURCAlendar - Accueil"
     }, []);
@@ -73,6 +80,10 @@ function Index() {
             }}>
                 <IndexTable semester={semester} searchInput={searchInput}/>
             </Container>
+            <Container>
+                {tags}
+            </Container>
+
 
         </Box>
     )
