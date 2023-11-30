@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../components/Header";
 import {ThemeProvider} from "@mui/material";
 import useTheme from "../hooks/useTheme"
-import Home from "../components/Home";
 import Index from "../components/Index";
 import {Route, Router} from "wouter";
 import Choices from "../components/Choice/Choices";

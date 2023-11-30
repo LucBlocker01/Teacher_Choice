@@ -56,7 +56,7 @@ function Index() {
                 color: "text.main",
                 fontSize: "50px",
                 fontWeight: "bold",
-            }}>Set<a className="title_color_2">URCA</a>lendar</Typography>
+            }}>Set<span className="title_color_2">URCA</span>lendar</Typography>
             <Box sx={{
                 display: "flex",
                 justifyContent: "center",

@@ -43,7 +43,7 @@ class LessonInformation
 
     #[ORM\ManyToOne(inversedBy: 'lessonInformation')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_Information', 'get_OldChoice'])]
+    #[Groups(['get_Choice', 'get_Lesson', 'get_Subject', 'get_Information', 'get_OldChoice', 'get_SubjectBySemester'])]
     private ?LessonType $lessonType = null;
 
     #[ORM\OneToMany(mappedBy: 'information', targetEntity: LessonPlanning::class, cascade: ['remove'])]

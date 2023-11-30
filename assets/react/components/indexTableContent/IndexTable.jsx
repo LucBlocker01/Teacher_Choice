@@ -29,6 +29,7 @@ function IndexTable({semester, searchInput}) {
                         <TableRow>
                             <TableCell>Ressource</TableCell>
                             <TableCell>Leçons</TableCell>
+                            <TableCell>Types de cours</TableCell>
                             <TableCell>Tags</TableCell>
                         </TableRow>
                     </TableHead>

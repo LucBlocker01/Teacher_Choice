@@ -42,7 +42,7 @@ class Lesson
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'lesson', targetEntity: LessonInformation::class, cascade: ['remove'])]
-    #[Groups(['get_Lesson', 'get_Subject', 'get_Information'])]
+    #[Groups(['get_Lesson', 'get_Subject', 'get_Information', 'get_SubjectBySemester'])]
     private Collection $lessonInformation;
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]
