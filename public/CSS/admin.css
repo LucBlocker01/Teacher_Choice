@@ -20,6 +20,7 @@
     font-size: 20px;
     border-radius: 10px;
     width: 50%;
+
 }
 
 .professor{
@@ -75,4 +76,13 @@
 /* Change background color of buttons on hover */
 .tab a:hover {
     background-color: #ddd;
+}
+
+.button_teacher {
+    background-color: #d1a4be;
+    font-size: 20px;
+}
+
+.button_teacher:hover {
+    background-color: #97537A;
 }
