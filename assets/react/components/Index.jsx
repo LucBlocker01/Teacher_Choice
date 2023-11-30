@@ -40,7 +40,7 @@ function Index() {
         })
         fetchTags().then((data) => {
             setTags(data["hydra:member"].map((tag) => (
-                <MenuItem>
+                <MenuItem value={tag.name}>
                     {tag.name}
                 </MenuItem>
             )))

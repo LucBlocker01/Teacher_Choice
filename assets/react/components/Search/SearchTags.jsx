@@ -1,11 +1,12 @@
 import React from 'react';
-import {Button, FormControl, Input, InputLabel, Select, TextField} from "@mui/material";
+import {FormControl, InputLabel, Select} from "@mui/material";
 
 function SearchTags({setInput, input, tags}) {
 
     function handleChange(event) {
-        setInput(event.target.value)
+        setInput(event.target.value);
     }
+
     return (
         <FormControl sx={{
             width: '20%',
@@ -16,7 +17,9 @@ function SearchTags({setInput, input, tags}) {
                 Liste des tags :
             </InputLabel>
             <Select
-                value={input}>
+                value={input}
+                label="Liste des tags :"
+                onChange={handleChange}>
                 {tags}
             </Select>
         </FormControl>
