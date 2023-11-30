@@ -58,3 +58,7 @@ export function fetchOldChoices(){
 export function fetchSemesterByYear(year) {
     return fetch(`/api/semestersByYears/${year}`).then(response => response.json())
 }
+
+export function fetchTags() {
+    return fetch(`/api/tags`).then(response => response.json())
+}
