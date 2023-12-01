@@ -53,29 +53,29 @@
 .tab {
     width: 50%;
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: #e6d1dd;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 /* Style the buttons inside the tab */
 .tab a {
     background-color: inherit;
     float: left;
-    border: none;
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
-
+    border: none;
+    border-radius: 50px;
 }
 
 /* Change background color of buttons on hover */
 .tab a:hover {
-    background-color: #ddd;
+    background-color: #d1a4be;
 }
 
 .button_teacher {

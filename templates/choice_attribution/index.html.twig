@@ -29,7 +29,7 @@
                 <form action="{{ url('app_attribution_change', { id: choice.id }) }}" method="post">
                     <label for="groupAttributed"></label>
                     <input class="number" type="number" id="groupAttributed" name="groupAttributed" min="0" max="{{ lesson.nbGroups }}" placeholder="{{ choice.nbGroupAttributed }}">
-                    <input type="submit" value="Submit">
+                    <input class="btn button_teacher" type="submit" value="Ajouter">
                 </form>
             </div>
         {% endfor %}
